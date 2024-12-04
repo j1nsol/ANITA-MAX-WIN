@@ -60,7 +60,7 @@ export default function Footer() {
                   {socialIcons.map((icon, index) => (
                     <a
                       key={index}
-                      href="#"
+                      href="https://www.facebook.com/xyyjz"
                       className="social-icon-link"
                       aria-label={icon.label}
                     >
