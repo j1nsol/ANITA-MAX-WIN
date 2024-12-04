@@ -37,9 +37,6 @@ export const CommunityEventsList = () => {
     <>
       <CommunityEventStyles />
       <main className="community-events-container" role="main">
-        <h1 className="community-events-heading">
-          Join events happening right now
-        </h1>
         <section 
           className="community-events-list" 
           aria-label="Upcoming Community Events"
