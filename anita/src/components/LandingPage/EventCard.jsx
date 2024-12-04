@@ -1,5 +1,5 @@
 import React from 'react';
-import { CommunityEventStyles } from '../styles/EventStyles';
+import { CommunityEventStyles } from '../../styles/EventStyles';
 
 export const CommunityEventsList = () => {
   const events = [

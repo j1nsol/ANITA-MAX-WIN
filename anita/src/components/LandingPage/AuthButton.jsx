@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 export function AuthButton({ type, onClick, "aria-label": ariaLabel }) {
   const [isPressed, setIsPressed] = React.useState(false);
@@ -20,7 +21,9 @@ export function AuthButton({ type, onClick, "aria-label": ariaLabel }) {
   };
 
   return (
+    <Link to="/signup" className="no-underline">
     <button 
+    
       className={`auth-button ${type} ${isPressed ? "pressed" : ""}`}
       onClick={onClick}
       onKeyDown={handleKeyDown}
@@ -31,5 +34,6 @@ export function AuthButton({ type, onClick, "aria-label": ariaLabel }) {
     >
       {label}
     </button>
+    </Link>
   );
 }

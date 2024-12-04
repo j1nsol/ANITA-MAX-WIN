@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RewardsStyles } from "../styles/RewardsStyles";
+import { RewardsStyles } from "../../styles/RewardsStyles";
 
 export default function RewardsSection() {
   return (

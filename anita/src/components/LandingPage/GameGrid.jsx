@@ -1,6 +1,6 @@
 import React from 'react';
 import GameCard from './GameCard';
-import GameStyles from '../styles/GameCard';
+import GameStyles from '../../styles/GameCard';
 
 const gameData = [
   {
