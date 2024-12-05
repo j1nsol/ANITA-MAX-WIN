@@ -21,19 +21,21 @@ export function AuthButton({ type, onClick, "aria-label": ariaLabel }) {
   };
 
   return (
-    <Link to="/signup" className="no-underline">
-    <button 
-    
-      className={`auth-button ${type} ${isPressed ? "pressed" : ""}`}
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
-      aria-label={ariaLabel || label}
-      role="button"
-      tabIndex={0}
+    <Link
+      to={label === "Sign up" ? "/signup" : "/login"}
+      className="no-underline"
     >
-      {label}
-    </button>
+      <button
+        className={`auth-button ${type} ${isPressed ? "pressed" : ""}`}
+        onClick={onClick}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        aria-label={ariaLabel || label}
+        role="button"
+        tabIndex={0}
+      >
+        {label}
+      </button>
     </Link>
   );
 }

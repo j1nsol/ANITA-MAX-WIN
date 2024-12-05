@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import LandingPage from './LandingPage.jsx'
+import LandingPage from './Pages/LandingPage.jsx'
 import { SignUpForm } from './components/Authentication/SignupForm.jsx';
+import { SignInForm } from './components/Authentication/SignInForm.jsx';
 import React from 'react';
 import {
   createBrowserRouter,
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpForm/>,
+  },
+  {
+    path: "/login",
+    element: <SignInForm/>,
   },
 ]);
 

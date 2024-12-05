@@ -19,10 +19,10 @@ export const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = formData; // Extract email and password from formData
+    const { email, password } = formData;
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user; // Get user details from the response
+      const user = userCredential.user;
       console.log("Account Created Successfully!", user);
     } catch (error) {
       console.error("Error creating account:", error.message);

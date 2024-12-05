@@ -1,11 +1,11 @@
 import * as React from "react";
-import TopBar from "./components/LandingPage/TopBar";
-import Hero from "./components/LandingPage/Hero";
-import BreakImage from "./components/LandingPage/BreakImage";
-import { CommunityEventsList } from "./components/LandingPage/EventCard";
-import Footer from "./components/LandingPage/Footer";
-import GameGrid from "./components/LandingPage/GameGrid";
-import RewardsSection from "./components/LandingPage/RewardsSection";
+import TopBar from "../components/LandingPage/TopBar";
+import Hero from "../components/LandingPage/Hero";
+import BreakImage from "../components/LandingPage/BreakImage";
+import { CommunityEventsList } from "../components/LandingPage/EventCard";
+import Footer from "../components/LandingPage/Footer";
+import GameGrid from "../components/LandingPage/GameGrid";
+import RewardsSection from "../components/LandingPage/RewardsSection";
 
 
 const features = [
