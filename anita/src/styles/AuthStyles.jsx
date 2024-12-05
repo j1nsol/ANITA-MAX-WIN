@@ -1,13 +1,20 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const AuthStyles = createGlobalStyle`
+  body {
+  margin: 0;
+  overflow: hidden; 
+}
+
+
   .overlay {
     position: fixed;
+    
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 200, 255, 255);
     backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
@@ -16,23 +23,26 @@ export const AuthStyles = createGlobalStyle`
   }
 
   .modal {
-    position: relative;
-    max-width: 90%;
-    width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  position: relative;
+  scrollbar-width: none;
+  width: 100%; 
+  max-width: 500px; 
+  max-height: 70vh;
+  border-radius: 10px;
+  padding: 20px; 
+}
+
 
   .auth-container {
-    border-radius: 10px;
-    background-color: rgba(229, 231, 235, 1);
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    padding: 45px 30px;
-  }
+  border-radius: 10px;
+  background-color: rgba(229, 231, 235, 1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px; /* Reduced padding */
+  box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
 
   .header-wrapper {
     display: flex;
@@ -40,8 +50,8 @@ export const AuthStyles = createGlobalStyle`
     color: rgba(34, 51, 58, 1);
     text-align: center;
     flex-wrap: wrap;
-    justify-content: space-between;
-    font: 900 32px Roboto, sans-serif;
+    justify-content: space-between; 
+    font: 16px Roboto, sans-serif;
   }
 
   .close-icon {
@@ -70,10 +80,10 @@ export const AuthStyles = createGlobalStyle`
     border-radius: 10px;
     background-color: rgba(229, 231, 235, 1);
     color: rgba(128, 128, 128, 0.55);
-    padding: 20px 19px;
-    font: 600 24px Roboto, sans-serif;
+    padding: 10px 18px;
+    font: 600 16px Roboto, sans-serif;
     border: 1px solid rgba(104, 104, 104, 1);
-    width: 100%;
+    width: 91%;
     transition: border-color 0.3s ease;
   }
 
@@ -89,16 +99,16 @@ export const AuthStyles = createGlobalStyle`
     margin-top: 43px;
     width: 100%;
     max-width: 637px;
-    gap: 23px;
+    gap: 2px;
     color: rgba(53, 152, 219, 1);
     flex-wrap: wrap;
-    font: 600 20px Roboto, sans-serif;
+    font: 600 14px Roboto, sans-serif;
   }
 
   .checkbox {
     border-radius: 5px;
-    width: 23px;
-    height: 23px;
+    width: 12px;
+    height: 12px;
     border: 1px solid rgba(104, 104, 104, 1);
     cursor: pointer;
   }
@@ -117,12 +127,12 @@ export const AuthStyles = createGlobalStyle`
     width: 100%;
     border-radius: 10px;
     background-color: rgba(53, 152, 219, 1);
-    margin-top: 42px;
-    min-height: 64px;
+    margin-top: 18px;
+    min-height: 10px;
     color: rgba(253, 255, 255, 0.9);
     text-align: center;
     padding: 18px 0;
-    font: 800 24px Roboto, sans-serif;
+    font: 800 16px Roboto, sans-serif;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -156,13 +166,13 @@ export const AuthStyles = createGlobalStyle`
 
   .divider-text {
     color: rgba(34, 51, 58, 1);
-    font: 800 24px Roboto, sans-serif;
+    font: 800 16px Roboto, sans-serif;
   }
 
   .social-login {
     align-self: center;
     display: flex;
-    margin-top: 51px;
+    margin-top: 30px;
     align-items: center;
     gap: 40px 50px;
     justify-content: center;
@@ -182,22 +192,22 @@ export const AuthStyles = createGlobalStyle`
   }
 
   .social-icon {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
     object-fit: contain;
   }
 
   .footer {
     align-self: center;
     display: flex;
-    margin-top: 73px;
+    margin-top: 40px;
     width: 425px;
     max-width: 100%;
     align-items: center;
     gap: 12px;
     text-align: center;
     justify-content: center;
-    font: 24px Roboto, sans-serif;
+    font: 16px Roboto, sans-serif;
   }
 
   .footer-text {
@@ -232,27 +242,29 @@ export const AuthStyles = createGlobalStyle`
 
   @media (max-width: 991px) {
     .modal {
-      width: 100%;
-      height: 100%;
-      max-height: 100vh;
-      border-radius: 0;
-    }
+    width: 100%; /* Full width on smaller screens */
+    height: auto;
+    max-height: 100vh;
+    border-radius: 0; /* Remove radius for fullscreen modal */
+    padding: 15px; /* Reduce padding */
+  }
 
     .auth-container {
-      height: 100%;
-      border-radius: 0;
-      padding: 20px;
+    padding: 15px; /* Consistent padding */
     }
-
     .header-wrapper {
       max-width: 100%;
     }
 
-    .form-input {
-      max-width: 100%;
-      margin: 40px 0 0;
-      padding: 15px;
-    }
+    form-input {
+    font-size: 20px; /* Adjust font size for smaller screens */
+    padding: 10px;
+  }
+
+  .signup-button {
+    font-size: 18px;
+    padding: 12px;
+  }
 
     .checkbox-wrapper {
       max-width: 100%;
@@ -261,12 +273,10 @@ export const AuthStyles = createGlobalStyle`
       align-self: start;
     }
 
-    .signup-button {
-      margin: 40px 0 0;
-    }
+    
 
     .social-login {
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     .footer {

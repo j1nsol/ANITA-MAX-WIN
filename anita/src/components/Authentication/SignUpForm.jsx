@@ -39,7 +39,7 @@ export const SignUpForm = () => {
         <AuthStyles />
         <div className="auth-container">
           <div className="header-wrapper">
-            <h1>Sign up</h1>
+            <h1 style={{margin: "0"}}>Sign up</h1>
             <button 
               className="close-icon"
               aria-label="Close signup form"
