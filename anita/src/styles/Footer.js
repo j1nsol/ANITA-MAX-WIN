@@ -44,15 +44,17 @@ export const footerStyles = `
   }
 
   .footer-columns {
-    gap: 20px;
-    display: flex;
+  display: flex;
+  justify-content: space-between; 
+  gap: 20px; 
+  align-items: 
   }
 
+  
   .footer-column {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 39%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
   }
 
   .footer-links {
@@ -78,11 +80,10 @@ export const footerStyles = `
   }
 
   .footer-column-social {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 61%;
-    margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adds spacing between the title and icons */
+  align-items: flex-start; /* Aligns the community section to the start */
   }
 
   .social-section {
@@ -98,10 +99,8 @@ export const footerStyles = `
   }
 
   .social-icons {
-    display: flex;
-    margin-top: 24px;
-    gap: 20px;
-    justify-content: space-between;
+  display: flex;
+  gap: 20px; /* Adds spacing between the social icons */
   }
 
   .social-icon-link {

@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="hero-section" role="banner" aria-label="Main hero section">
       <div className="content-wrapper">
-        <h1 className="heading" style={{margin: "0 0 0 0"}}>Reach your goal with us.</h1>
+        <h1 className="heading" style={{margin: "0 0 0 0", width:"910px"}}>Reach your goal with us.</h1>
         <p className="subheading">
           Anita Maxwin offers open-site betting for a worry-free, exciting experience
         </p>
