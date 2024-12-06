@@ -2,6 +2,7 @@ import * as React from "react";
 import { SignInStyle } from "../../styles/SignInForm";
 import { auth } from "../../firebase"; // Adjust the import path as necessary
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 export function SignInForm() {
   const [formData, setFormData] = React.useState({

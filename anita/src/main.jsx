@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import LandingPage from './Pages/LandingPage.jsx'
 import { SignUpForm } from './components/Authentication/SignupForm.jsx';
 import { SignInForm } from './components/Authentication/SignInForm.jsx';
+import Home from './Pages/Home.jsx';
 import React from 'react';
 import {
   createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <SignInForm/>,
   },
+  {
+    path: "/home",
+    element: <Home/>,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
