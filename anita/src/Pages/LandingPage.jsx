@@ -1,10 +1,11 @@
 import * as React from "react";
-import TopBar from "./components/TopBar";
-import Hero from "./components/Hero";
-import BreakImage from "./components/BreakImage";
-import { CommunityEventsList } from "./components/EventCard";
-import Footer from "./components/Footer";
-import GameGrid from "./components/GameGrid";
+import TopBar from "../components/LandingPage/TopBar";
+import Hero from "../components/LandingPage/Hero";
+import BreakImage from "../components/LandingPage/BreakImage";
+import { CommunityEventsList } from "../components/LandingPage/EventCard";
+import Footer from "../components/LandingPage/Footer";
+import GameGrid from "../components/LandingPage/GameGrid";
+import RewardsSection from "../components/LandingPage/RewardsSection";
 
 
 const features = [
@@ -17,12 +18,6 @@ const features = [
 ];
 
 const events = [
-  {
-    title: "Community Hackathon",
-    date: "2024-11-29",
-    location: "Virtual",
-    attendees: "120"
-  },
   {
     title: "Skill Share Workshop",
     date: "2024-11-30",
@@ -45,8 +40,27 @@ export default function LandingPage() {
       <section>
         <GameGrid />
       </section>
-      <section className="events-section">
-        <h2 className="section-title">Join events happening right now</h2>
+      <section>
+        <RewardsSection/>
+      </section>
+      <section className="events-section" style={{backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2Fe0421bcdc49848e9a0460ddd17b0d3f1)",
+        backgroundRepeat: "no-repeat", backgroundPosition: "center",backgroundSize: "cover", width: "100%"
+      }}>
+      <h2 
+  className="section-title" 
+  style={{
+    color: "#FDFEFF", 
+    textAlign: "center", 
+    fontFamily: "Alexandria", 
+    fontSize: "64px", 
+    fontStyle: "normal", 
+    fontWeight: "700", 
+    lineHeight: "normal",
+    margin: "0 0 0 0"
+  }}
+>
+  Join events happening right now
+</h2>
         <div className="events-grid">
           {events.map((event, index) => (
             <CommunityEventsList key={index} {...event} />

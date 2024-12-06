@@ -1,10 +1,11 @@
 import * as React from "react";
 import { AuthButton } from "./AuthButton";
-import { styles } from "../styles/TopBar";
+import { styles } from "../../styles/TopBar";
+import { SignUpForm } from "../Authentication/SignupForm";
+import { Link } from "react-router-dom";
 
 export default function TopBar() {
   const handleSignUp = () => {
-    // Production implementation would go here
   };
 
   const handleSignIn = () => {
@@ -31,6 +32,7 @@ export default function TopBar() {
             type="signup" 
             onClick={handleSignUp}
             aria-label="Sign up for an account"
+            
           />
           <AuthButton 
             type="signin" 

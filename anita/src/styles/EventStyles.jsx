@@ -34,6 +34,8 @@ export const CommunityEventStyles = createGlobalStyle`
     padding: 54px 93px;
     width: 100%;
     max-width: 1038px;
+    max-height: 900px;
+    overflow-x: hidden;
   }
 
   .community-event-card {
@@ -46,6 +48,7 @@ export const CommunityEventStyles = createGlobalStyle`
     justify-content: space-between;
     padding: 23px 42px;
     margin-bottom: 34px;
+    max-width: 955px;
   }
 
   .community-event-content {
