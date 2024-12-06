@@ -249,11 +249,21 @@ export const AuthStyles = createGlobalStyle`
   }
 
     .auth-container {
-    padding: 15px; /* Consistent padding */
-    }
-    .header-wrapper {
-      max-width: 100%;
-    }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: rgba(229, 231, 235, 1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
     form-input {
     font-size: 20px; /* Adjust font size for smaller screens */

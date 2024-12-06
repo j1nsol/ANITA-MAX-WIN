@@ -34,9 +34,16 @@ export function SignInForm() {
     }
   };
 
-  const handleSocialLogin = (provider) => {
-    // Implement social login logic here using Firebase Auth providers
-  };
+  const socialLoginOptions = [
+  {
+    src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/24ced0b02863b36f16279f7c499953ce7e44c3f92e95aee4fcbdcea76766236c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&",
+    alt: "Social login option 1"
+  },
+  {
+    src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a7db5e3d7b2d6526597ed89ea0b0f4c94e189b4f7faff2d03070a8a1f31b48ed?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&",
+    alt: "Social login option 2"
+  }
+];
 
   return (
     <>
@@ -103,14 +110,24 @@ export function SignInForm() {
           <div className="divider" role="separator" aria-hidden="true">
             <span>OR</span>
           </div>
-
-          <div 
-            className="social-login" 
-            role="group" 
-            aria-label="Social login options"
+          
+          <div className="social-login-container">
+        {socialLoginOptions.map((option, index) => (
+          <button
+            key={index}
+            className="social-login-button"
+            tabIndex={0}
+            aria-label={`Login with ${option.alt}`}
           >
-            {/* Add social login buttons */}
-          </div>
+            <img
+              loading="lazy"
+              src={option.src}
+              alt={option.alt}
+              className="social-login-icon"
+            />
+          </button>
+        ))}
+      </div>
 
           <div className="signup-prompt">
             <span className="prompt-text">Don't have an account?</span>
