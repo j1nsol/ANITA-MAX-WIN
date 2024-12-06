@@ -77,7 +77,7 @@ export default function Sidebar() {
       <style jsx>{`
         .sidebar {
           display: flex;
-          max-width: 116px;
+          max-width: 100px;
           flex-direction: column;
         }
         .sidebar-top {
@@ -94,6 +94,9 @@ export default function Sidebar() {
           object-fit: contain;
           object-position: center;
           width: 67px;
+          height: 68px;
+          flex-shrink: 0;         
+          margin-top: 6px;
         }
         .sidebar-content {
           background-color: rgba(229, 231, 235, 1);
@@ -101,44 +104,56 @@ export default function Sidebar() {
           display: flex;
           width: 100%;
           flex-direction: column;
-          padding: 31px 23px 293px;
+          padding: 31px 23px 29px;
         }
         .sidebar-icon {
-          aspect-ratio: 0.99;
-          object-fit: contain;
-          object-position: center;
+          border-radius: 10px;
+          background-color: rgba(201, 202, 203, 1);
+          display: flex;
           width: 67px;
+          height: 68px;
+          padding: 8px 5px;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
           margin-top: 6px;
         }
         .sidebar-event-container {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
-          margin-top: 6px;
-          min-height: 68px;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 68px;
+          width: 67px;
           height: 68px;
-          padding: 0 5px;
+          padding: 8px 5px;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+          margin-top: 6px;
+          
         }
         .sidebar-event-icon {
           aspect-ratio: 0.98;
           object-fit: contain;
           object-position: center;
-          width: 52px;
+          width: 100%;
         }
         .sidebar-other-container {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
-          min-height: 272px;
+          width: 67px;
+          height: 272px;
+          padding: 6px 3px;
           flex-direction: column;
-          align-items: center;
           justify-content: center;
-          margin: 31px 0 -59px;
-          padding: 7px 3px;
+          align-items: center;
+          gap: 13px;
+          flex-shrink: 0;
+          margin-top: 6px;
         }
         .sidebar-other-icon {
           aspect-ratio: 1;
