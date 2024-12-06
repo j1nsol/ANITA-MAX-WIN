@@ -1,5 +1,6 @@
 export const styles = `
   .top-bar {
+    position: fixed;
     background-color: rgba(229, 231, 235, 1);
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -8,6 +9,7 @@ export const styles = `
     flex-wrap: wrap;
     padding: 8px 0px;
     align-items: center;
+    z-index: 1000;
   }
 
   @media (max-width: 991px) {
