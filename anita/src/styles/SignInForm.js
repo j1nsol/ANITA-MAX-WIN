@@ -83,25 +83,44 @@ export const SignInStyle = `
     text-align: center;
   }
 
+  .social-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
   .divider {
+    align-self: center;
     display: flex;
+    margin-top: 30px;
+    width: 345px;
+    max-width: 100%;
     align-items: center;
-    gap: 20px;
-    color: rgba(34, 51, 58, 1);
-    margin: 30px 0;
-    font: 700 16px Roboto, sans-serif;
+    gap: 30px;
+    justify-content: space-between;
   }
 
   .divider-line {
     flex-grow: 1;
     height: 1px;
-    background-color: rgba(200, 200, 200, 1);
+    background-color: rgba(104, 104, 104, 0.5);
   }
 
-  .social-login {
+  .divider-text {
+    color: rgba(34, 51, 58, 1);
+    font: 800 16px Roboto, sans-serif;
+  }
+
+   .social-login {
+    align-self: center;
     display: flex;
-    gap: 10px;
+    margin-top: 30px;
+    align-items: center;
+    gap: 40px 50px;
     justify-content: center;
+    padding: 0 5px;
   }
 
   .social-icon {
@@ -120,6 +139,20 @@ export const SignInStyle = `
     color: rgba(53, 152, 219, 1);
     font-weight: 600;
     cursor: pointer;
+  }
+
+  .footer-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: rgba(53, 152, 219, 1);
+    font-weight: 800;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: rgba(41, 128, 185, 1);
   }
 
   @media (max-width: 991px) {
