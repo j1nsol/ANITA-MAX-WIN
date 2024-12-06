@@ -50,16 +50,18 @@ export const styles = `
 
   .auth-button {
     align-self: stretch;
-    border-radius: 5px;
-    height: 57px;
-    width: 120px;
+    border-radius: 25px; /* Increased border-radius for an oblong shape */
+    height: 50px; /* Adjusted height */
+    width: 150px; /* Increased width for oblong shape */
     text-align: center;
     margin: auto 0;
-    padding: 16px 14px;
+    padding: 0 12px;
     cursor: pointer;
     border: none;
     color: #fff;
-    font-size: 16px;
+    font-size: 20px;
+    font-family: 'PT Sans', sans-serif; /* PT Sans font */
+    font-weight: bold; /* Bold text */
     transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     position: relative;
   }
@@ -104,9 +106,10 @@ export const styles = `
       border: 2px solid currentColor;
     }
   }
- .html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
+
+  .html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
 `;

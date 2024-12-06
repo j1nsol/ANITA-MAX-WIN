@@ -1,10 +1,20 @@
 export const SignInStyle = `
   .auth-container {
-    background-color: rgba(54, 53, 53, 0);
+    background-image: url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2F94366f3f193545d4af5c1417f6233266);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     display: flex;
-    max-width: 756px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .auth-form {
@@ -13,10 +23,12 @@ export const SignInStyle = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 45px 20px; /* Adjust padding for consistent spacing */
+    padding: 20px;
     width: 100%;
-    max-width: 500px; /* Align max-width with your design */
+    max-width: 500px;
     margin: 0 auto;
+    box-sizing: border-box;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .auth-header {
@@ -25,50 +37,54 @@ export const SignInStyle = `
     flex-direction: column;
     color: rgba(128, 128, 128, 0.55);
     padding: 0 35px;
-    font: 600 16px Roboto, sans-serif;
-    text-align: center; /* Center-align header text */
+    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
+    text-align: center;
   }
 
   .header-content {
     display: flex;
     gap: 20px;
-    font-size: 18px; /* Adjust font size for uniformity */
+    font-size: 18px;
     color: rgba(34, 51, 58, 1);
     font-weight: 900;
     text-align: center;
     justify-content: center;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .form-input {
     border-radius: 10px;
     margin: 10px auto;
-    background-color: rgba(255, 255, 255, 1); /* White background for inputs */
+    background-color: rgba(255, 255, 255, 1);
     color: rgba(51, 51, 51, 0.85);
     padding: 10px;
-    font: 600 16px Roboto, sans-serif;
+    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
     border: 1px solid rgba(200, 200, 200, 1);
     width: 100%;
     margin-top: 15px;
-    margin-left: -10px; 
+    margin-left: -10px;
     cursor: text;
     transition: border-color 0.3s ease;
   }
 
   .form-input:focus {
-    border-color: rgba(53, 152, 219, 1); /* Add a focus effect */
+    border-color: rgba(53, 152, 219, 1);
     outline: none;
   }
 
   .forgot-password {
-    color: rgba(66, 159, 221, 1);
-    background-color: rgba(229, 231, 235, 1);
-    font-size: 14px;
-    margin: 15px 0;
-    cursor: pointer;
-    text-align: right;
-    width: 100%;
-    border: none;
-  }
+  color: rgba(66, 159, 221, 1);
+  background-color: rgba(229, 231, 235, 1);
+  font-size: 14px;
+  margin: 15px 0;
+  cursor: pointer;
+  text-align: right;
+  font-weight: 600;
+  width: 100%;
+  border: none;
+  font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
+}
+
 
   .submit-button {
     border-radius: 10px;
@@ -77,7 +93,7 @@ export const SignInStyle = `
     height: 48px;
     width: 90%;
     color: rgba(255, 255, 255, 0.9);
-    font: 800 18px Roboto, sans-serif;
+    font: 800 18px "PT Sans", sans-serif; /* Applied PT Sans font */
     border: none;
     cursor: pointer;
     text-align: center;
@@ -88,7 +104,12 @@ export const SignInStyle = `
     border: none;
     padding: 0;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+  }
+
+  .social-button:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
   }
 
   .divider {
@@ -110,10 +131,10 @@ export const SignInStyle = `
 
   .divider-text {
     color: rgba(34, 51, 58, 1);
-    font: 800 16px Roboto, sans-serif;
+    font: 800 16px "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
-   .social-login {
+  .social-login {
     align-self: center;
     display: flex;
     margin-top: 30px;
@@ -124,14 +145,14 @@ export const SignInStyle = `
   }
 
   .social-icon {
-    width: 40px;
-    height: 40px;
+    width: 55px;
+    height: 55px;
     cursor: pointer;
   }
 
   .signup-prompt {
     margin-top: 20px;
-    font: 400 14px Roboto, sans-serif;
+    font: 400 14px "PT Sans", sans-serif; /* Applied PT Sans font */
     text-align: center;
   }
 
@@ -139,6 +160,7 @@ export const SignInStyle = `
     color: rgba(53, 152, 219, 1);
     font-weight: 600;
     cursor: pointer;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .footer-link {

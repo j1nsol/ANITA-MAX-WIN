@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="content-wrapper">
         <h1 className="heading" style={{margin: "0 0 0 0"}}>Reach your goal with us.</h1>
         <p className="subheading">
-          Anita Maxwin offers open-site betting for a worry-free, exciting experience
+        Anita Maxwin offers open-site betting that guarantees a worry-free, exciting experience for all players. Anita Maxwin ensures you enjoy every moment.
         </p>
         <button 
           className="cta-button"

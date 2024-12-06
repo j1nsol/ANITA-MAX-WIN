@@ -29,7 +29,7 @@ export const styles = {
     margin: auto 0;
   `,
   heading: `
-    font-size: 96px;
+    font-size: 100px;
     font-weight: 700;
     @media (max-width: 991px) {
       max-width: 100%;
@@ -39,26 +39,29 @@ export const styles = {
   subheading: `
     font-size: 32px;
     font-weight: 500;
+    font-family: 'PT Sans', sans-serif;
     @media (max-width: 991px) {
       max-width: 100%;
     }
   `,
   ctaButton: `
-    align-self: flex-start;
-    border-radius: 10px;
-    background-color: rgba(230, 127, 34, 1);
-    position: relative;
-    z-index: 10;
-    margin-top: 15px;
-    gap: 8px;
-    color: var(--Primary-scale-100, #fffbff);
-    padding: 16px 25px;
-    font: 700 32px PT Sans, sans-serif;
-    cursor: pointer;
-    border: none;
-    @media (max-width: 991px) {
-      margin-top: 20px;
-      padding: 0 20px;
-    }
-  `
+  align-self: flex-start;
+  border-radius: 50px; /* Increased border radius to make the button more curved */
+  background-color: rgba(230, 127, 34, 1);
+  position: relative;
+  z-index: 10;
+  width: 400px;
+  margin-top: 15px;
+  gap: 8px;
+  color: var(--Primary-scale-100, #fffbff);
+  padding: 16px 25px;
+  font: 700 32px PT Sans, sans-serif;
+  cursor: pointer;
+  border: none;
+  @media (max-width: 991px) {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+`
+
 };
