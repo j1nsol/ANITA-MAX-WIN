@@ -53,9 +53,7 @@ export function SignInForm() {
             </div>
             
             <div className="form-group">
-              <label htmlFor="username" className="visually-hidden">
-                Email or Phone number
-              </label>
+              
               <input
                 type="email"
                 id="username"
@@ -70,9 +68,7 @@ export function SignInForm() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password" className="visually-hidden">
-                Password
-              </label>
+              
               <input
                 type="password"
                 id="password"

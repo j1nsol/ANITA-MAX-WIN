@@ -11,193 +11,133 @@ export const SignInStyle = `
     border-radius: 10px;
     background-color: rgba(229, 231, 235, 1);
     display: flex;
-    width: 100%;
     flex-direction: column;
     align-items: center;
-    padding: 45px 0;
+    padding: 45px 20px; /* Adjust padding for consistent spacing */
+    width: 100%;
+    max-width: 500px; /* Align max-width with your design */
+    margin: 0 auto;
   }
 
   .auth-header {
     align-self: stretch;
     display: flex;
-    width: 100%;
     flex-direction: column;
     color: rgba(128, 128, 128, 0.55);
     padding: 0 35px;
-    font: 600 24px Roboto, sans-serif;
+    font: 600 16px Roboto, sans-serif;
+    text-align: center; /* Center-align header text */
   }
 
   .header-content {
     display: flex;
     gap: 20px;
-    font-size: 32px;
+    font-size: 18px; /* Adjust font size for uniformity */
     color: rgba(34, 51, 58, 1);
     font-weight: 900;
     text-align: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .header-icon {
-    aspect-ratio: 1.08;
-    object-fit: contain;
-    object-position: center;
-    width: 41px;
-    border-radius: 0;
-    align-self: start;
+    justify-content: center;
   }
 
   .form-input {
     border-radius: 10px;
-    background-color: rgba(229, 231, 235, 1);
-    padding: 20px 19px;
-    border: 1px solid rgba(104, 104, 104, 1);
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 1); /* White background for inputs */
+    color: rgba(51, 51, 51, 0.85);
+    padding: 10px;
+    font: 600 16px Roboto, sans-serif;
+    border: 1px solid rgba(200, 200, 200, 1);
     width: 100%;
+    margin-top: 15px;
+    margin-left: -10px; 
+    cursor: text;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: rgba(53, 152, 219, 1); /* Add a focus effect */
+    outline: none;
   }
 
   .forgot-password {
     color: rgba(66, 159, 221, 1);
-    font-size: 20px;
-    align-self: end;
-    margin-top: 14px;
+    background-color: rgba(229, 231, 235, 1);
+    font-size: 14px;
+    margin: 15px 0;
+    cursor: pointer;
+    text-align: right;
+    width: 100%;
+    border: none;
   }
 
   .submit-button {
-    align-self: stretch;
     border-radius: 10px;
     background-color: rgba(53, 152, 219, 1);
-    margin-top: 50px;
-    min-height: 64px;
-    width: 100%;
-    max-width: 675px;
-    color: rgba(253, 255, 255, 0.9);
-    text-align: center;
-    padding: 18px 0;
-    font: 800 24px Roboto, sans-serif;
+    margin-top: 20px;
+    height: 48px;
+    width: 90%;
+    color: rgba(255, 255, 255, 0.9);
+    font: 800 18px Roboto, sans-serif;
     border: none;
     cursor: pointer;
+    text-align: center;
   }
 
   .divider {
     display: flex;
-    margin-top: 51px;
-    width: 345px;
-    max-width: 100%;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
     color: rgba(34, 51, 58, 1);
-    white-space: nowrap;
-    justify-content: space-between;
-    font: 800 24px Roboto, sans-serif;
+    margin: 30px 0;
+    font: 700 16px Roboto, sans-serif;
   }
 
   .divider-line {
-    aspect-ratio: 125;
-    object-fit: contain;
-    object-position: center;
-    width: 126px;
-    align-self: stretch;
-    margin: auto 0;
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(200, 200, 200, 1);
   }
 
   .social-login {
     display: flex;
-    margin-top: 51px;
-    align-items: center;
-    gap: 40px 50px;
-    overflow: hidden;
+    gap: 10px;
     justify-content: center;
-    padding: 0 5px;
   }
 
   .social-icon {
-    aspect-ratio: 1.14;
-    object-fit: contain;
-    object-position: center;
-    width: 65px;
-    border-radius: 0;
-    align-self: stretch;
-    margin: auto 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
   }
 
   .signup-prompt {
-    display: flex;
-    margin-top: 73px;
-    width: 425px;
-    max-width: 100%;
-    align-items: center;
-    gap: 12px;
+    margin-top: 20px;
+    font: 400 14px Roboto, sans-serif;
     text-align: center;
-    justify-content: center;
-    font: 24px Roboto, sans-serif;
-  }
-
-  .prompt-text {
-    color: rgba(196, 197, 197, 1);
-    font-weight: 600;
-    align-self: stretch;
-    margin: auto 0;
   }
 
   .create-account {
     color: rgba(53, 152, 219, 1);
-    font-weight: 800;
-    align-self: stretch;
-    margin: auto 0;
+    font-weight: 600;
     cursor: pointer;
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
   }
 
   @media (max-width: 991px) {
     .auth-form {
-      max-width: 100%;
+      padding: 35px 15px;
     }
-    
-    .auth-header {
-      max-width: 100%;
-      padding: 0 20px;
-    }
-    
-    .header-content {
-      max-width: 100%;
-    }
-    
+
     .form-input {
-      max-width: 100%;
-      margin: 40px 30px 0;
-      padding: 15px 20px 15px 0;
+      max-width: 756px;
     }
-    
-    .forgot-password {
-      margin-right: 10px;
-    }
-    
+
     .submit-button {
-      max-width: 87%;
-      margin: 40px auto 0;
+      width: 100%;
     }
-    
+
     .divider {
-      margin-top: 40px;
-      white-space: initial;
-    }
-    
-    .social-login {
-      margin-top: 40px;
-    }
-    
-    .signup-prompt {
-      margin-top: 40px;
+      flex-direction: column;
+      gap: 10px;
     }
   }
 `;
