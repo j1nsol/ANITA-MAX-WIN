@@ -7,7 +7,8 @@ export const AuthStyles = createGlobalStyle`
   body {
     margin: 0;
     overflow: hidden; 
-    font-family: 'PT Sans', sans-serif; /* Apply PT Sans to body */
+    font-family: 36px 'PT Sans', sans-serif; /* Apply PT Sans to body */
+  
   }
 
   .overlay {
@@ -49,15 +50,18 @@ export const AuthStyles = createGlobalStyle`
     font-family: 'PT Sans', sans-serif; /* Apply PT Sans to auth container */
   }
 
-  .header-wrapper {
+ .header-wrapper {
   display: flex;
   gap: 20px;
   color: rgba(34, 51, 58, 1);
   text-align: center;
-  justify-content: center; /* Centers the content horizontally */
-  align-items: center; /* Centers the content vertically */
-  font: 16px 'PT Sans', sans-serif; /* Apply PT Sans font here */
+  justify-content: center;
+  align-items: center;
+  font: 16px 'PT Sans', sans-serif;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Adjust this value to move the text further up or down */
 }
+
 
 
   .close-icon {
@@ -86,10 +90,11 @@ export const AuthStyles = createGlobalStyle`
 
 .form-input {
   border-radius: 10px;
+  height: 24px;
   background-color: rgba(229, 231, 235, 1);
   color: rgba(128, 128, 128, 0.55);
   padding: 10px 20px; /* Padding for larger input fields */
-  font: 800 20px 'PT Sans', sans-serif; /* Increased font size */
+  font: 800 18px 'PT Sans', sans-serif; /* Increased font size */
   border: 1px solid rgba(104, 104, 104, 1);
   width: 91%; /* Ensure the input takes full width of the container */
   transition: border-color 0.3s ease;
@@ -138,12 +143,11 @@ export const AuthStyles = createGlobalStyle`
     width: 100%;
     border-radius: 10px;
     background-color: rgba(53, 152, 219, 1);
-    margin-top: 18px;
-    min-height: 10px;
-    color: rgba(253, 255, 255, 1);
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 20px;
+    height: 48px;
     text-align: center;
-    padding: 18px 0;
-    font: 800 20px 'PT Sans', sans-serif; /* Apply PT Sans font here */
+    font: 600 18px 'PT Sans', sans-serif; /* Apply PT Sans font here */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;

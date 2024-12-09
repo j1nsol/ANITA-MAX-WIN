@@ -53,19 +53,20 @@ export const SignInStyle = `
   }
 
   .form-input {
-    border-radius: 10px;
-    margin: 10px auto;
-    background-color: rgba(255, 255, 255, 1);
-    color: rgba(51, 51, 51, 0.85);
-    padding: 10px;
-    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
-    border: 1px solid rgba(200, 200, 200, 1);
-    width: 100%;
-    margin-top: 15px;
-    margin-left: -10px;
-    cursor: text;
-    transition: border-color 0.3s ease;
-  }
+  border-radius: 10px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(51, 51, 51, 0.85);
+  padding: 10px;
+  font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
+  border: 1px solid rgba(200, 200, 200, 1);
+  width: 113%;
+  margin-top: 10px;
+  margin-left: -35px;
+  cursor: text;
+  transition: border-color 0.3s ease;
+  height: 28px; /* Set the height to 48px to match the submit button */
+}
 
   .form-input:focus {
     border-color: rgba(53, 152, 219, 1);
@@ -76,7 +77,7 @@ export const SignInStyle = `
   color: rgba(66, 159, 221, 1);
   background-color: rgba(229, 231, 235, 1);
   font-size: 14px;
-  margin: 15px 0;
+  margin-left: 30px;
   cursor: pointer;
   text-align: right;
   font-weight: 600;
@@ -87,17 +88,17 @@ export const SignInStyle = `
 
 
   .submit-button {
-    border-radius: 10px;
-    background-color: rgba(53, 152, 219, 1);
-    margin-top: 20px;
-    height: 48px;
-    width: 90%;
-    color: rgba(255, 255, 255, 0.9);
-    font: 800 18px "PT Sans", sans-serif; /* Applied PT Sans font */
-    border: none;
-    cursor: pointer;
-    text-align: center;
-  }
+  border-radius: 10px;
+  background-color: rgba(53, 152, 219, 1);
+  margin-top: 20px;
+  height: 48px; /* Keep the submit button height as 48px */
+  width: 100%;
+  color: rgba(255, 255, 255, 0.9);
+  font: 600 18px "PT Sans", sans-serif; /* Applied PT Sans font */
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
 
   .social-button {
     background: none;
@@ -152,8 +153,9 @@ export const SignInStyle = `
 
   .signup-prompt {
     margin-top: 20px;
-    font: 400 14px "PT Sans", sans-serif; /* Applied PT Sans font */
+    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
     text-align: center;
+    color: rgba(34, 51, 58, 1);
   }
 
   .create-account {
@@ -171,6 +173,8 @@ export const SignInStyle = `
     font-weight: 800;
     cursor: pointer;
     transition: color 0.3s ease;
+    font-size: 16px;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .footer-link:hover {

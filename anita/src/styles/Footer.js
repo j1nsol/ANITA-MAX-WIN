@@ -7,7 +7,7 @@ export const footerStyles = `
   .footer-container {
     display: flex;
     flex-direction: column;
-    padding: 103px 74px;
+    padding: 70px 74px;
     max-width: 1440px;
     margin: 0 auto;
   }
@@ -63,7 +63,7 @@ export const footerStyles = `
 
   .footer-link {
     color: rgba(52, 72, 91, 1);
-    font: 700 40px PT Sans, sans-serif;
+    font: 700 25px PT Sans, sans-serif;
     text-decoration: none;
     display: block;
     margin-bottom: 38px;
