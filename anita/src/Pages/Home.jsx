@@ -5,8 +5,13 @@ import { TopBar } from '../components/Topbar/Topbar'
 
 const Home = () => {
   return (
-    <Sidebar/>
-    
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <TopBar />
+      <div style={{ flex: 1, display: 'flex' }}>
+        <Sidebar />
+      </div>
+    </div>
+
 
   )
 }

@@ -76,9 +76,11 @@ export default function Sidebar() {
       </div>
       <style jsx>{`
         .sidebar {
+          position: absolute;
           display: flex;
           max-width: 100px;
-          flex-direction: column;
+          z-index: 1;
+          flex-direction: column; 
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);
