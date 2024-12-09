@@ -1,8 +1,9 @@
 export const topbar = `
   .topbar {
+    position: fixed;
     background-color: rgba(229, 231, 235, 1);
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
-    z-index: 10;
+    z-index: 1;
     display: flex;
     width: 100%;
     align-items: flex-start;

@@ -40,7 +40,8 @@ export const sidebarStyles = `
     align-items: center;
     padding: 31px 23px 293px;
     min-width: 114px;
-    position:absolute;
+    position: fixed;
+    z-index: 1;
   }
 
   .sidebar-content {

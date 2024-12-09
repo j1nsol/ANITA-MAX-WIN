@@ -76,7 +76,7 @@ export default function Sidebar() {
       </div>
       <style jsx>{`
         .sidebar {
-          position: absolute;
+          position: fixed;
           display: flex;
           max-width: 100px;
           z-index: 1;
@@ -86,10 +86,9 @@ export default function Sidebar() {
           background-color: rgba(229, 231, 235, 1);
           box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
           display: flex;
-          width: 100%;
           flex-direction: column;
           justify-content: center;
-          padding: 14px 23px;
+          padding: 5px 10px;
         }
         .sidebar-logo {
           aspect-ratio: 0.99;
@@ -104,9 +103,8 @@ export default function Sidebar() {
           background-color: rgba(229, 231, 235, 1);
           box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
           display: flex;
-          width: 100%;
           flex-direction: column;
-          padding: 31px 23px 29px;
+          padding: 31px 10px;
         }
         .sidebar-icon {
           border-radius: 10px;

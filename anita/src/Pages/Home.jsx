@@ -8,7 +8,7 @@ const Home = () => {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <TopBar />
       <div style={{ flex: 1, display: 'flex' }}>
-        <Sidebar />
+      <Sidebar />
       </div>
     </div>
 

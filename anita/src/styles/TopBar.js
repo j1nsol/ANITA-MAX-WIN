@@ -1,6 +1,7 @@
 export const styles = `
   
   .top-bar {
+    position: fixed;
     background-color: rgba(229, 231, 235, 1);
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -8,7 +9,6 @@ export const styles = `
     z-index: 0;
     gap: 40px 100px;
     flex-wrap: wrap;
-    
     align-items: center;
   }
 
