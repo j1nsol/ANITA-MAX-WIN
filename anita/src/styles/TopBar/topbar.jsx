@@ -11,6 +11,7 @@ export const topbar = `
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 80px;
+    position:fixed;
   }
   @media (max-width: 991px) {
     .topbar {

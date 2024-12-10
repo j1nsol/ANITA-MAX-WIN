@@ -40,8 +40,13 @@ export const sidebarStyles = `
     align-items: center;
     padding: 31px 23px 293px;
     min-width: 114px;
+<<<<<<< Updated upstream
     position: fixed;
     z-index: 1;
+=======
+    position:fixed;
+    z-index:2;
+>>>>>>> Stashed changes
   }
 
   .sidebar-content {
