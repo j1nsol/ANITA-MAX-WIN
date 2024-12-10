@@ -1,5 +1,5 @@
 import * as React from "react";
-import { portalStyles } from "./GamePortalStyles";
+import { portalStyles } from "../../styles/GamePortal/GamePortalStyles";
 
 function GamePortal() {
   const learningPlatforms = [
