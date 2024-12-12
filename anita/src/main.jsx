@@ -4,6 +4,7 @@ import LandingPage from './Pages/LandingPage.jsx'
 import { SignUpForm } from './components/Authentication/SignupForm.jsx';
 import { SignInForm } from './components/Authentication/SignInForm.jsx';
 import React from 'react';
+import Mines from './Pages/Games/Mines/Mines';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <SignInForm/>,
   },
+  {
+    path: "/mines",
+    element: <Mines/>,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
