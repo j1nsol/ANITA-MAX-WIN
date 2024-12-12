@@ -5,6 +5,7 @@ import { SignUpForm } from './components/Authentication/SignUpForm.jsx';
 import { SignInForm } from './components/Authentication/SignInForm.jsx';
 import PersonalInformation from './Pages/personalinfo.jsx';
 import Home from './Pages/Home.jsx';
+import GamePage from './Pages/GamePage.jsx';
 import React from 'react';
 import {
   createBrowserRouter,
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage/>,
+  },
+  {
+    path: "/games",
+    element: <GamePage/>,
   },
   {
     path: "/signup",

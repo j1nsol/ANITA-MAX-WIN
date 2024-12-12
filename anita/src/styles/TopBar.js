@@ -1,12 +1,14 @@
 export const styles = `
+  
   .top-bar {
+    position: fixed;
     background-color: rgba(229, 231, 235, 1);
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 100%;
+    z-index: 0;
     gap: 40px 100px;
     flex-wrap: wrap;
-    padding: 8px 0px;
     align-items: center;
   }
 
