@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
 export function SignInForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     username: "",
     password: ""
@@ -28,10 +29,10 @@ export function SignInForm() {
         formData.password
       );
       console.log("User signed in:", userCredential.user);
-      navigate("/Home");
+      navigate("/home");
     } catch (err) {
       console.error("Error signing in:", err);
-      setError(err.message); // Update UI with error message
+      setError(err.message);
     }
   };
 
