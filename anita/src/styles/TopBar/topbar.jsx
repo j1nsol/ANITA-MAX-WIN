@@ -24,6 +24,7 @@ export const styles = `
     object-fit: contain;
     object-position: center;
     width: 323px;
+    margin-left: 90px;
     max-width: 100%;
   }
 

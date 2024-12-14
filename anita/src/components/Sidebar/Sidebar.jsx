@@ -79,8 +79,9 @@ export default function Sidebar() {
           position: fixed;
           display: flex;
           max-width: 100px;
-          z-index: 1;
+          z-index: 1500;
           flex-direction: column; 
+         
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);
@@ -105,14 +106,16 @@ export default function Sidebar() {
           display: flex;
           flex-direction: column;
           padding: 31px 10px;
+          height: 100vh;
+          align-items: center;
         }
         .sidebar-icon {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
-          width: 67px;
-          height: 68px;
-          padding: 8px 5px;
+          width: 50px;
+          height: 50px;
+          padding: 5px 5px;
           flex-direction: column;
           justify-content: center;
           align-items: center;
@@ -124,9 +127,9 @@ export default function Sidebar() {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
-          width: 67px;
-          height: 68px;
-          padding: 8px 5px;
+          width: 50px;
+          height: 50px;
+          padding: 5px 5px;
           flex-direction: column;
           justify-content: center;
           align-items: center;
@@ -145,15 +148,15 @@ export default function Sidebar() {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
-          width: 67px;
+          width: 50px;
           height: 272px;
-          padding: 6px 3px;
+          padding: 10px 5px;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           gap: 13px;
           flex-shrink: 0;
-          margin-top: 6px;
+          margin-top: 15px;
         }
         .sidebar-other-icon {
           aspect-ratio: 1;
