@@ -69,8 +69,8 @@ export default function Footer() {
                         src={icon.src}
                         alt={icon.alt}
                         className="social-icon"
-                        width="67"
-                        height="67"
+                        width="50"
+                        height="50"
                       />
                     </a>
                   ))}
