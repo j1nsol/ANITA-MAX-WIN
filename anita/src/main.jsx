@@ -8,6 +8,7 @@ import Home from './Pages/Home.jsx';
 import { GamingPortal } from './components/GamePortal/GamePortal.jsx';
 import{VolunteerForm} from './Pages/eventjoin.jsx';
 import React from 'react';
+import Mines from './Pages/Games/Mines/Mines';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <SignInForm/>,
+  },
+  {
+    path: "/mines",
+    element: <Mines/>,
   },
   {
     path: "/home",
