@@ -31,8 +31,8 @@ export const styles = {
   heading: `
     font-size: 100px;
     font-weight: 700;
-    @media (max-width: 991px) {
-      max-width: 100%;
+    @media (max-width: 910px) {
+      max-width: 910px;
       font-size: 40px;
     }
   `,

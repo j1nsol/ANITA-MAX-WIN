@@ -45,6 +45,7 @@ export const footerStyles = `
   }
 
   .footer-columns {
+
     gap: 20px;
     justify-content: space-between;
     align-items: flex-start;
@@ -97,7 +98,6 @@ export const footerStyles = `
     text-decoration: underline;
   }
 
-  
 
   .social-section {
     display: flex;
@@ -112,10 +112,12 @@ export const footerStyles = `
   }
 
   .social-icons {
+
     display: flex;
     margin-top: 24px;
     gap: 10px;
     justify-content: space-between;
+
   }
 
   .social-icon-link {

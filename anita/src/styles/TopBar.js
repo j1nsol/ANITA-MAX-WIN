@@ -10,6 +10,7 @@ export const styles = `
     gap: 40px 100px;
     flex-wrap: wrap;
     align-items: center;
+    z-index: 1000;
   }
 
   @media (max-width: 991px) {
