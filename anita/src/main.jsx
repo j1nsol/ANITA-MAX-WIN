@@ -5,13 +5,14 @@ import { SignUpForm } from './components/Authentication/SignUpForm.jsx';
 import { SignInForm } from './components/Authentication/SignInForm.jsx';
 import PersonalInformation from './Pages/personalinfo.jsx';
 import Home from './Pages/Home.jsx';
-import GamePage from './Pages/GamePage.jsx';
+import { GamingPortal } from './components/GamePortal/GamePortal.jsx';
 import React from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
+import GamePage from './Pages/GamePage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/games",
-    element: <GamePage/>,
+    element: <GamingPortal/>,
   },
   {
     path: "/signup",

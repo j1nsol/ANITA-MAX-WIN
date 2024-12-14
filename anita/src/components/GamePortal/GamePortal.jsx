@@ -1,101 +1,165 @@
-import * as React from "react";
-import { portalStyles } from "../../styles/GamePortal/GamePortalStyles";
+import styled from 'styled-components';
+import { GameCard } from './Components/GameCard';
+import { LearningPlatformCard } from './Components/LearningPlatform';
 
-function GamePortal() {
-  const learningPlatforms = [
-    { title: "Doulingo", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/386180a7cef0f9422ef823b267018c3269a4f68e22361faf5599213db04d4f79?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "LeetCode", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/42b31e39ab2a7e0adaf9cb64d08a5b4729b7c3b987bc9d01b8d4e6f080660922?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "Quizizz", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/caa1d8525b6b1bf1351cbc61554c66ba1540e8f11ee97dc6c7ca2b2e5f56fd9b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" }
-  ];
+const learningPlatforms = [
+  { title: 'Doulingo', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8f29aeaf28da1e43c34220aa97159cabf4ff2f63182143edb9a948d25fc1e5cd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'LeetCode', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/f23acec449a338022596cce1b7e9b68b4bdf31de827484d2202c78700e5d4c52?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'Quizizz', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bb4a350dd85e118372822c6a4b107032321463f3b372470ce2ed325207c35ce3?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' }
+];
 
-  const games = [
-    { title: "HiLo", playerCount: "318", iconSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/d543d10c126dc1f32717345cab29857e3c92173037d12d17ba7ed0bf32c10993?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/573a5ea5ffba380d775f31472bcb332d2d20ffa4249309e867e4fe6288ca6394?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "Fruity Bonanza", playerCount: "394", iconSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1a9163c6da313c49309c3120ca3464cc2032d17b0e529d0db8c11cc1b03b3eb0?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/93c657484a835d629382ff017b06493c73cd8e2a4113a2867e660b6b4829bed3?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "Chess", playerCount: "400", iconSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/dc101a3a322845b954ea7658071beb47f723342655eb0122fb06a986b402a2af?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1342a12cfe5427fd06f94627dee3703eebf1a1decc21b5b354edb0752631c8a3?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "Mines", playerCount: "183", iconSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bb0dc64289eaadfec39e9ade5ea55b66d32cc1c968db03ee28cee4bcebaa12d0?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/2f1169651980f382c69d7a96b4434b26fc435d04426d26fe8b52b2a96f8aae90?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" },
-    { title: "Tetris", playerCount: "301", iconSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1aa8b02eabf320826cf68fe9de0e12f2ef63882a1aec20eee41438de577a5f14?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", imageSrc: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/792f963857c45aa2b07966434af7c50b3ff1a273dff665962778d39582953c55?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" }
-  ];
+const games = [
+  { title: 'HiLo', playerCount: '318', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/2d5a631c6a4369a2665d633b6215dd7b3d0474f11367fed39274471662a1ae2c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'Fruity Bonanza', playerCount: '394', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/9a76b988264afa59a85ed540c8b3a798c741732475359e2b1b2626ebddffb276?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'Chess', playerCount: '400', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/d529ff4d6f071e7890cf355e13a979c55155856bd00406e4123e7ca58ae9a005?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'Mines', playerCount: '183', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/72992dd16b4bd468805530206c25a2076397bdcf78ea270d125cc8f3cfd9c6cf?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
+  { title: 'Tetris', playerCount: '301', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7d53666a47eb33a0e96dbb762ef6b41e724734404a3f97933506bc7d1e700d32?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' }
+];
 
+export function GamingPortal() {
   return (
-    <main className="portal-container" role="main">
-      <section className="learning-section" aria-label="Learning Platforms">
-        {learningPlatforms.map((platform, index) => (
-          <div 
-            key={`learning-${index}`}
-            className="learning-card"
-            role="article"
-            aria-label={`${platform.title} platform card`}
-          >
-            <div className="learning-content">
-              <h3 className="platform-title">{platform.title}</h3>
-              <img 
-                src={platform.imageSrc} 
-                alt={`${platform.title} platform logo`} 
-                className="platform-image"
+    <PortalWrapper>
+      <PortalContent>
+        <Background>
+          <LearningSection>
+            {learningPlatforms.map((platform, index) => (
+              <LearningPlatformCard
+                key={index}
+                title={platform.title}
+                imageSrc={platform.imageSrc}
               />
-            </div>
-          </div>
-        ))}
-      </section>
-      
-      <section className="games-section" aria-label="MAXWIN Original Games">
-        <div className="section-header">
-          <h2 className="section-title">MAXWIN Originals</h2>
-          <div className="header-icons" aria-hidden="true">
-            <img 
-              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/31e7691715972976d48b417f1635bea17b874451e17d26e0941f4cfa393fb06e?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" 
-              alt="" 
-              className="header-icon" 
-            />
-            <img 
-              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1cf1e3729e9fb5877da0914c01c8a2b5cc1f5a7a852f2419ea395388a6c66622?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" 
-              alt="" 
-              className="header-icon" 
-            />
-          </div>
-        </div>
-
-        <div 
-          className="games-grid" 
-          role="list" 
-          aria-label="Games list"
-        >
-          {games.map((game, index) => (
-            <div 
-              key={`game-${index}`}
-              className="game-card"
-              role="listitem"
-              aria-label={`${game.title} game card`}
-            >
-              <div className="game-stats">
-                <div 
-                  className="player-count"
-                  aria-label={`${game.playerCount} active players`}
-                >
-                  <img 
-                    src={game.iconSrc} 
-                    alt="" 
-                    className="player-icon"
-                    aria-hidden="true"
-                  />
-                  <span className="count">{game.playerCount}</span>
-                </div>
-              </div>
-              <div className="game-content">
-                <img 
-                  src={game.imageSrc} 
-                  alt={`${game.title} game preview`} 
-                  className="game-image"
+            ))}
+          </LearningSection>
+          
+          <GamesSection>
+            <SectionHeader>
+              <Title>MAXWIN Originals</Title>
+              <LogoWrapper>
+                <Logo loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/57deac5d4c5203e13aafeecdaa32dbeaa52a22957196e9a52944cfe4b54b70d5?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" alt="Logo 1" />
+                <Logo loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a764da91915be219eb94877b86fffe990fcae44c8b2e50fdb8d86dd150c6464e?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" alt="Logo 2" />
+              </LogoWrapper>
+            </SectionHeader>
+            
+            <GameGrid>
+              {games.map((game, index) => (
+                <GameCard
+                  key={index}
+                  title={game.title}
+                  playerCount={game.playerCount}
+                  imageSrc={game.imageSrc}
                 />
-                <h3 className="game-title">{game.title}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <style jsx>{portalStyles}</style>
-    </main>
+              ))}
+            </GameGrid>
+          </GamesSection>
+        </Background>
+      </PortalContent>
+    </PortalWrapper>
   );
 }
 
-export default GamePortal;
+const PortalWrapper = styled.main`
+  background-color: rgba(57, 153, 218, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 42px 20px;
+`;
+
+const PortalContent = styled.div`
+  width: 1698px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Background = styled.div`
+  min-height: 996px;
+  width: 100%;
+  max-width: 1698px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 11px 0 89px;
+  
+  @media (max-width: 991px) {
+    max-width: 100%;
+  }
+`;
+
+const LearningSection = styled.section`
+  display: flex;
+  min-height: 327px;
+  width: 100%;
+  max-width: 1804px;
+  align-items: center;
+  gap: 40px 155px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 30px 100px;
+  
+  @media (max-width: 991px) {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+`;
+
+const GamesSection = styled.section`
+  margin-top: 51px;
+  width: 1665px;
+  max-width: 100%;
+  padding: 10px;
+  
+  @media (max-width: 991px) {
+    margin-top: 40px;
+  }
+`;
+
+const SectionHeader = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: start;
+  gap: 40px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+const Title = styled.h1`
+  color: #fff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: 'Alexandria', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+`;
+
+const Logo = styled.img`
+  width: 74px;
+  height: auto;
+  border-radius: 15px;
+`;
+
+const GameGrid = styled.div`
+  display: flex;
+  margin-top: 15px;
+  width: 100%;
+  align-items: center;
+  gap: 35px;
+  justify-content: start;
+  flex-wrap: wrap;
+  
+  @media (max-width: 991px) {
+    max-width: 100%;
+  }
+`;
+
+export default GamingPortal;
