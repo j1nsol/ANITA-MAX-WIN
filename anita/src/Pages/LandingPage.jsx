@@ -1,5 +1,5 @@
 import * as React from "react";
-import TopBar from "../components/Topbar/Topbar";
+import TopBar from "../components/LandingPage/TopBar";
 import Hero from "../components/LandingPage/Hero";
 import BreakImage from "../components/LandingPage/BreakImage";
 import { CommunityEventsList } from "../components/LandingPage/EventCard";
