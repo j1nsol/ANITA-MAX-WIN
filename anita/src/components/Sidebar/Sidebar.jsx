@@ -79,7 +79,7 @@ export default function Sidebar() {
           position: fixed;
           display: flex;
           max-width: 100px;
-          z-index: 1;
+          z-index: 1500;
           flex-direction: column; 
         }
         .sidebar-top {
