@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 
 export const SignUpForm = () => {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     agreement: false
@@ -14,7 +15,6 @@ export const SignUpForm = () => {
   const socialIcons = [
     { icon: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/24ced0b02863b36f16279f7c499953ce7e44c3f92e95aee4fcbdcea76766236c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', alt: 'Facebook' },
     { icon: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a7db5e3d7b2d6526597ed89ea0b0f4c94e189b4f7faff2d03070a8a1f31b48ed?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', alt: 'Google' },
-    { icon: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/895f250544b1ba19c6203b39db8094a44bb0b68144d39ece651cf95ce10a84cd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', alt: 'Apple' }
   ];
 
   const handleSubmit = async (e) => {
@@ -39,7 +39,7 @@ export const SignUpForm = () => {
         <AuthStyles />
         <div className="auth-container">
           <div className="header-wrapper">
-            <h1>Sign up</h1>
+            <h1 style={{margin: "0"}}>Sign up</h1>
             <button 
               className="close-icon"
               aria-label="Close signup form"
@@ -53,6 +53,20 @@ export const SignUpForm = () => {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
+          <div className="input-group">
+              <label htmlFor="username" className="visually-hidden">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                className="form-input"
+                placeholder="Username"
+                value={formData.username}
+                onChange={(e) => setFormData({...formData, username: e.target.value})}
+                aria-required="true"
+              />
+            </div>
             <div className="input-group">
               <label htmlFor="email" className="visually-hidden">
                 Email

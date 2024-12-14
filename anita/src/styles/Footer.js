@@ -7,17 +7,18 @@ export const footerStyles = `
   .footer-container {
     display: flex;
     flex-direction: column;
-    padding: 103px 74px;
+    padding: 70px 74px;
     max-width: 1440px;
+    width: 1925px;
+    height: 300px;
+    flex-shrink: 0;
     margin: 0 auto;
   }
 
   .footer-logo {
-    aspect-ratio: 4.55;
-    object-fit: contain;
-    object-position: center;
-    width: 323px;
-    max-width: 100%;
+    flex: 0; 
+    margin-right: 20px; 
+    max-width: 150px; 
   }
 
   .copyright {
@@ -44,28 +45,46 @@ export const footerStyles = `
   }
 
   .footer-columns {
-  display: flex;
-  justify-content: space-between; 
-  gap: 20px; 
-  align-items: 
+
+    gap: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
   }
 
-  
+  .footer-column-social {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    line-height: normal;
+    width: 61%;
+    margin-top: 30px;
+    gap: 20px;
+  }
+
+  .footer-column-social,
   .footer-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; 
+    flex: 1; 
+    min-width: 200px;
   }
 
   .footer-links {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    gap: 10px;
   }
 
   .footer-link {
     color: rgba(52, 72, 91, 1);
-    font: 700 40px PT Sans, sans-serif;
+    font: 700 25px PT Sans, sans-serif;
+    display: flex;
+    width: 202px;
+    height: 41px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
     text-decoration: none;
     display: block;
     margin-bottom: 38px;
@@ -79,12 +98,6 @@ export const footerStyles = `
     text-decoration: underline;
   }
 
-  .footer-column-social {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Adds spacing between the title and icons */
-  align-items: flex-start; /* Aligns the community section to the start */
-  }
 
   .social-section {
     display: flex;
@@ -99,8 +112,12 @@ export const footerStyles = `
   }
 
   .social-icons {
-  display: flex;
-  gap: 20px; /* Adds spacing between the social icons */
+
+    display: flex;
+    margin-top: 24px;
+    gap: 10px;
+    justify-content: space-between;
+
   }
 
   .social-icon-link {
@@ -147,7 +164,7 @@ export const footerStyles = `
     }
 
     .social-title {
-      margin: 0 10px;
+      margin-bottom: 10px;
     }
 
     .social-section {

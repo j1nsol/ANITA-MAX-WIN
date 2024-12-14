@@ -2,8 +2,10 @@ import * as React from "react";
 import { SignInStyle } from "../../styles/SignInForm";
 import { auth } from "../../firebase"; // Adjust the import path as necessary
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 export function SignInForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     username: "",
     password: ""
@@ -27,16 +29,23 @@ export function SignInForm() {
         formData.password
       );
       console.log("User signed in:", userCredential.user);
-      // Redirect or show success message
+      navigate("/home");
     } catch (err) {
       console.error("Error signing in:", err);
-      setError(err.message); // Update UI with error message
+      setError(err.message);
     }
   };
 
-  const handleSocialLogin = (provider) => {
-    // Implement social login logic here using Firebase Auth providers
-  };
+  const socialLoginOptions = [
+    {
+      src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/24ced0b02863b36f16279f7c499953ce7e44c3f92e95aee4fcbdcea76766236c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&",
+      alt: "Social login option 1"
+    },
+    {
+      src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a7db5e3d7b2d6526597ed89ea0b0f4c94e189b4f7faff2d03070a8a1f31b48ed?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&",
+      alt: "Social login option 2"
+    }
+  ];
 
   return (
     <>
@@ -53,9 +62,7 @@ export function SignInForm() {
             </div>
             
             <div className="form-group">
-              <label htmlFor="username" className="visually-hidden">
-                Email or Phone number
-              </label>
+              
               <input
                 type="email"
                 id="username"
@@ -70,9 +77,7 @@ export function SignInForm() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password" className="visually-hidden">
-                Password
-              </label>
+            
               <input
                 type="password"
                 id="password"
@@ -104,23 +109,35 @@ export function SignInForm() {
             Sign in
           </button>
 
-          <div className="divider" role="separator" aria-hidden="true">
-            <span>OR</span>
+          <div className="divider" role="separator">
+            <div className="divider-line" aria-hidden="true" />
+            <div className="divider-text">OR</div>
+            <div className="divider-line" aria-hidden="true" />
           </div>
 
-          <div 
-            className="social-login" 
-            role="group" 
-            aria-label="Social login options"
+          <div className="social-login">
+        {socialLoginOptions.map((option, index) => (
+          <button
+            key={index}
+            className="social-button"
+            tabIndex={0}
+            aria-label={`Login with ${option.alt}`}
           >
-            {/* Add social login buttons */}
+            <img
+              loading="lazy"
+              src={option.src}
+              alt={option.alt}
+              className="social-login-icon"
+            />
+          </button>
+        ))}
           </div>
 
           <div className="signup-prompt">
-            <span className="prompt-text">Don't have an account?</span>
+            <span className="prompt-text">Don't have an account? </span>
             <button 
-              type="button" 
-              className="create-account"
+              type="social-button" 
+              className="footer-link"
               onClick={() => {}}
               aria-label="Create a new account"
             >

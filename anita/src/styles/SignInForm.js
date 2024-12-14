@@ -1,203 +1,202 @@
 export const SignInStyle = `
   .auth-container {
-    background-color: rgba(54, 53, 53, 0);
+    background-image: url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2F94366f3f193545d4af5c1417f6233266);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     display: flex;
-    max-width: 756px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .auth-form {
     border-radius: 10px;
     background-color: rgba(229, 231, 235, 1);
     display: flex;
-    width: 100%;
     flex-direction: column;
     align-items: center;
-    padding: 45px 0;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .auth-header {
     align-self: stretch;
     display: flex;
-    width: 100%;
     flex-direction: column;
     color: rgba(128, 128, 128, 0.55);
     padding: 0 35px;
-    font: 600 24px Roboto, sans-serif;
+    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
+    text-align: center;
   }
 
   .header-content {
     display: flex;
     gap: 20px;
-    font-size: 32px;
+    font-size: 18px;
     color: rgba(34, 51, 58, 1);
     font-weight: 900;
     text-align: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .header-icon {
-    aspect-ratio: 1.08;
-    object-fit: contain;
-    object-position: center;
-    width: 41px;
-    border-radius: 0;
-    align-self: start;
+    justify-content: center;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .form-input {
-    border-radius: 10px;
-    background-color: rgba(229, 231, 235, 1);
-    padding: 20px 19px;
-    border: 1px solid rgba(104, 104, 104, 1);
-    width: 100%;
+  border-radius: 10px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(51, 51, 51, 0.85);
+  padding: 10px;
+  font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
+  border: 1px solid rgba(200, 200, 200, 1);
+  width: 113%;
+  margin-top: 10px;
+  margin-left: -35px;
+  cursor: text;
+  transition: border-color 0.3s ease;
+  height: 28px; /* Set the height to 48px to match the submit button */
+}
+
+  .form-input:focus {
+    border-color: rgba(53, 152, 219, 1);
+    outline: none;
   }
 
   .forgot-password {
-    color: rgba(66, 159, 221, 1);
-    font-size: 20px;
-    align-self: end;
-    margin-top: 14px;
-  }
+  color: rgba(66, 159, 221, 1);
+  background-color: rgba(229, 231, 235, 1);
+  font-size: 14px;
+  margin-left: 30px;
+  cursor: pointer;
+  text-align: right;
+  font-weight: 600;
+  width: 100%;
+  border: none;
+  font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
+}
+
 
   .submit-button {
-    align-self: stretch;
-    border-radius: 10px;
-    background-color: rgba(53, 152, 219, 1);
-    margin-top: 50px;
-    min-height: 64px;
-    width: 100%;
-    max-width: 675px;
-    color: rgba(253, 255, 255, 0.9);
-    text-align: center;
-    padding: 18px 0;
-    font: 800 24px Roboto, sans-serif;
+  border-radius: 10px;
+  background-color: rgba(53, 152, 219, 1);
+  margin-top: 20px;
+  height: 48px; /* Keep the submit button height as 48px */
+  width: 100%;
+  color: rgba(255, 255, 255, 0.9);
+  font: 600 18px "PT Sans", sans-serif; /* Applied PT Sans font */
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+  .social-button {
+    background: none;
     border: none;
+    padding: 0;
     cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+  }
+
+  .social-button:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
   }
 
   .divider {
+    align-self: center;
     display: flex;
-    margin-top: 51px;
+    margin-top: 30px;
     width: 345px;
     max-width: 100%;
     align-items: center;
     gap: 30px;
-    color: rgba(34, 51, 58, 1);
-    white-space: nowrap;
     justify-content: space-between;
-    font: 800 24px Roboto, sans-serif;
   }
 
   .divider-line {
-    aspect-ratio: 125;
-    object-fit: contain;
-    object-position: center;
-    width: 126px;
-    align-self: stretch;
-    margin: auto 0;
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(104, 104, 104, 0.5);
+  }
+
+  .divider-text {
+    color: rgba(34, 51, 58, 1);
+    font: 800 16px "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
   .social-login {
+    align-self: center;
     display: flex;
-    margin-top: 51px;
+    margin-top: 30px;
     align-items: center;
     gap: 40px 50px;
-    overflow: hidden;
     justify-content: center;
     padding: 0 5px;
   }
 
   .social-icon {
-    aspect-ratio: 1.14;
-    object-fit: contain;
-    object-position: center;
-    width: 65px;
-    border-radius: 0;
-    align-self: stretch;
-    margin: auto 0;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
   }
 
   .signup-prompt {
-    display: flex;
-    margin-top: 73px;
-    width: 425px;
-    max-width: 100%;
-    align-items: center;
-    gap: 12px;
+    margin-top: 20px;
+    font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
     text-align: center;
-    justify-content: center;
-    font: 24px Roboto, sans-serif;
-  }
-
-  .prompt-text {
-    color: rgba(196, 197, 197, 1);
-    font-weight: 600;
-    align-self: stretch;
-    margin: auto 0;
+    color: rgba(34, 51, 58, 1);
   }
 
   .create-account {
     color: rgba(53, 152, 219, 1);
-    font-weight: 800;
-    align-self: stretch;
-    margin: auto 0;
+    font-weight: 600;
     cursor: pointer;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
+  .footer-link {
+    background: none;
+    border: none;
     padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    color: rgba(53, 152, 219, 1);
+    font-weight: 800;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 16px;
+    font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
+  }
+
+  .footer-link:hover {
+    color: rgba(41, 128, 185, 1);
   }
 
   @media (max-width: 991px) {
     .auth-form {
-      max-width: 100%;
+      padding: 35px 15px;
     }
-    
-    .auth-header {
-      max-width: 100%;
-      padding: 0 20px;
-    }
-    
-    .header-content {
-      max-width: 100%;
-    }
-    
+
     .form-input {
-      max-width: 100%;
-      margin: 40px 30px 0;
-      padding: 15px 20px 15px 0;
+      max-width: 756px;
     }
-    
-    .forgot-password {
-      margin-right: 10px;
-    }
-    
+
     .submit-button {
-      max-width: 87%;
-      margin: 40px auto 0;
+      width: 100%;
     }
-    
+
     .divider {
-      margin-top: 40px;
-      white-space: initial;
-    }
-    
-    .social-login {
-      margin-top: 40px;
-    }
-    
-    .signup-prompt {
-      margin-top: 40px;
+      flex-direction: column;
+      gap: 10px;
     }
   }
 `;

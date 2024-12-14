@@ -1,14 +1,13 @@
 export const styles = `
-  
   .top-bar {
     position: fixed;
     background-color: rgba(229, 231, 235, 1);
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 100%;
-    z-index: 0;
     gap: 40px 100px;
     flex-wrap: wrap;
+    padding: 8px 0px;
     align-items: center;
     z-index: 1000;
   }
@@ -25,6 +24,7 @@ export const styles = `
     object-fit: contain;
     object-position: center;
     width: 323px;
+    margin-left: 90px;
     max-width: 100%;
   }
 
@@ -53,18 +53,16 @@ export const styles = `
 
   .auth-button {
     align-self: stretch;
-    border-radius: 25px; /* Increased border-radius for an oblong shape */
-    height: 50px; /* Adjusted height */
-    width: 150px; /* Increased width for oblong shape */
+    border-radius: 5px;
+    height: 57px;
+    width: 120px;
     text-align: center;
     margin: auto 0;
-    padding: 0 12px;
+    padding: 16px 14px;
     cursor: pointer;
     border: none;
     color: #fff;
-    font-size: 20px;
-    font-family: 'PT Sans', sans-serif; /* PT Sans font */
-    font-weight: bold; /* Bold text */
+    font-size: 16px;
     transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     position: relative;
   }
@@ -109,10 +107,9 @@ export const styles = `
       border: 2px solid currentColor;
     }
   }
-
-  .html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
+ .html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 `;

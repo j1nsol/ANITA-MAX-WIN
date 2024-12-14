@@ -37,9 +37,11 @@ export const sidebarStyles = `
     display: flex;
     width: 100%;
     flex-direction: column;
+    align-items: center;
     padding: 31px 23px 293px;
     min-width: 114px;
-    position:absolute;
+    position: fixed;
+    z-index: 1500;
   }
 
   .sidebar-content {

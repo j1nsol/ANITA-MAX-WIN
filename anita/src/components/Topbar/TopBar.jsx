@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AuthButton } from "./AuthButton";
+import { AuthButton } from "../LandingPage/AuthButton";
 import { styles } from "../../styles/TopBar";
 import { SignUpForm } from "../Authentication/SignUpForm";
 import { Link } from "react-router-dom";
