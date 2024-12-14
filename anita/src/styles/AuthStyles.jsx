@@ -17,7 +17,6 @@ export const AuthStyles = createGlobalStyle`
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2F94366f3f193545d4af5c1417f6233266);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
