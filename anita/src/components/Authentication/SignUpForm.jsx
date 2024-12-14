@@ -6,6 +6,7 @@ import { auth } from '../../firebase';
 
 export const SignUpForm = () => {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     agreement: false
@@ -52,6 +53,20 @@ export const SignUpForm = () => {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
+          <div className="input-group">
+              <label htmlFor="username" className="visually-hidden">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                className="form-input"
+                placeholder="Username"
+                value={formData.username}
+                onChange={(e) => setFormData({...formData, username: e.target.value})}
+                aria-required="true"
+              />
+            </div>
             <div className="input-group">
               <label htmlFor="email" className="visually-hidden">
                 Email
