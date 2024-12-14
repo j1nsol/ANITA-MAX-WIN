@@ -6,7 +6,8 @@ import { CommunityEventsList } from "../components/LandingPage/EventCard";
 import Footer from "../components/LandingPage/Footer";
 import GameGrid from "../components/LandingPage/GameGrid";
 import RewardsSection from "../components/LandingPage/RewardsSection";
-
+import SignUpForm from "../components/Authentication/SignUpForm";
+import SignInForm from "../components/Authentication/SignInForm";
 
 const features = [
   {
@@ -28,11 +29,29 @@ const events = [
 ];
 
 export default function LandingPage() {
+  const [isSignUpVisible, setSignUpVisible] = React.useState(false);
+  const [isSignInVisible, setSignInVisible] = React.useState(false);
+
+  const showSignUpForm = () => {
+    setSignUpVisible(true);
+    setSignInVisible(false);
+  };
+
+  const showSignInForm = () => {
+    setSignInVisible(true);
+    setSignUpVisible(false);
+  };
+
+  const closeModal = () => {
+    setSignUpVisible(false);
+    setSignInVisible(false);
+  };
+
   return (
     <main className="landing-page">
-      <TopBar />
+      <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
       <Hero />
-      <section className="features-section" style={{ overflow: "hidden", margin: "0 0 0 0"}}>
+      <section className="features-section" style={{ overflow: "hidden", margin: "0 0 0 0" }}>
         {features.map((feature, index) => (
           <BreakImage key={index} {...feature} />
         ))}
@@ -41,26 +60,24 @@ export default function LandingPage() {
         <GameGrid />
       </section>
       <section>
-        <RewardsSection/>
+        <RewardsSection />
       </section>
-      <section className="events-section" style={{backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2Fe0421bcdc49848e9a0460ddd17b0d3f1)",
-        backgroundRepeat: "no-repeat", backgroundPosition: "center",backgroundSize: "cover", width: "100%"
+      <section className="events-section" style={{
+        backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2Fe0421bcdc49848e9a0460ddd17b0d3f1)",
+        backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "cover", width: "100%"
       }}>
-      <h2 
-  className="section-title" 
-  style={{
-    color: "#FDFEFF", 
-    textAlign: "center", 
-    fontFamily: "Alexandria", 
-    fontSize: "64px", 
-    fontStyle: "normal", 
-    fontWeight: "700", 
-    lineHeight: "normal",
-    margin: "0 0 0 0"
-  }}
->
-  Join events happening right now
-</h2>
+        <h2 className="section-title" style={{
+          color: "#FDFEFF",
+          textAlign: "center",
+          fontFamily: "Alexandria",
+          fontSize: "64px",
+          fontStyle: "normal",
+          fontWeight: "700",
+          lineHeight: "normal",
+          margin: "0 0 0 0"
+        }}>
+          Join events happening right now
+        </h2>
         <div className="events-grid">
           {events.map((event, index) => (
             <CommunityEventsList key={index} {...event} />
@@ -68,6 +85,17 @@ export default function LandingPage() {
         </div>
       </section>
       <Footer />
+
+      {isSignUpVisible && (
+        <div className="overlay" onClick={closeModal}>
+          <SignUpForm />
+        </div>
+      )}
+      {isSignInVisible && (
+        <div className="overlay" onClick={closeModal}>
+          <SignInForm />
+        </div>
+      )}
     </main>
   );
 }
