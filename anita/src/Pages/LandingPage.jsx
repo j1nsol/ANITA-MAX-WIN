@@ -46,6 +46,12 @@ export default function LandingPage() {
     setSignInVisible(false);
   };
 
+  const handleOverlayClick = (event) => {
+    if (event.currentTarget === event.target) {
+      closeModal();
+    }
+  };
+
   return (
     <main className="landing-page">
       <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
@@ -86,13 +92,17 @@ export default function LandingPage() {
       <Footer />
 
       {isSignUpVisible && (
-        <div className="overlay" onClick={closeModal}>
-          <SignUpForm />
+        <div className="overlay" onClick={handleOverlayClick}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <SignUpForm onClose={closeModal} />
+          </div>
         </div>
       )}
       {isSignInVisible && (
-        <div className="overlay" onClick={closeModal}>
-          <SignInForm />
+        <div className="overlay" onClick={handleOverlayClick}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <SignInForm onClose={closeModal} />
+          </div>
         </div>
       )}
     </main>
