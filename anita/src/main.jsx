@@ -17,6 +17,7 @@ import ReactDOM from 'react-dom/client';
 import { Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
+import { UserVerificationForm } from './Pages/UserVerify.jsx';
 
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpForm />,
+  },
+  {
+    path: "/verify",
+    element: <UserVerificationForm />,
   },
   {
     path: "/login",

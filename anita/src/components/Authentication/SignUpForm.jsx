@@ -205,7 +205,7 @@ export const SignUpForm = ({ onClose, switchToSignIn }) => {
           <div className="footer">
             <span className="footer-text">Already have an account?</span>
             <button 
-              className="footer-link"
+              className="signin-link"
               onClick={switchToSignIn}
               aria-label="Switch to sign in form"
             >
