@@ -51,6 +51,28 @@ export const SignInStyle = `
     font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
+ .close-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 180px; /* Position the close button 20px from the top */
+  right: 380px; /* Position the close button 20px from the right */
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
   .form-input {
   border-radius: 10px;
   margin: 10px;
@@ -71,6 +93,8 @@ export const SignInStyle = `
     border-color: rgba(53, 152, 219, 1);
     outline: none;
   }
+
+
 
   .forgot-password {
   color: rgba(66, 159, 221, 1);
@@ -123,6 +147,8 @@ export const SignInStyle = `
     justify-content: space-between;
   }
 
+
+
   .divider-line {
     flex-grow: 1;
     height: 1px;
@@ -163,6 +189,33 @@ export const SignInStyle = `
     cursor: pointer;
     font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Ensures the elements stretch across the form */
+  align-items: center;
+  margin-top: 5px; /* Adds space between the password field and the forgot-password section */
+}
+
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right; /* Aligns error message with the forgot password link */
+  margin-left: 10px; /* Adjusts space between the error message and the forgot password link */
+}
+
+.forgot-password {
+  color: rgba(66, 159, 221, 1);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: right;
+  width: auto; /* Allows the forgot-password link to sit beside the error message */
+  margin-left: 5px; /* Adds space between error message and forgot password link */
+}
 
   .footer-link {
     background: none;

@@ -33,7 +33,7 @@ export function SignInForm() {
       navigate("/home");
     } catch (err) {
       console.error("Error signing in:", err);
-      setError(err.message);
+      setError("Invalid username or password.");
     }
   };
 
@@ -70,9 +70,8 @@ export function SignInForm() {
                     alt="Close"
                   />
                 </button>
-                {error && <p className="error-message">{error}</p>}
               </div>
-              
+
               <div className="form-group">
                 <input
                   type="email"
@@ -101,14 +100,19 @@ export function SignInForm() {
                 />
               </div>
 
-              <button
-                type="button"
-                className="forgot-password"
-                onClick={() => {}}
-                aria-label="Reset password"
-              >
-                Forgot your password?
-              </button>
+              <div className="forgot-password-container">
+                <button
+                  type="button"
+                  className="forgot-password"
+                  onClick={() => {}}
+                  aria-label="Reset password"
+                >
+                  Forgot your password?
+                </button>
+
+                {/* Error message aligned with the forgot password link */}
+                {error && <p className="error-message">{error}</p>}
+              </div>
             </div>
 
             <button 
