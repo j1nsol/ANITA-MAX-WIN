@@ -35,7 +35,7 @@ const games = [
     playerCount: '394', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/9a76b988264afa59a85ed540c8b3a798c741732475359e2b1b2626ebddffb276?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', 
     backgroundGradient: 'linear-gradient(to top, #3EC8FF, #9CDBFF, #CCF6FF)', // Three-color gradient
-    link : 'https://www.facebook.com/xyyjz'
+    link : 'https://www.facebook.com/stories/1984544804896915/UzpfSVNDOjI2NzkzMDQzNDIyNzk5MzU=/?bucket_count=9&source=story_tray'
   },
   { 
     title: 'Chess', 
