@@ -18,6 +18,7 @@ import { Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { UserVerificationForm } from './Pages/UserVerify.jsx';
+<<<<<<< Updated upstream
 import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
 
 export function PrivateRoute({ children }) {
@@ -80,6 +81,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <PersonalInformation />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/createevents",
+    element: (
+      <PrivateRoute>
+        <EventForm />
       </PrivateRoute>
     ),
   },
