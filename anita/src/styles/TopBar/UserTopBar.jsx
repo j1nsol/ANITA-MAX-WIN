@@ -14,12 +14,11 @@ export const UserTopBarStyles = `
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 100%;
-    max-width: 1920px;
     align-items: center;
     gap: 10px;
     justify-content: flex-start;
     flex: 1;
-    height: 100%;
+    height: 60px;
     padding: 4px 0px;
     position: relative;
     z-index: 100;
@@ -34,8 +33,6 @@ export const UserTopBarStyles = `
     gap: 40px 100px;
     justify-content: space-between;
     flex-wrap: wrap;
-    flex: 1;
-    flex-basis: 0%;
     margin: auto 0;
     padding: 0px 20px;
   }
@@ -102,9 +99,7 @@ export const UserTopBarStyles = `
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
-    width: 89px;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
+    width: 70px;
   }
   
   .navigation-username {
