@@ -137,16 +137,16 @@ const HiloCardGame = () => {
         <h1>Hi-Lo Card Game</h1>
         <div className="card-layout">
           <button onClick={() => handleGuess('lower')} className="side-button">
-            <img src="images/down.png" alt="Lower" />
+            <img src="./images/down.png" alt="Lower" />
           </button>
           <div className="card-container">
             {previousCard && (
-              <img src={`images/${previousCard}.png`} alt={`Card ${previousCard}`} />
+              <img src={`./images/${previousCard}.png`} alt={`Card ${previousCard}`} />
             )}
-            <img src={`images/${currentCard}.png`} alt={`Card ${currentCard}`} />
+            <img src={`./images/${currentCard}.png`} alt={`Card ${currentCard}`} />
           </div>
           <button onClick={() => handleGuess('higher')} className="side-button">
-            <img src="images/up.png" alt="Higher" />
+            <img src="./images/up.png" alt="Higher" />
           </button>
           <button onClick={handleSkip}>Skip</button>
         </div>
