@@ -1,0 +1,356 @@
+body {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    background-image: url("image2/sweet.png"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+}
+.title{
+    position: absolute;
+    right: 80%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: auto;
+    z-index: 10;
+}
+
+.slot-machine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.slot-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(4, 1fr); 
+    gap: 10px; 
+    width: 600px;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.slot {
+    overflow: hidden; 
+    height: 100px; 
+    width: 100px; 
+    position: relative;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes cascade {
+   0%{
+    transform: translateY(0);
+    opacity: 1;
+   } 
+   100%{
+    transform: translateY(100%);
+    opacity: 0;
+   }
+}
+
+.slot img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    top: 0;
+    animation-duration: 1.78s;
+    animation-fill-mode: forwards;
+}
+.slot img.falling {
+    animation: fall 1.78s ease-in-out;
+}
+.slot img.cascade{
+    animation: cascade 1.78s ease-in-out forwards;
+}
+.slot img.bounce {
+    animation: bounce 0.78s ease-in-out forwards;
+}
+
+.buttons-container {
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+
+#spin-button {
+    position: absolute; 
+    bottom: -100px;    
+    right: 10px;     
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgb(151, 149, 149);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    width: 100px;      
+    height: 100px;    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+#minus-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 830px;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #e2e0da;
+    color: rgb(124, 122, 122);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#plus-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 330px;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #e2e0da;
+    color: rgb(124, 122, 122);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#game-rules {
+    padding: 10px 20px;
+    font-size: 25px;
+    font-style: italic;
+    background-color: #e2e0da;
+    color: rgb(124, 122, 122);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute; 
+    left: 350px;  
+    top: 50%;   
+    transform: translateY(-50%); 
+    z-index: 10;
+}
+
+#spin-button:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+#Php {
+    font-size: 15px;
+    color: rgb(253, 208, 5);  
+    font-weight: bold;
+    margin-top: 20px;
+    position: absolute; 
+    left: 400px;  
+    top: 5%;  
+    transform: translateY(-50%); 
+    z-index: 10;
+    
+}
+#Bet{
+    font-size: 15px;
+    color: gold;
+    font-weight:  bold;
+    margin-top: 20px;
+    position: absolute;
+    left: 420px;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+}
+#Tumble{
+    font-size: 20px;
+    color: white;
+    font-weight:  bold;
+    margin-top: 20px;
+    position: absolute;
+    left: 600px;
+    top: -10%;
+    transform: translateY(-50%); 
+    z-index: 10;
+}
+#tumble-history {
+    position: absolute;
+    height: 300px; /* Adjust based on content */
+    width: 300px; /* Adjust width */
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url('image2/tumblehistory.webp'); /* Use correct image URL */
+    background-size: cover; /* Ensures image covers the container */
+    background-position: center center;
+    padding: 20px; /* Added padding for text inside */
+    border-radius: 10px;
+    z-index: 10;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align text to the top */
+}
+
+.tumble-history-item {
+    display: flex; /* Horizontally align image and text */
+    align-items: center; /* Vertically center content */
+    margin-bottom: 10px; /* Add space between history items */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text if it's too long */
+    font-size: 14px; /* Adjust font size if needed */
+}
+
+.tumble-history-item img {
+    width: 20px; /* Image size */
+    height: 20px;
+    margin-right: 8px; /* Space between image and text */
+}
+
+.tumble-history-item span {
+    word-wrap: break-word; /* Prevent overflow */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#rules-area {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1000px; 
+    transform: translate(-50%, -50%); 
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+    overflow-y: scroll;
+}
+
+#rules-area img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#rules-area button {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#rules-area:hover {
+    background-color: orangered;
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-15px); 
+    }
+    50% {
+        transform: translateY(0); 
+    }
+    70% {
+        transform: translateY(-10px); 
+    }
+    100% {
+        transform: translateY(0); 
+    }
+}
+.game-footer {
+    margin-top: 40px;
+    background-color: rgba(128, 128, 128, 0.658);
+    position: relative; 
+    padding: 30px;
+    
+  }
+
+  #jackpot-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 15px;
+    z-index: 9999; 
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: rgb(253, 249, 6); 
+    font-size: 20px;
+    animation: fadeIn 3s forwards; 
+}
+#jackpot-image{
+    width: 1250px;
+    height: auto;
+    animation: bounceIn 1.5s ease-in-out;
+}
+#jackpot-message {
+    cursor: pointer; 
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+#textarea{
+    margin-top: 20px;
+    padding: 10px 10px;
+    font-size: 18px;
+    background-color: #cfff22;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
