@@ -14,7 +14,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
-import GamePage from './Pages/GamePage.jsx';
 
 const router = createBrowserRouter([
   {

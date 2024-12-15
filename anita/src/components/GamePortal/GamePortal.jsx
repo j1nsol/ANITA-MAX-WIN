@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { GameCard } from './Components/GameCard';
 import { LearningPlatformCard } from './Components/LearningPlatform';
+import { UserTopBar } from '../Topbar/UserTopBar';
 
 const learningPlatforms = [
   { title: 'Doulingo', imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8f29aeaf28da1e43c34220aa97159cabf4ff2f63182143edb9a948d25fc1e5cd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&' },
@@ -18,7 +19,11 @@ const games = [
 
 export function GamingPortal() {
   return (
+    <body>
+    <UserTopBar/>
+    
     <PortalWrapper>
+      
       <PortalContent>
         <Background>
           <LearningSection>
@@ -54,6 +59,7 @@ export function GamingPortal() {
         </Background>
       </PortalContent>
     </PortalWrapper>
+    </body>
   );
 }
 
@@ -162,4 +168,3 @@ const GameGrid = styled.div`
   }
 `;
 
-export default GamingPortal;

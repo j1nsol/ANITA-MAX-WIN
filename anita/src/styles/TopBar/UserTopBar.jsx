@@ -4,8 +4,9 @@ export const UserTopBarStyles = `
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vh;
+    width: 100%;
     position: fixed;
+    z-index:1000;
   }
   
   .navigation-container {
@@ -19,7 +20,7 @@ export const UserTopBarStyles = `
     justify-content: flex-start;
     flex: 1;
     height: 100%;
-    padding: 4px 46px;
+    padding: 4px 0px;
     position: relative;
     z-index: 100;
   }
@@ -36,6 +37,7 @@ export const UserTopBarStyles = `
     flex: 1;
     flex-basis: 0%;
     margin: auto 0;
+    padding: 0px 20px;
   }
   
   .navigation-logo {
@@ -71,7 +73,6 @@ export const UserTopBarStyles = `
     display: flex;
     min-width: 240px;
     gap: 40px 100px;
-    flex-wrap: wrap;
     width: 614px;
     margin: auto 0;
     font-family: 'PT Sans', sans-serif;
@@ -130,7 +131,7 @@ export const UserTopBarStyles = `
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
-    padding: 8px 16px;
+    padding: 0px 0px;
     border-radius: 4px;
     transition: background-color 0.2s ease;
   }
