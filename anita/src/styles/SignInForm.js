@@ -13,6 +13,7 @@ export const SignInStyle = `
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    overflow: hidden; /* Removed scroll wheel */
   }
 
   .auth-form {
