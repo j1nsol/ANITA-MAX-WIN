@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     element: <SignInForm />,
   },
   {
-    path: "/mines",
+    path: "/games/mines",
     element: (
       <PrivateRoute>
         <Mines />
