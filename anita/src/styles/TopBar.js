@@ -46,16 +46,17 @@ export const DefaultTopBarStyles = `
   }
   .auth-button {
     align-self: stretch;
-    border-radius: 5px;
-    height: 57px;
+    border-radius: 25px; /* Increased for curved borders */
+    height: 50px;
     width: 120px;
     text-align: center;
     margin: auto 0;
-    padding: 16px 14px;
+    padding: 15px 15px;
     cursor: pointer;
     border: none;
     color: #fff;
-    font-size: 16px;
+    font-family: 600 "PT Sans", sans-serif;
+    font-size: 18px;
     transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     position: relative;
   }
@@ -68,6 +69,9 @@ export const DefaultTopBarStyles = `
   }
   .auth-button.pressed {
     transform: scale(0.98);
+  }
+  .auth-button:hover {
+    transform: scale(1.05); /* Zoom effect on hover */
   }
   .signup {
     background-color: rgba(35, 52, 60, 1);
