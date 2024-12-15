@@ -214,10 +214,11 @@ export const AuthStyles = createGlobalStyle`
     align-self: center;
     display: flex;
     margin-top: 40px;
-    width: 425px;
-    max-width: 100%;
+    width: 100px;
+    max-width: 85%;
     align-items: center;
-    gap: 12px;
+    padding-left: 95px;
+    gap: 5px;
     text-align: center;
     justify-content: center;
     font: 16px 'PT Sans', sans-serif; /* Apply PT Sans font here */
@@ -228,18 +229,22 @@ export const AuthStyles = createGlobalStyle`
     font-weight: 600;
   }
 
-  .footer-link {
+  .signin-link {
     background: none;
     border: none;
     padding: 0;
     color: rgba(53, 152, 219, 1);
-    font: 16px 'PT Sans', sans-serif; /* Apply PT Sans font here */
-    font-weight: 600;
+    font: 18px 'PT Sans', sans-serif;  
+    font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease;
+    padding-right: 110px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
   }
 
-  .footer-link:hover {
+  .signin-link:hover {
     color: rgba(41, 128, 185, 1);
   }
 
@@ -307,7 +312,7 @@ export const AuthStyles = createGlobalStyle`
 
   @media (max-width: 640px) {
     .footer-text,
-    .footer-link {
+    .signin-link {
       font-size: 20px;
     }
   
@@ -323,6 +328,7 @@ export const AuthStyles = createGlobalStyle`
 .error-message {
   color: red;
   font-size: 12px;
+  font-weight: bold;
   margin-top: 5px;
 }
 
@@ -330,7 +336,7 @@ export const AuthStyles = createGlobalStyle`
     .social-button,
     .signup-button,
     .form-input,
-    .footer-link {
+    .signin-link {
       transition: none;
     }
   }
