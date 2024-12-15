@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import {infostyle} from '../styles/personalinfo';
+import { styles } from '../styles/personalinfo';
 
-export default function PersonalInformation() {
+export default function PersonalInfoForm() {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -9,7 +9,7 @@ export default function PersonalInformation() {
     address: '',
     emergencyName: '',
     relationship: '',
-    emergencyContact: '',
+    emergencyPhone: '',
     volunteerRole: '',
     skills: '',
     experience: '',
@@ -53,232 +53,260 @@ export default function PersonalInformation() {
     }
   };
 
-  const handleCertificationUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setFormData(prev => ({
-      ...prev,
-      certifications: files
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
   };
 
-  const agreements = [
-    {
-      id: 'compliance',
-      text: 'Will you ensure compliance with local laws and regulations?'
-    },
-    {
-      id: 'guidelines',
-      text: 'Acknowledgment of guidelines and policies.'
-    },
-    {
-      id: 'terms',
-      text: 'Agreement to adhere to the terms of the application.'
-    }
-  ];
-
   return (
-    <form className={infostyle.personalInfoForm} onSubmit={handleSubmit}>
-      <div className={infostyle.formContainer}>
-        <div className={infostyle.formBackground} />
-        <div className={infostyle.formContent}>
-          <h1 className={infostyle.formTitle}>PERSONAL INFORMATION</h1>
-          
-          <div className={infostyle.formLayout}>
-            <div className={infostyle.imageUploadSection}>
-              <div className={infostyle.imagePreview}>
-                <img
-                  src={formData.profileImage || 'https://cdn.builder.io/api/v1/image/assets/TEMP/f9c52c888e149c79319af18961525bc214bc1c274ae85e5d6d9fdec60241fb38?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06'}
-                  alt="Profile preview"
-                  className={infostyle.previewImg}
-                />
-                <div className={infostyle.uploadText}>Drop your image here</div>
-              </div>
-              <label className={infostyle.uploadButton}>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className={infostyle.hiddenInput}
-                />
-                <span className={infostyle.buttonText}>Upload image</span>
-              </label>
-            </div>
-
-            <div className={infostyle.formFields}>
-              <div className={infostyle.inputGroup}>
-                <label htmlFor="fullName">Name</label>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  placeholder="First Name, Last Name, M.I"
-                  className={infostyle.inputField}
-                />
-              </div>
-
-              <div className={infostyle.contactSection}>
-                <label htmlFor="phone">Contact Information</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="Phone Number"
-                  className={infostyle.inputField}
-                />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="Email Address"
-                  className={infostyle.inputField}
-                />
-              </div>
-
-              <div className={infostyle.inputGroup}>
-                <label htmlFor="address">Address</label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  placeholder="Full Address"
-                  className={infostyle.inputField}
-                />
-              </div>
-
-              <div className={infostyle.emergencyContact}>
-                <label htmlFor="emergencyName">Emergency Contact Information</label>
-                <input
-                  type="text"
-                  id="emergencyName"
-                  name="emergencyName"
-                  value={formData.emergencyName}
-                  onChange={handleInputChange}
-                  placeholder="Name"
-                  className={infostyle.inputField}
-                />
-                <input
-                  type="text"
-                  id="relationship"
-                  name="relationship"
-                  value={formData.relationship}
-                  onChange={handleInputChange}
-                  placeholder="Relationship"
-                  className={infostyle.inputField}
-                />
-                <input
-                  type="tel"
-                  id="emergencyContact"
-                  name="emergencyContact"
-                  value={formData.emergencyContact}
-                  onChange={handleInputChange}
-                  placeholder="Contact Number"
-                  className={infostyle.inputField}
-                />
-              </div>
-
-              <div className={infostyle.volunteerSection}>
-                <label htmlFor="volunteerRole">Volunteer Role(s) Preference</label>
-                <select
-                  id="volunteerRole"
-                  name="volunteerRole"
-                  value={formData.volunteerRole}
-                  onChange={handleInputChange}
-                  className={infostyle.roleSelect}
-                >
-                  <option value="">Select role</option>
-                  <option value="role1">Role 1</option>
-                  <option value="role2">Role 2</option>
-                  <option value="role3">Role 3</option>
-                </select>
-              </div>
-
-              <div className={infostyle.skillsSection}>
-                <label htmlFor="skills">Skills and Experience</label>
-                <input
-                  type="text"
-                  id="skills"
-                  name="skills"
-                  value={formData.skills}
-                  onChange={handleInputChange}
-                  placeholder="Relevant skills (e.g., customer service, language proficiency)"
-                  className={infostyle.inputField}
-                />
-                <input
-                  type="text"
-                  id="experience"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleInputChange}
-                  placeholder="Previous Experiences (optional)"
-                  className={infostyle.inputField}
-                />
-              </div>
-
-              <div className={infostyle.certificationsSection}>
-                <label>Certifications</label>
-                <div
-                  className={infostyle.certUpload}
-                  onClick={() => document.getElementById('certInput').click()}
-                >
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ede05f0db96fe34f415d4fc3acf5294032d0c3cfb5dd1ade3198876cfd6d560?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                    alt="Upload certification"
-                    className={infostyle.uploadIcon}
-                  />
-                  <div className={infostyle.uploadInstruction}>
-                    Click to upload or drag and drop
-                  </div>
-                  <input
-                    type="file"
-                    id="certInput"
-                    multiple
-                    onChange={handleCertificationUpload}
-                    className={infostyle.hiddenInput}
-                    accept=".pdf,.doc,.docx"
-                  />
-                </div>
-              </div>
-
-              <div className={infostyle.agreementsSection}>
-                {agreements.map(({ id, text }) => (
-                  <div key={id} className={infostyle.agreementItem}>
-                    <div className={infostyle.checkboxWrapper}>
-                      <input
-                        type="checkbox"
-                        id={id}
-                        name={id}
-                        checked={formData.agreements[id]}
-                        onChange={handleCheckboxChange}
-                        className={infostyle.agreementCheckbox}
+    <div className={styles.userPersonalInformation}>
+      <div className={styles.landingPage} />
+      <div className={styles.infoContainer}>
+        <div className={styles.contentWrapper}>
+          <h1 className={styles.pageTitle}>PERSONAL INFORMATION</h1>
+          <form className={styles.formSection} onSubmit={handleSubmit}>
+            <div className={styles.imageUploadSection}>
+              <div className={styles.imageContainer}>
+                <div className={styles.uploadArea}>
+                  <div className={styles.uploadContent}>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className={styles.visuallyHidden}
+                      id="profileImage"
+                      aria-label="Upload profile image"
+                    />
+                    <label htmlFor="profileImage">
+                      <img
+                        src={formData.profileImage || "https://cdn.builder.io/api/v1/image/assets/TEMP/3e12a80e1856928f56caf34a53aaf9673f7c3e5b6971710a6a61d0bc93028242?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"}
+                        className={styles.uploadIcon}
+                        alt=""
+                        role="presentation"
                       />
-                    </div>
-                    <label htmlFor={id} className={infostyle.agreementText}>
-                      {text}
+                      <div className={styles.uploadText}>Drop your image here</div>
                     </label>
                   </div>
-                ))}
+                </div>
+                <button type="button" className={styles.uploadButton}>
+                  <span className={styles.buttonText}>Upload image</span>
+                </button>
               </div>
             </div>
-          </div>
 
-          <button type="submit" className={infostyle.submitButton}>
-            <span className={infostyle.buttonText}>Save</span>
-          </button>
+            <div className={styles.formContainer}>
+              <div className={styles.formWrapper}>
+                <div className={styles.formContent}>
+                  <div className={styles.inputGroup}>
+                    <label htmlFor="fullName">Name</label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      className={styles.inputField}
+                      placeholder="First Name, Last Name, M.I"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.contactSection}>
+                    <label htmlFor="phone">Contact Information</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className={styles.inputField}
+                      placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className={styles.inputField}
+                      placeholder="Email Address"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.addressSection}>
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      id="address"
+                      name="address"
+                      className={styles.inputField}
+                      placeholder="Full Address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.emergencyContactSection}>
+                    <label htmlFor="emergencyName">Emergency Contact Information</label>
+                    <input
+                      type="text"
+                      id="emergencyName"
+                      name="emergencyName"
+                      className={styles.inputField}
+                      placeholder="Name"
+                      value={formData.emergencyName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      id="relationship"
+                      name="relationship"
+                      className={styles.inputField}
+                      placeholder="Relationship"
+                      value={formData.relationship}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      type="tel"
+                      id="emergencyPhone"
+                      name="emergencyPhone"
+                      className={styles.inputField}
+                      placeholder="Contact Number"
+                      value={formData.emergencyPhone}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.volunteerSection}>
+                    <label htmlFor="volunteerRole">Volunteer Role(s) Preference</label>
+                    <select
+                      id="volunteerRole"
+                      name="volunteerRole"
+                      className={styles.volunteerField}
+                      value={formData.volunteerRole}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select role</option>
+                      <option value="role1">Role 1</option>
+                      <option value="role2">Role 2</option>
+                      <option value="role3">Role 3</option>
+                    </select>
+                  </div>
+
+                  <div className={styles.skillsSection}>
+                    <label htmlFor="skills">Skills and Experience</label>
+                    <textarea
+                      id="skills"
+                      name="skills"
+                      className={styles.skillsField}
+                      placeholder="Relevant skills (e.g., customer service, language proficiency)."
+                      value={formData.skills}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <textarea
+                      id="experience"
+                      name="experience"
+                      className={styles.experienceField}
+                      placeholder="Previous Experiences (optional)"
+                      value={formData.experience}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+
+                  <div className={styles.certificationsSection}>
+                    <label>Certifications</label>
+                    <div className={styles.certificationsUpload}>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        id="certifications"
+                        className={styles.visuallyHidden}
+                        aria-label="Upload certifications"
+                      />
+                      <label htmlFor="certifications">
+                        <img
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/0fb1d044dd7be24238c920b3ad9982c042779574be08e7c32058a6031201adee?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
+                          className={styles.uploadCertIcon}
+                          alt=""
+                          role="presentation"
+                        />
+                        <div className={styles.uploadCertTextWrapper}>
+                          <div className={styles.uploadCertText}>
+                            Click to upload or drag and drop
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className={styles.agreementsSection}>
+                    <div className={styles.agreementItem}>
+                      <input
+                        type="checkbox"
+                        id="compliance"
+                        name="compliance"
+                        checked={formData.agreements.compliance}
+                        onChange={handleCheckboxChange}
+                        className={styles.checkbox}
+                        required
+                      />
+                      <label htmlFor="compliance" className={styles.agreementText}>
+                        Will you ensure compliance with local laws and regulations?
+                      </label>
+                    </div>
+
+                    <div className={styles.agreementItem}>
+                      <input
+                        type="checkbox"
+                        id="guidelines"
+                        name="guidelines"
+                        checked={formData.agreements.guidelines}
+                        onChange={handleCheckboxChange}
+                        className={styles.checkbox}
+                        required
+                      />
+                      <label htmlFor="guidelines" className={styles.agreementText}>
+                        Acknowledgment of{' '}
+                        <a href="#" className={styles.agreementLink}>
+                          guidelines and policies
+                        </a>
+                      </label>
+                    </div>
+
+                    <div className={styles.agreementItem}>
+                      <input
+                        type="checkbox"
+                        id="terms"
+                        name="terms"
+                        checked={formData.agreements.terms}
+                        onChange={handleCheckboxChange}
+                        className={styles.checkbox}
+                        required
+                      />
+                      <label htmlFor="terms" className={styles.agreementText}>
+                        Agreement to adhere to the terms of the application
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.saveButtonWrapper}>
+                <button type="submit" className={styles.saveButton}>
+                  <span className={styles.saveText}>Save</span>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import LandingPage from './Pages/LandingPage.jsx'
 import { SignUpForm } from './components/Authentication/SignUpForm.jsx';
 import { SignInForm } from './components/Authentication/SignInForm.jsx';
-import PersonalInformation from './Pages/personalinfo.jsx';
+import PersonalInfoForm from './Pages/personalinfo.jsx';
 import Home from './Pages/Home.jsx';
 import { GamingPortal } from './components/GamePortal/GamePortal.jsx';
 import{VolunteerForm} from './Pages/eventjoin.jsx';
@@ -18,8 +18,9 @@ import { Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { UserVerificationForm } from './Pages/UserVerify.jsx';
-<<<<<<< Updated upstream
+
 import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
+import {EventForm} from './Pages/creatingevents.jsx';
 
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
     path: "/info",
     element: (
       <PrivateRoute>
-        <PersonalInformation />
+        <PersonalInfoForm/>
       </PrivateRoute>
     ),
   },
