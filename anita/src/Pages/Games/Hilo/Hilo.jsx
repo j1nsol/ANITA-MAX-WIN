@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Hilo.css';
 
-const HiloGame = () => {
+const HiloCardGame = () => {
   // Game State
   const [currentCard, setCurrentCard] = useState(Math.floor(Math.random() * 13) + 1);
   const [previousCard, setPreviousCard] = useState(null);
@@ -155,4 +155,4 @@ const HiloGame = () => {
   );
 };
 
-export default HiloGame;
+export default HiloCardGame;
