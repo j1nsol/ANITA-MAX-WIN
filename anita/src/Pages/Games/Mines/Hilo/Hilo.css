@@ -1,0 +1,375 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('images/back.png') no-repeat center center fixed;
+    color: #060607;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: flex-start; /* Aligns the containers at the top */
+    height: 100vh; /* Ensures the body takes full viewport height */
+}
+
+/* Container for both left and game containers */
+.container {
+    display: flex; /* Aligns children (left-container and game-container) side by side */
+    justify-content: flex-start;
+    align-items: flex-start; /* Aligns both containers at the top */
+}
+
+#bet-history-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#bet-history-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Left Container */
+.left-container {
+    width: 250px; /* Adjust width as necessary */
+    background-color: #333333;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 20px; /* Adds space between the left and game containers */
+    display: flex;
+    height: 70vh;
+    flex-direction: column;
+    gap: 10px; /* Space between the containers */
+}
+
+/* Unified Bet Info and History Container */
+
+/* Inner Bet Info Section (Amount Bet and Amount Won/Lost) */
+.bet-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Individual Bet Info Containers */
+.bet-info-container {
+    background-color: #EAE0D5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+    height: 40vh; /* Fixed height */
+    overflow-y: auto; /* Adds vertical scroll bar */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+/* Bet History Section */
+.bet-history {
+    background-color: #EAE0D5;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Balance and Wins Container (Side by side) */
+.top-containers {
+    display: flex; /* Use flexbox to display items side by side */
+    justify-content: space-between; /* Evenly space them apart */
+    gap: 20px; /* Adds space between balance and wins containers */
+}
+
+/* Individual Containers for Balance, Wins */
+.balance-container, .wins-container {
+    background-color: #EAE0D5;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 45%; /* Make balance and wins containers share the space equally */
+}
+
+/* Header and Paragraph Styling */
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+.settings-container{
+    background-color: #333;
+
+}
+h1 {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.card-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.card-container {
+    perspective: 1000px;
+    display: inline-block;
+}
+
+.card-flip {
+    width: 250px;
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.8s;
+}
+
+.card-flip.flipping {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: #333; /* Optional fallback color */
+}
+
+#current-card {
+    width: 250px; /* Adjust the current card size */
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.side-button img {
+    width: 70px; /* Adjust the size of the images */
+    height: auto;
+    display: block; /* Centers the image */
+    margin: 0 auto;
+    pointer-events: none; /* Ensures only the button is clickable, not the image */
+}
+
+.side-button {
+    padding: 10px; /* Remove text-specific padding */
+    background-color: transparent; /* Optional: transparent background */
+    border: 5px solid transparent; /* Correct border syntax */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth transition for scaling */
+}
+
+.side-button:hover {
+    background-color: #00000000;
+    transform: scale(1.2);
+}
+
+#lower {
+    left: 80px; /* Position to the left of the card layout */
+}
+
+#higher {
+    right: 80px; /* Position to the right of the card layout */
+}
+
+.betting-buttons {
+    display: flex;
+    align-items: center; /* Align buttons and container vertically */
+    justify-content: center; /* Center the whole layout */
+    gap: 10px; /* Add space between the buttons and the betting container */
+    margin-top: 20px;
+}
+
+.betting-container {
+    background-color: #EAE0D5;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#bet-amount {
+    font-size: 16px;
+    padding: 5px;
+    margin: 0 10px; /* Spacing inside the container */
+}
+
+.bet-button {
+    font-size: 16px;
+    padding: 10px 15px;
+    background-color: #DAD4B5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.bet-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+#place-bet {
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #DAD4B5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#place-bet:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.score {
+    margin-top: 20px;
+}
+
+#message {
+    font-size: 18px;
+    margin: 20px 0;
+    color: #000000;
+}
+
+#previous-card {
+    position: absolute;
+    bottom: 0px;  /* Position slightly below the current card */
+    right: -100px;   /* Position to the right of the current card */
+    width: 100px;    /* Smaller size for the previous card */
+    height: auto;
+    opacity: 0.8;   /* Slightly faded look */
+    border-radius: 3px;
+    box-shadow: 5 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Skip Button styles */
+#skip {
+    position: absolute;
+    top: 10px;
+    right: 330px;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #DAD4B5;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth transition for scaling */
+}
+
+#skip:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Top Buttons Container */
+.top-buttons {
+    position: fixed; /* Keeps buttons at the top */
+    top: 10px;
+    right: 10px; /* Positions buttons relative to the top-right corner */
+    display: flex; /* Align buttons horizontally */
+    gap: 10px; /* Adds spacing between buttons */
+    z-index: 1000; /* Keeps buttons above all elements */
+}
+
+/* Mute Button */
+.mute-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent; /* Remove background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    left: 450px; /* Move to the left side */
+    top: 500px; /* Adjust top to your preference */
+}
+
+.mute-button img {
+        width: 30px; /* Set the size of the image */
+        height: auto;
+    }
+/* Main Menu Button */
+.main-button {
+    padding: 10px 10px;
+    font-size: 16px;
+    background-color: transparent; /* Remove background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    left: 40px; /* Move to the left side */
+    top: 460px; /* Adjust top to your preference */
+    z-index: 1000; /* Make sure it's on top of other elements */
+}
+
+.main-button img {
+    width: 30px; /* Set the size of the image */
+    height: auto;
+}
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 40px; /* Positioned below the Menu button */
+    right: 0; /* Aligns with the Menu button */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Dropdown Items */
+.dropdown-item {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
