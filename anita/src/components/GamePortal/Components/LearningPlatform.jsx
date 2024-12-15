@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const LearningPlatformCard = ({ title, imageSrc }) => {
+export const LearningPlatformCard = ({ title, imageSrc, backgroundGradient }) => {
   return (
-    <CardWrapper>
+    <CardWrapper backgroundGradient={backgroundGradient}>
       <CardContent>
         <PlatformTitle>{title}</PlatformTitle>
         <PlatformImage 
@@ -24,11 +24,19 @@ const CardWrapper = styled.article`
   flex-grow: 1;
   width: 338px;
   margin: auto 0;
-  
+  background: ${({ backgroundGradient }) => backgroundGradient || 'linear-gradient(to top, #ffffff, #f0f0f0)'};
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover transition */
+
+  &:hover {
+    transform: scale(1.1); /* Scale effect on hover */
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.35); /* Enhanced shadow for hover */
+  }
+
   @media (max-width: 991px) {
     max-width: 100%;
   }
 `;
+
 
 const CardContent = styled.div`
   border-radius: 15px;
@@ -37,6 +45,7 @@ const CardContent = styled.div`
   min-width: 420px;
   width: 423px;
   padding: 27px 14px;
+
   
   @media (max-width: 991px) {
     padding-right: 20px;
