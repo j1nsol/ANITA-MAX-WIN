@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase'; // Ensure db is imported from your firebase.js
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ onClose, switchToSignIn }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -28,11 +28,8 @@ export const SignUpForm = () => {
     }
 
     try {
-
-      console.log(email+ " " + password);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
 
       const userDocRef = doc(db, 'User', user.uid);
       await setDoc(userDocRef, { username, token });
@@ -57,7 +54,7 @@ export const SignUpForm = () => {
             <button 
               className="close-icon"
               aria-label="Close signup form"
-              onClick={() => {}}
+              onClick={onClose}
             >
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/830b8d1828f732aad5cc1707f6ef527de829577e995be70bd1351d474bdf6b82?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
@@ -87,7 +84,7 @@ export const SignUpForm = () => {
               </label>
               <input
                 id="email"
-                type="text"
+                type="email" // Changed to 'email' for better input validation
                 className="form-input"
                 placeholder="Email"
                 value={formData.email}
@@ -121,8 +118,7 @@ export const SignUpForm = () => {
                 aria-required="true"
               />
               <label htmlFor="agreement">
-                I agree to the <button className="link-button">User Agreement</button> &
-                confirm I am at least 18 years old
+                I agree to the <button className="link-button">User Agreement</button> & confirm I am at least 18 years old
               </label>
             </div>
 
@@ -158,7 +154,7 @@ export const SignUpForm = () => {
             <span className="footer-text">Already have an account?</span>
             <button 
               className="footer-link"
-              onClick={() => {}}
+              onClick={switchToSignIn}
               aria-label="Switch to sign in form"
             >
               Sign in
@@ -171,4 +167,3 @@ export const SignUpForm = () => {
 };
 
 export default SignUpForm;
-
