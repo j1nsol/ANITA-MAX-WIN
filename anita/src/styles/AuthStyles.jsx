@@ -310,12 +310,21 @@ export const AuthStyles = createGlobalStyle`
     .footer-link {
       font-size: 20px;
     }
-
+  
     .social-icon {
       width: 50px;
       height: 50px;
     }
   }
+.form-input.error {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 
   @media (prefers-reduced-motion: reduce) {
     .social-button,

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-export const GameCard = ({ title, playerCount, imageSrc }) => {
+export const GameCard = ({ title, playerCount, imageSrc, backgroundGradient }) => {
+  console.log('Gradient:', backgroundGradient);  // Log the gradient to see if it's passed correctly
   return (
-    <CardWrapper>
+    <CardWrapper backgroundGradient={backgroundGradient}>
       <PlayerCount>
         <PlayerCountInner>
           <PlayerIcon 
@@ -25,6 +26,7 @@ export const GameCard = ({ title, playerCount, imageSrc }) => {
   );
 };
 
+
 const CardWrapper = styled.article`
   border-radius: 15px;
   box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.25);
@@ -35,8 +37,17 @@ const CardWrapper = styled.article`
   flex-direction: column;
   overflow: hidden;
   padding: 20px 0;
-  background: rgba(34, 51, 59, 0.1);
+  background: ${({ backgroundGradient }) => backgroundGradient || 'linear-gradient(to top, #ffffff, #f0f0f0)'};
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+
+  &:hover {
+    transform: scale(1.1); /* Scales the card to 1.1 times */
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.35); /* Enhances shadow for hover effect */
+  }
 `;
+
+
+
 
 const PlayerCount = styled.div`
   border-radius: 10px;
@@ -76,7 +87,7 @@ const GameContent = styled.div`
 const GameImage = styled.img`
   width: 200px;
   height: auto;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const GameTitle = styled.h2`
