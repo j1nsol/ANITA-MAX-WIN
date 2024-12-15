@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine</title>
+    <link rel="stylesheet" href="fruity.css">
+    <script src="fruity.js" defer></script>
+</head>
+<body>
+    <div class="slot-machine">
+        <div class="slot-grid">
+            <img class="title" src="image2/FRUIT.webp" alt="FRUIT Bonanza Logo">
+            <div class="slot"><img src="image2/1.png" alt="Slot Image 1"></div>
+            <div class="slot"><img src="image2/2.png" alt="Slot Image 2"></div>
+            <div class="slot"><img src="image2/3.png" alt="Slot Image 3"></div>
+            <div class="slot"><img src="image2/4.png" alt="Slot Image 4"></div>
+            <div class="slot"><img src="image2/5.png" alt="Slot Image 5"></div>
+            <div class="slot"><img src="image2/6.png" alt="Slot Image 6"></div>
+            <div class="slot"><img src="image2/7.png" alt="Slot Image 7"></div>
+            <div class="slot"><img src="image2/8.png" alt="Slot Image 8"></div>
+            <div class="slot"><img src="image2/9.png" alt="Slot Image 9"></div>
+            <div class="slot"><img src="image2/10.png" alt="Slot Image 10"></div>
+            <div class="slot"><img src="image2/1.png" alt="Slot Image 1"></div>
+            <div class="slot"><img src="image2/2.png" alt="Slot Image 2"></div>
+            <div class="slot"><img src="image2/3.png" alt="Slot Image 3"></div>
+            <div class="slot"><img src="image2/4.png" alt="Slot Image 4"></div>
+            <div class="slot"><img src="image2/5.png" alt="Slot Image 5"></div>
+            <div class="slot"><img src="image2/6.png" alt="Slot Image 6"></div>
+            <div class="slot"><img src="image2/7.png" alt="Slot Image 7"></div>
+            <div class="slot"><img src="image2/8.png" alt="Slot Image 8"></div>
+            <div class="slot"><img src="image2/9.png" alt="Slot Image 9"></div>
+            <div class="slot"><img src="image2/10.png" alt="Slot Image 10"></div>
+            <button id="spin-button">Spin</button>
+        </div>
+    </div>
+
+    <div id="jackpot-message" class="jackpot-message" style="display:none;">
+        <img src="image2/ScatterTumble.webp" alt="Jackpot Image" id="jackpot-image" style="display:none;">
+    </div>
+    <div id="tumble-history" class="tumble-history"></div>
+    <div id="win-amount" class="win-amount"></div>
+    <div id="free-spin-message" class="free-spin-message"></div> <!-- Free Spins Remaining -->
+    <footer class ="game-footer">
+    <button id="game-rules" onclick="ClickRules()">i</button>
+    <div id="Php">TOKEN 100.00</div>
+    <div id="Bet">BET 1.00</div>
+
+    <button id="minus-btn" class="bet-btnminus">-</button>
+     <button id="plus-btn" class="bet-btnplus">+</button>
+
+    <div id= "Tumble">PLACE YOUR BETS!</div>
+    </footer>
+
+ <div id="rules-area" style="display: none;">
+    <h2>HOW TO PlAY</h2>
+        <img src="image2/rules.webp" alt="Game Rules" id="rules-image" style="width: 100%; height: auto; border: 2px solid #ff5722;">
+        <button id="close-rules-btn">Close</button>
+
+    </div>
+
+    <audio id="spin-sound" src="sounds/spinsound.mp3" preload="auto"></audio>
+    
+    
+</body>
+</html>
