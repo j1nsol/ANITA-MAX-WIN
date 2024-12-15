@@ -1,31 +1,33 @@
+import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const GameCard = ({ title, playerCount, imageSrc, backgroundGradient }) => {
-  console.log('Gradient:', backgroundGradient);  // Log the gradient to see if it's passed correctly
+export const GameCard = ({ title, playerCount, imageSrc, backgroundGradient, link }) => {
   return (
     <CardWrapper backgroundGradient={backgroundGradient}>
-      <PlayerCount>
-        <PlayerCountInner>
-          <PlayerIcon 
+      <StyledLink to={link}>
+        <PlayerCount>
+          <PlayerCountInner>
+            <PlayerIcon 
+              loading="lazy"
+              src="/icons/player.svg"
+              alt="Active players"
+            />
+            <Count>{playerCount}</Count>
+          </PlayerCountInner>
+        </PlayerCount>
+        <GameContent>
+          <GameImage 
             loading="lazy"
-            src="/icons/player.svg"
-            alt="Active players"
+            src={imageSrc}
+            alt={`${title} game`}
           />
-          <Count>{playerCount}</Count>
-        </PlayerCountInner>
-      </PlayerCount>
-      <GameContent>
-        <GameImage 
-          loading="lazy"
-          src={imageSrc}
-          alt={`${title} game`}
-        />
-        <GameTitle>{title}</GameTitle>
-      </GameContent>
+          <GameTitle>{title}</GameTitle>
+        </GameContent>
+      </StyledLink>
     </CardWrapper>
   );
 };
-
 
 const CardWrapper = styled.article`
   border-radius: 15px;
@@ -36,9 +38,9 @@ const CardWrapper = styled.article`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 20px 0;
   background: ${({ backgroundGradient }) => backgroundGradient || 'linear-gradient(to top, #ffffff, #f0f0f0)'};
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
 
   &:hover {
     transform: scale(1.1); /* Scales the card to 1.1 times */
@@ -46,8 +48,13 @@ const CardWrapper = styled.article`
   }
 `;
 
-
-
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+`;
 
 const PlayerCount = styled.div`
   border-radius: 10px;
