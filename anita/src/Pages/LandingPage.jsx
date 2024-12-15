@@ -25,7 +25,6 @@ const events = [
     location: "Virtual",
     attendees: "50"
   }
-  // Additional events...
 ];
 
 export default function LandingPage() {

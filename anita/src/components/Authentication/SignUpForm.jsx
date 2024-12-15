@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { AuthStyles } from '../../styles/AuthStyles';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
-
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase'; // Ensure db is imported from your firebase.js
 
 export const SignUpForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    agreement: false
+    agreement: false,
+    token: 0
   });
 
   const socialIcons = [
@@ -19,10 +20,23 @@ export const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
+    const { email, password, username, token } = formData;
+
+    if (!username.trim()) {
+      alert("Username is required");
+      return;
+    }
+
     try {
+
+      console.log(email+ " " + password);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+
+
+      const userDocRef = doc(db, 'User', user.uid);
+      await setDoc(userDocRef, { username, token });
+
       console.log("Account Created Successfully!", user);
     } catch (error) {
       console.error("Error creating account:", error.message);
@@ -53,7 +67,7 @@ export const SignUpForm = () => {
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
-          <div className="input-group">
+            <div className="input-group">
               <label htmlFor="username" className="visually-hidden">
                 Username
               </label>
@@ -157,3 +171,4 @@ export const SignUpForm = () => {
 };
 
 export default SignUpForm;
+

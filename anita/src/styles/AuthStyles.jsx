@@ -29,7 +29,6 @@ export const AuthStyles = createGlobalStyle`
 
   .modal {
     position: relative;
-    scrollbar-width: none;
     width: 100%; 
     max-width: 500px; 
     max-height: 70vh;
