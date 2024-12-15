@@ -14,7 +14,6 @@ export function UserVerificationForm() {
     pastEvents: '',
     references: '',
     certifications: '',
-    selectedFile: null,
     compliance: false,
     guidelines: false,
     terms: false
@@ -31,12 +30,19 @@ export function UserVerificationForm() {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData(prev => ({
-      ...prev,
-      selectedFile: file
-    }));
+  const isFormComplete = () => {
+    return (
+      formData.organizerName &&
+      formData.address &&
+      formData.email &&
+      formData.phone &&
+      formData.pastEvents &&
+      formData.references &&
+      formData.certifications &&
+      formData.compliance &&
+      formData.guidelines &&
+      formData.terms
+    );
   };
 
   const handleSubmit = async(e) => {
@@ -54,14 +60,8 @@ export function UserVerificationForm() {
       const userUid = currentUser.uid; 
       const formDataToSend = { ...formData };
       
-      if (formData.selectedFile) {
-        const fileRef = storageRef(storage, `uploads/${userUid}/${formData.selectedFile.name}`);
-        await uploadBytes(fileRef, formData.selectedFile);
-        const fileUrl = await getDownloadURL(fileRef);
-        formDataToSend.selectedFileUrl = fileUrl; 
-      }
 
-      await setDoc(doc(db, 'verifications', userUid), formDataToSend);
+      await setDoc(doc(db, 'VerifySubmission', userUid), formDataToSend);
      
       alert('Form submitted successfully!');
     } catch (error) {
@@ -197,22 +197,6 @@ export function UserVerificationForm() {
               />
             </div>
 
-            <div className="upload-section">
-              <input
-                type="file"
-                id="idUpload"
-                onChange={handleFileChange}
-                className="visually-hidden"
-                accept="image/*,.pdf"
-                aria-label="Upload valid ID"
-              />
-              <label htmlFor="idUpload" className="upload-button">
-                Upload valid I.D.
-              </label>
-              <span className="file-status" role="status" aria-live="polite">
-                {formData.selectedFile ? formData.selectedFile.name : 'no file selected'}
-              </span>
-            </div>
 
             <div className="checkbox-section">
               <div className="checkbox-group">
@@ -264,10 +248,11 @@ export function UserVerificationForm() {
             <div className="submit-section">
               <button 
                 type="submit" 
-                className="submit-button"
+                className={`submit-button ${isFormComplete() ? 'filled' : ''}`}
+                disabled={loading || !isFormComplete()}
                 aria-label="Submit verification form"
               >
-                Verify
+                {loading ? 'Submitting...' : 'Verify'}
               </button>
             </div>
           </div>
@@ -363,28 +348,6 @@ export function UserVerificationForm() {
           resize: vertical;
         }
 
-        .upload-section {
-          display: flex;
-          margin-top: 20px;
-          width: 100%;
-          flex-direction: column;
-          align-items: center;
-          font-family: PT Sans, sans-serif;
-          font-weight: 700;
-          gap: 10px;
-        }
-
-        .upload-button {
-          background: var(--Secondary, #22333b);
-          color: var(--Primary-scale-100, #fffbff);
-          border-radius: 5px;
-          padding: 10px 20px;
-          font-size: 24px;
-          cursor: pointer;
-          border: none;
-          min-width: 223px;
-          text-align: center;
-        }
 
         .file-status {
           color: rgba(34, 51, 58, 0.3);
@@ -429,7 +392,7 @@ export function UserVerificationForm() {
         }
 
         .submit-button {
-          background: var(--Secondary_2, #868a88);
+          background: var(--Secondary_2,rgb(68, 72, 70));
           color: var(--Primary-scale-100, #fffbff);
           border-radius: 5px;
           padding: 6px 25px;
@@ -438,6 +401,13 @@ export function UserVerificationForm() {
           cursor: pointer;
           min-width: 100px;
           transition: background-color 0.2s;
+        }
+        .submit-button.filled {
+          background-color:rgb(10, 10, 10);  
+        }
+        .submit-button:disabled {
+          background-color: #aaa;  
+          cursor: not-allowed;
         }
 
         .submit-button:hover {
