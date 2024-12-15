@@ -71,49 +71,47 @@ export function SignInForm() {
                   />
                 </button>
               </div>
-
-              <div className="form-group">
-                <input
-                  type="email"
-                  id="username"
-                  name="username"
-                  className="form-input"
-                  placeholder="Email"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                  required
-                  aria-required="true"
-                />
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="form-input"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                  aria-required="true"
-                />
-              </div>
-
-              <div className="forgot-password-container">
-                <button
-                  type="button"
-                  className="forgot-password"
-                  onClick={() => {}}
-                  aria-label="Reset password"
-                >
-                  Forgot your password?
-                </button>
-
-                {/* Error message aligned with the forgot password link */}
-                {error && <p className="error-message">{error}</p>}
-              </div>
             </div>
+
+            <div className="form-group">
+              <input
+                type="email"
+                id="username"
+                name="username"
+                className="form-input"
+                placeholder="Email"
+                value={formData.username}
+                onChange={handleInputChange}
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div className="form-group">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="form-input"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+                aria-required="true"
+              />
+            </div>                
+            <div className="forgot-password-container">
+              {/* Error message aligned with the forgot password link */}
+              {error && <p className="error-message">{error}</p>}
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => {}}
+                aria-label="Reset password"
+              >
+                Forgot your password?
+              </button>
+            </div>             
 
             <button 
               type="submit" 

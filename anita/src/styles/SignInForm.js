@@ -38,6 +38,7 @@ export const SignInStyle = `
     padding: 0 35px;
     font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
     text-align: center;
+    position: relative;
   }
 
   .header-content {
@@ -51,43 +52,41 @@ export const SignInStyle = `
     font-family: "PT Sans", sans-serif; /* Applied PT Sans font */
   }
 
- .close-icon {
-  background: none;
-  border: none;
-  padding: 0;
-  position: absolute;
-  top: 180px; /* Position the close button 20px from the top */
-  right: 380px; /* Position the close button 20px from the right */
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .close-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    position: absolute;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top:10 px;
+    display: flex;
+    align-items: center;
+  }
 
-.close-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+  .close-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 
-
-  .form-input {
+ .form-input {
   border-radius: 10px;
   margin: 10px;
   background-color: rgba(255, 255, 255, 1);
   color: rgba(51, 51, 51, 0.85);
   padding: 10px;
-  font: 600 16px "PT Sans", sans-serif; /* Applied PT Sans font */
+  font: 600 16px "PT Sans", sans-serif;
   border: 1px solid rgba(200, 200, 200, 1);
-  width: 113%;
-  margin-top: 10px;
-  margin-left: -35px;
+  width: 420px; /* Fill the container */
+  margin-left: 0; /* Remove the negative margin */
   cursor: text;
   transition: border-color 0.3s ease;
-  height: 28px; /* Set the height to 48px to match the submit button */
+  height: 24px; /* Same height as the submit button */
 }
+
 
   .form-input:focus {
     border-color: rgba(53, 152, 219, 1);
