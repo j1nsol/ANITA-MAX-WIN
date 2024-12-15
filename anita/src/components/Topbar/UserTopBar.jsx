@@ -1,14 +1,43 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { UserTopBarStyles } from "../../styles/TopBar/UserTopBar";
+import { auth, db } from "../../firebase"; // Update the path based on your project structure
+import { doc, getDoc } from "firebase/firestore";
 
 export function UserTopBar() {
-  const [isSigningOut, setIsSigningOut] = React.useState(false);
+  const [username, setUsername] = useState("Loading...");
+  const [token, setToken] = useState(0.0); // Assuming balance is fetched similarly
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const userDoc = doc(db, "User", user.uid); // Replace "User" with your collection name
+        const docSnap = await getDoc(userDoc);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUsername(data.username || "Unknown"); // Update based on your Firestore fields
+          setToken(data.token || 0.0); // Optional: Fetch other fields like balance
+        } else {
+          console.error("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleSignOut = async () => {
     if (isSigningOut) return;
     setIsSigningOut(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await auth.signOut();
+      // Redirect to login or handle post-signout logic
     } catch (error) {
       console.error("Sign out failed:", error);
     } finally {
@@ -51,18 +80,15 @@ export function UserTopBar() {
                     height="89"
                   />
                   <div className="navigation-username" aria-label="Username">
-                    jzxyREAL
+                    {username}
                   </div>
                 </div>
-                <div 
-                  className="navigation-balance"
-                  aria-label="Account balance"
-                >
+                <div className="navigation-balance" aria-label="Account balance">
                   <div>Balance</div>
-                  <div aria-live="polite">0.0</div>
+                  <div aria-live="polite">{token.toFixed(2)}</div>
                 </div>
               </div>
-              <button 
+              <button
                 className="navigation-signout"
                 onClick={handleSignOut}
                 disabled={isSigningOut}

@@ -14,43 +14,75 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
+import { Navigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
+export function PrivateRoute({ children }) {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return user ? children : <Navigate to="/" />;
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage/>,
+    element: <LandingPage />,
   },
   {
     path: "/games",
-    element: <GamingPortal/>,
+    element: (
+      <PrivateRoute>
+        <GamingPortal />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/signup",
-    element: <SignUpForm/>,
+    element: <SignUpForm />,
   },
   {
     path: "/login",
-    element: <SignInForm/>,
+    element: <SignInForm />,
   },
   {
     path: "/mines",
-    element: <Mines/>,
+    element: (
+      <PrivateRoute>
+        <Mines />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/home",
-    element: <Home/>,
+    element: (
+      <PrivateRoute>
+        <Home />
+      </PrivateRoute>
+    ),
   },
-
   {
     path: "/info",
-    element: <PersonalInformation/>,
+    element: (
+      <PrivateRoute>
+        <PersonalInformation />
+      </PrivateRoute>
+    ),
   },
-  
   {
     path: "/volunteerform",
-    element: <VolunteerForm/>,
-  }
+    element: (
+      <PrivateRoute>
+        <VolunteerForm />
+      </PrivateRoute>
+    ),
+  },
 ]);
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
