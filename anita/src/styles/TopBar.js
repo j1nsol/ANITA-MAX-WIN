@@ -5,11 +5,14 @@ export const DefaultTopBarStyles = `
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 100%;
+        font-family: 600 "PT Sans", sans serif;
+
     gap: 40px 100px;
     flex-wrap: wrap;
     padding: 8px 0px;
     align-items: center;
     z-index: 1000;
+    
   }
   @media (max-width: 991px) {
     .top-bar {
@@ -25,6 +28,7 @@ export const DefaultTopBarStyles = `
     max-width: 100%;
   }
   .auth-buttons {
+    font-family: 600 "PT Sans", sans serif;
     display: flex;
     gap: 20px;
     justify-content: flex-end;
@@ -44,9 +48,9 @@ export const DefaultTopBarStyles = `
       margin: 0 20px;
     }
   }
-  .auth-button {
+  .authbutton {
     align-self: stretch;
-    border-radius: 25px; /* Increased for curved borders */
+    border-radius: 20px; /* Increased for curved borders */
     height: 50px;
     width: 120px;
     text-align: center;
@@ -60,17 +64,17 @@ export const DefaultTopBarStyles = `
     transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     position: relative;
   }
-  .auth-button:focus {
+  .authbutton:focus {
     outline: 3px solid #4A90E2;
     outline-offset: 2px;
   }
-  .auth-button:focus:not(:focus-visible) {
+  .authbutton:focus:not(:focus-visible) {
     outline: none;
   }
-  .auth-button.pressed {
+  .authbutton.pressed {
     transform: scale(0.98);
   }
-  .auth-button:hover {
+  .authbutton:hover {
     transform: scale(1.05); /* Zoom effect on hover */
   }
   .signup {
@@ -86,12 +90,12 @@ export const DefaultTopBarStyles = `
     background-color: rgba(63, 162, 229, 1);
   }
   @media (prefers-reduced-motion: reduce) {
-    .auth-button {
+    .authbutton {
       transition: none;
     }
   }
   @media screen and (forced-colors: active) {
-    .auth-button {
+    .authbutton {
       border: 2px solid currentColor;
     }
   }

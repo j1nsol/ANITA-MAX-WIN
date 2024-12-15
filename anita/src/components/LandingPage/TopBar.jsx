@@ -34,7 +34,7 @@ export default function TopBar({ onSignUpClick, onSignInClick }) {
         />
         <nav className="auth-buttons" role="navigation" aria-label="Authentication navigation">
           <button
-            className={`auth-button signup ${isPressed ? "pressed" : ""}`}
+            className={`authbutton signup ${isPressed ? "pressed" : ""}`}
             onClick={onSignUpClick}
             onKeyDown={handleKeyDown}
             onKeyUp={(event) => handleKeyUp(event, onSignUpClick)}
@@ -45,7 +45,7 @@ export default function TopBar({ onSignUpClick, onSignInClick }) {
             Sign up
           </button>
           <button
-            className={`auth-button signin ${isPressed ? "pressed" : ""}`}
+            className={`authbutton signin ${isPressed ? "pressed" : ""}`}
             onClick={onSignInClick}
             onKeyDown={handleKeyDown}
             onKeyUp={(event) => handleKeyUp(event, onSignInClick)}

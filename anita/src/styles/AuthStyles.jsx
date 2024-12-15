@@ -89,7 +89,7 @@ export const AuthStyles = createGlobalStyle`
 .form-input {
   border-radius: 10px;
   height: 24px;
-  background-color: rgba(229, 231, 235, 1);
+  background-color: rgba(255, 255, 255, 1);
   color: rgba(128, 128, 128, 0.55);
   padding: 10px 20px; /* Padding for larger input fields */
   font: 800 18px 'PT Sans', sans-serif; /* Increased font size */
