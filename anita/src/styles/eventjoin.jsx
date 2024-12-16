@@ -1,14 +1,24 @@
 export const styles = `
-  .landing-page {
-    overflow-x: auto;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    padding: 180px 40px;
-  }
+.landing-page {
+  background-image: url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2F94366f3f193545d4af5c1417f6233266);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: fixed; /* Ensures it covers the full viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex; /* Enables flexbox for centering */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; /* Centers children horizontally */
+  justify-content: center; /* Centers children vertically */
+  padding: 40px; /* Optional: padding for spacing */
+  overflow: hidden; /* Ensures no overflow issues */
+  z-index: -1; /* Keeps it behind other content */
+}
+
+
   @media (max-width: 991px) {
     .landing-page {
       max-width: 100%;
@@ -23,7 +33,9 @@ export const styles = `
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    padding: 70px 87px;
+    margin-right: 75px;
+    margin-bottom: 85px;
+    padding: 45px 45px;
   }
   @media (max-width: 991px) {
     .event-frame {
