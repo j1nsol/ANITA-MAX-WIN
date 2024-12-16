@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { GameCard } from './Components/GameCard';
 import { LearningPlatformCard } from './Components/LearningPlatform';
 import { UserTopBar } from '../Topbar/UserTopBar';
+import Sidebar from '../Sidebar/Sidebar';
 
 const learningPlatforms = [
   { 
@@ -65,6 +66,7 @@ export function GamingPortal() {
   return (
     <body>
     <UserTopBar/>
+    <Sidebar/>
     
     <PortalWrapper>
       
