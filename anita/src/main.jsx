@@ -8,7 +8,6 @@ import Home from './Pages/Home.jsx';
 import { GamingPortal } from './components/GamePortal/GamePortal.jsx';
 import{VolunteerForm} from './Pages/eventjoin.jsx';
 import React from 'react';
-import Mines from './Pages/Games/Mines/Mines';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -18,9 +17,10 @@ import { Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { UserVerificationForm } from './Pages/UserVerify.jsx';
-
-import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
 import {EventForm} from './Pages/creatingevents.jsx';
+import Mines from './Pages/Games/Mines/Mines';
+import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
+import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
 
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
@@ -59,7 +59,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/games/hilo",
-    element: <HiloCardGame />,
+    element: (
+      <PrivateRoute>
+        <HiloCardGame />
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/games/slot",
+    element: (
+      <PrivateRoute>
+        <SlotMachine />
+      </PrivateRoute>
+    )
   },
   {
     path: "/games/mines",
