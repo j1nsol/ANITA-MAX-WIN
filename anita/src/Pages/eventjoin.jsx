@@ -40,7 +40,7 @@ export function VolunteerForm() {
       <div className="event-frame">
         <div className="content-wrapper">
           <section className="info-section">
-            <h1 className="title">TITLE HEADER</h1>
+            <h1 className="event-title">TITLE HEADER</h1>
             <h2 className="subtitle">Description</h2>
             <p className="description">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

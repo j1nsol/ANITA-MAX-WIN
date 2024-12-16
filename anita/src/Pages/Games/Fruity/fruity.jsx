@@ -64,6 +64,7 @@ const SlotMachine = () => {
   };
 
   return (
+    <body className='fruitybody'>
     <div className="slot-machine">
       <div className="slot-grid">
         <img className="title" src="image2/FRUIT.webp" alt="FRUIT Bonanza Logo" />
@@ -116,6 +117,7 @@ const SlotMachine = () => {
 
       <audio id="spin-sound" src="sounds/spinsound.mp3" preload="auto"></audio>
     </div>
+    </body>
   );
 };
 
