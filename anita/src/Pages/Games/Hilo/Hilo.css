@@ -33,6 +33,7 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 /* Left Container */
 .left-container {
     width: 250px; /* Adjust width as necessary */
@@ -40,11 +41,14 @@
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin-right: 20px; /* Adds space between the left and game containers */
+    position: fixed; /* Fix the position relative to the viewport */
+    top: 50px; /* Adjust the vertical position */
+    left: 100px; /* Set the horizontal position */
     display: flex;
     height: 70vh;
     flex-direction: column;
     gap: 10px; /* Space between the containers */
+    z-index: 10; /* Ensures it stays on top of other content */
 }
 
 /* Unified Bet Info and History Container */
@@ -69,6 +73,7 @@
     overflow-y: auto; /* Adds vertical scroll bar */
     overflow-x: hidden; /* Prevents horizontal scrolling */
 }
+
 /* Bet History Section */
 .bet-history {
     background-color: #EAE0D5;
@@ -117,10 +122,11 @@ p {
     font-weight: bold;
     margin: 0;
 }
-.settings-container{
-    background-color: #333;
 
+.settings-container {
+    background-color: #333;
 }
+
 h1 {
     font-size: 30px;
     margin-bottom: 25px;
@@ -135,8 +141,16 @@ h1 {
 }
 
 .card-container {
-    perspective: 1000px;
-    display: inline-block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+#current-card, #previous-card {
+    width: 200px; /* Adjust the size of the cards */
+    height: auto;
 }
 
 .card-flip {
@@ -201,11 +215,13 @@ h1 {
 }
 
 #lower {
-    left: 80px; /* Position to the left of the card layout */
+    position: absolute; /* Position relative to the card container */
+    left: -80px; /* Position to the left of the card layout */
 }
 
 #higher {
-    right: 80px; /* Position to the right of the card layout */
+    position: absolute; /* Position relative to the card container */
+    right: -80px; /* Position to the right of the card layout */
 }
 
 .betting-buttons {
@@ -325,9 +341,10 @@ h1 {
 }
 
 .mute-button img {
-        width: 30px; /* Set the size of the image */
-        height: auto;
-    }
+    width: 30px; /* Set the size of the image */
+    height: auto;
+}
+
 /* Main Menu Button */
 .main-button {
     padding: 10px 10px;
@@ -346,6 +363,7 @@ h1 {
     width: 30px; /* Set the size of the image */
     height: auto;
 }
+
 /* Dropdown Menu */
 .dropdown-menu {
     display: none; /* Hidden by default */
