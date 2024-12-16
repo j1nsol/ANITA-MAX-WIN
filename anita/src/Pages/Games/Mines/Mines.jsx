@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './MinesGame.css';
+<<<<<<< Updated upstream
 
 const MinesGame = () => {
   const [balance, setBalance] = useState(500); // Starting balance
@@ -9,10 +10,32 @@ const MinesGame = () => {
   const [totalMines, setTotalMines] = useState(5); // Number of mines
   const [cards, setCards] = useState([]); // Cards state (contains status like clicked, mined, etc.)
   const [gameOver, setGameOver] = useState(false); // Flag for game over state
+=======
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { UserTopBar } from '../../../components/Topbar/UserTopBar';
+import Sidebar  from '../../../components/Sidebar/Sidebar';
+import logo from './logo.svg';
+
+const MinesGame = () => {
+  const [token, setToken] = useState(0);
+  const [earned, setEarned] = useState(0);
+  const [gameActive, setGameActive] = useState(false);
+  const [minePositions, setMinePositions] = useState([]);
+  const [totalMines, setTotalMines] = useState(5);
+  const [betAmount, setBetAmount] = useState(10);
+  const [cards, setCards] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [revealedSafeCards, setRevealedSafeCards] = useState(0);
+  const [userId, setUserId] = useState(null);
+  const [overlayVisible, setOverlayVisible] = useState(false);
+>>>>>>> Stashed changes
 
   // Number of cards
   const totalCards = 25; // Fixed 5x5 grid
 
+<<<<<<< Updated upstream
   // Create cards based on the state
   const generateCards = () => {
     return Array(totalCards).fill(null).map(() => ({
@@ -22,6 +45,33 @@ const MinesGame = () => {
       content: '',
       style: {}
     }));
+=======
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        alert('Please sign in to play the game.');
+        setUserId(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const factorial = (n) => (n <= 1 ? 1 : n * factorial(n - 1));
+
+  const binomialCoefficient = (n, k) =>
+    factorial(n) / (factorial(k) * factorial(n - k));
+
+  const calculateMultiplier = () => {
+    if (totalMines <= 0 || totalMines >= totalCards) return 1;
+
+    const baseMultiplier = 0.1 + totalMines / (totalCards - totalMines);
+    const riskFactor = 1 + revealedSafeCards * 0.05;
+
+    return baseMultiplier * riskFactor;
+>>>>>>> Stashed changes
   };
 
   // Function to generate random mine positions
@@ -40,15 +90,31 @@ const MinesGame = () => {
       alert("Please click the start button to begin the game.");
       return;
     }
+    if (cards[index].clicked) {
+      alert('This card has already been clicked.');
+      return;
+    }
 
     if (minePositions.includes(index)) {
       // If it's a mine, end the game and display the result
       const newCards = [...cards];
       newCards[index] = { ...newCards[index], clicked: true, mined: true, content: '💣', style: { backgroundColor: 'red' } };
       setCards(newCards);
+<<<<<<< Updated upstream
       setGameOver(true); // Set game over state
       setGameActive(false); // End the game
       setEarned(0); // Reset earned balance since the player clicked on a mine
+=======
+      setGameOver(true);
+      setGameActive(false);
+      setEarned(0);
+
+      setOverlayVisible(true);
+      setTimeout(() => {
+        setOverlayVisible(false);
+        resetGame();
+      }, 1000); 
+>>>>>>> Stashed changes
     } else {
       // Otherwise, mark the card as clicked and update earned amount
       const newCards = [...cards];
@@ -120,6 +186,7 @@ const MinesGame = () => {
   }, [gameOver]);
 
   return (
+<<<<<<< Updated upstream
     <div>
       <div id="sidebar">
         <h3>Set Number of Mines</h3>
@@ -149,23 +216,73 @@ const MinesGame = () => {
           <img src="assets/image/logo.svg" alt="MINES LOGO" />
         </div>
         <div className="card-container">
+=======
+    <body className='mines-body'>
+      <UserTopBar />
+      <Sidebar />
+      <div className='mines-logo-container'>
+        <img className="mines-logo" src={logo} alt="logo" />
+      </div>
+      <div className="mines-game-container">
+        <div className="mines-sidebar">
+          <h3>Set Number of Mines</h3>
+          <div>
+            <input
+              type="number"
+              min="1"
+              max="25"
+              value={totalMines}
+              onChange={(e) => setTotalMines(parseInt(e.target.value))}
+            />
+            <p>Number of Mines</p>
+            <input
+              type="number"
+              min="1"
+              max={token}
+              value={betAmount}
+              onChange={(e) => setBetAmount(parseInt(e.target.value))}
+            />
+            <p>Bet Amount</p>
+          </div>
+          <button className="mines-start-btn" onClick={startGame}>
+            Start Game
+          </button>
+          <button className="mines-cashout-btn" onClick={cashOut} disabled={!gameActive}>
+            Cash Out
+          </button>
+          <div className="mines-balance-container">
+            <p>Current Tokens: <span>{token.toFixed(2)}</span></p>
+            <p>Amount Earned: <span>{earned.toFixed(2)}</span></p>
+          </div>
+        </div>
+        <div className="mines-card-container">
+>>>>>>> Stashed changes
           {cards.map((card, index) => (
             <div
               key={index}
-              className={`card ${card.clicked ? (card.mined ? 'mine' : 'safe') : ''}`}
+              className={`mines-card ${card.clicked ? (card.mined ? 'mine' : 'safe') : ''}`}
               style={card.style}
               onClick={() => handleCardClick(index)}
             >
-              {card.clicked && card.content}
+              {card.clicked && (card.mined ? '💣' : '💎')}
             </div>
           ))}
         </div>
       </div>
+<<<<<<< Updated upstream
       <div id="overlay" style={{ display: gameOver ? 'flex' : 'none' }}>
         <div id="overlay-message">Game Over! You clicked a mine.</div>
         <button onClick={resetGame}>Restart Game</button>
       </div>
     </div>
+=======
+      {overlayVisible && (
+        <div className="mines-overlay">
+          <div className="mines-overlay-message">Game Over! You clicked a mine.</div>
+        </div>
+      )}
+    </body>
+>>>>>>> Stashed changes
   );
 };
 

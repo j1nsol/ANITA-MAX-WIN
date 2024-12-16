@@ -14,7 +14,26 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
+<<<<<<< Updated upstream
 import GamePage from './Pages/GamePage.jsx';
+=======
+import { Navigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+import { UserVerificationForm } from './Pages/UserVerify.jsx';
+import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
+import {EventForm} from './Pages/creatingevents.jsx';
+
+export function PrivateRoute({ children }) {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return user ? children : <Navigate to="/" />;
+}
+>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
