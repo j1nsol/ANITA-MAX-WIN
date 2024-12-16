@@ -189,6 +189,9 @@ export const EventsGlobalStyles = createGlobalStyle`
     flex-grow: 1;
     width: 572px;
     padding: 22px 30px 43px;
+    
+    height: 430px;
+    font: 500 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   }
 
   .event-header {
@@ -206,6 +209,7 @@ export const EventsGlobalStyles = createGlobalStyle`
     font-weight: 700;
     color: rgba(34, 51, 58, 1);
     margin: 0;
+    font: 500 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   }
 
   .event-organizer {
