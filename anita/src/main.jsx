@@ -98,7 +98,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/createevents",
+    path: "/events/create",
     element: (
       <PrivateRoute>
         <EventForm />

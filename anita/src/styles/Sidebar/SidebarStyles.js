@@ -114,6 +114,12 @@ export const sidebarStyles = `
       margin-right: auto;
     }
   }
+     .html, body {
+  margin: 0px;
+  padding: 0px;
+  display: flow;
+  overflow-x: hidden;
+}
 
   @media (forced-colors: active) {
     .sidebar {

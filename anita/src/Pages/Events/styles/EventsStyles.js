@@ -225,7 +225,7 @@ border-radius: 10px;
   .event-image {
     height: 100px;
 object-fit: cover;
-position: fixed;
+position: relative;
 border-radius: 10px;
 width: 400px;
   }

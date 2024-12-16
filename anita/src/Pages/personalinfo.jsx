@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { UserTopBar } from '../components/Topbar/UserTopBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 const PersonalInfoContainer = styled.main`
   background-color: rgba(57, 153, 218, 1);
@@ -9,6 +11,7 @@ const PersonalInfoContainer = styled.main`
   overflow: hidden;
   justify-content: start;
   min-height: 100vh;
+  margin-top:80px;
 `;
 
 const ContentWrapper = styled.div`
@@ -380,7 +383,10 @@ export const PersonalInformationForm = () => {
   };
 
   return (
+    
     <PersonalInfoContainer>
+      <UserTopBar/>
+      <Sidebar/>
       <ContentWrapper>
         <InfoCard>
           <MainContent>
