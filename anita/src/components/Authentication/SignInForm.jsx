@@ -30,7 +30,7 @@ export function SignInForm() {
         formData.password
       );
       console.log("User signed in:", userCredential.user);
-      navigate("/home");
+      navigate("/games");
     } catch (err) {
       console.error("Error signing in:", err);
       setError("Invalid username or password.");
