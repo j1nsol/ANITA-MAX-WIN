@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Your Firebase config
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { styles } from '../styles/eventjoin';
 import { useParams } from 'react-router-dom';
+import { getAuth } from "firebase/auth";
+import Sidebar from '../components/Sidebar/Sidebar';
+import { UserTopBar } from '../components/Topbar/UserTopBar';
 
 export function VolunteerForm() {
-  const { useruid, eventuid } = useParams();  // Extract useruid and eventuid from URL params
-
+  const { useruid, eventuid } = useParams();
   const [formData, setFormData] = useState({
     fullName: '',
-    address: '',
     volunteerReason: '',
-    coverLetter: null,
   });
-
-  const [selectedFile, setSelectedFile] = useState('no file selected');
-  const [eventDetails, setEventDetails] = useState(null); // State to hold event details
+  const [eventDetails, setEventDetails] = useState(null);
 
   useEffect(() => {
-    // Fetch event details when the component loads
     const fetchEventDetails = async () => {
       try {
-        const eventRef = doc(db, "Events", useruid, "HandledEvents", eventuid); // Construct correct Firestore reference
+        const eventRef = doc(db, "Events", useruid, "HandledEvents", eventuid);
         const eventSnap = await getDoc(eventRef);
 
         if (eventSnap.exists()) {
-          setEventDetails(eventSnap.data()); // Set event details to state
+          setEventDetails(eventSnap.data());
         } else {
           console.error("No such event!");
         }
@@ -35,39 +32,62 @@ export function VolunteerForm() {
     };
 
     fetchEventDetails();
-  }, [useruid, eventuid]); // Re-fetch when useruid or eventuid changes
+  }, [useruid, eventuid]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file.name);
-      setFormData(prev => ({
-        ...prev,
-        coverLetter: file,
-      }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error("User not authenticated.");
+      }
+
+      // Fetch username from Firestore
+      const userRef = doc(db, "User", currentUser.uid);
+      const userSnap = await getDoc(userRef);
+      if (!userSnap.exists()) {
+        throw new Error("User data not found.");
+      }
+      const username = userSnap.data().username;
+
+      // Create a new Volunteer entry
+      const volunteerRef = doc(db, "Events", useruid, "HandledEvents", eventuid, "Volunteers", currentUser.uid);
+      await setDoc(volunteerRef, {
+        fullName: formData.fullName,
+        volunteerReason: formData.volunteerReason,
+        username: username,
+        approved: false, // Optional: default fields
+        attended: false, // Optional: default fields
+        rewarded: false, // Optional: default fields
+      });
+
+      console.log("Volunteer added successfully!");
+      alert("You have successfully joined the event!");
+      setFormData({ fullName: '', volunteerReason: '' }); // Reset form
+    } catch (error) {
+      console.error("Error submitting volunteer form:", error.message);
+      alert("An error occurred. Please try again.");
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // You would send the form data to Firebase here or to your backend
-  };
-
   if (!eventDetails) {
-    return <p>Loading event details...</p>; // Show a loading state until event data is fetched
+    return <p>Loading event details...</p>;
   }
 
   return (
     <form className="landing-page" onSubmit={handleSubmit}>
+      <Sidebar />
+      <UserTopBar />
       <div className="event-frame">
         <div className="content-wrapper">
           <section className="info-section">
@@ -90,21 +110,6 @@ export function VolunteerForm() {
                 placeholder="Name"
                 className="text-input"
                 aria-label="Full Name"
-                required
-              />
-            </div>
-
-            <div className="input-group" style={{ marginTop: '20px' }}>
-              <label htmlFor="address" className="input-label">Address</label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                placeholder="Address"
-                className="text-input"
-                aria-label="Address"
                 required
               />
             </div>
@@ -148,3 +153,5 @@ export function VolunteerForm() {
     </form>
   );
 }
+
+export default VolunteerForm;
