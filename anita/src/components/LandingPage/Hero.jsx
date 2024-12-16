@@ -10,7 +10,7 @@ export default function Hero() {
         Anita Maxwin offers open-site betting that guarantees a worry-free, exciting experience for all players. Anita Maxwin ensures you enjoy every moment.
         </p>
         <button 
-          className="cta-button"
+          className="ctaButton"
           onClick={() => {}}
           tabIndex={0}
           aria-label="Join the Community"
@@ -32,7 +32,7 @@ export default function Hero() {
         .subheading {
           ${styles.subheading}
         }
-        .cta-button {
+        .ctaButton {
           ${styles.ctaButton}
         }
       `}</style>

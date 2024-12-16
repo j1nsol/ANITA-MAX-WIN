@@ -63,12 +63,5 @@ export const styles = {
     padding: 0 20px;
   }
 `
-.html, body:`
-  margin: 0px;
-  padding: 0px;
-  display: flow;
-  overflow-x: hidden;
-}
-  `
 
 };
