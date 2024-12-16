@@ -1,4 +1,4 @@
-body {
+/*body {
     font-family: Arial, sans-serif;
     background: url('images/back.png') no-repeat center center fixed;
     color: #060607;
@@ -6,10 +6,11 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: flex-start; /* Aligns the containers at the top */
-    height: 100vh; /* Ensures the body takes full viewport height */
-}
+    justify-content: center; 
+    align-items: flex-start;
+    height: 100vh; Ensures the body takes full viewport height */
+/*}
+
 
 /* Container for both left and game containers */
 .container {
