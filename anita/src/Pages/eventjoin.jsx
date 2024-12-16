@@ -130,30 +130,6 @@ export function VolunteerForm() {
                 </div>
               </div>
             </div>
-
-            <div className="upload-section">
-              <label htmlFor="coverLetter" className="upload-button">
-                <div className="button-content">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/769cd7cf42662e2fb46384a9c650673d58c982374780a494029c10a3f728bcbb?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                    className="button-icon"
-                    alt=""
-                  />
-                  <span className="button-text">Upload cover letter</span>
-                </div>
-              </label>
-              <input
-                type="file"
-                id="coverLetter"
-                onChange={handleFileUpload}
-                className="visually-hidden"
-                accept=".pdf,.doc,.docx"
-                aria-label="Upload cover letter"
-              />
-              <div className="file-status">{selectedFile}</div>
-            </div>
-
             <button type="submit" className="join-button">
               <div className="join-button-content">
                 <img

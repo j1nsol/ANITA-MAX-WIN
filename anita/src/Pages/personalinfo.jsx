@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { UserTopBar } from '../components/Topbar/UserTopBar';
-import Sidebar from '../components/Sidebar/Sidebar';
+
 
 const PersonalInfoContainer = styled.main`
   background-color: rgba(57, 153, 218, 1);
@@ -246,11 +245,11 @@ const Checkbox = styled.input`
 
 const SaveButtonContainer = styled.div`
   display: flex;
-  justify-content: center; /* Center the button horizontally */
+  justify-content: center;
 `;
 
 const SubmitButton = styled.button`
-  background: var(--Secondary_2, #868a88);
+  background: rgba(34, 51, 58, 1);
   border-radius: 5px;
   color: var(--Primary-scale-100, #fffbff);
   font: 700 20px PT Sans, sans-serif;
@@ -263,7 +262,7 @@ const SubmitButton = styled.button`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #6f7371;
+    background-color: rgba(34, 51, 58, 1);
   }
 
   &:focus {
@@ -296,6 +295,11 @@ const FileUploadLabel = styled.label`
     outline-offset: 2px;
   }
 `;
+// Firebase Authentication
+import { doc, setDoc } from 'firebase/firestore'; // Firestore
+import { auth, db } from '../firebase';
+import { UserTopBar } from '../components/Topbar/UserTopBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 export const PersonalInformationForm = () => {
   const [formData, setFormData] = useState({
@@ -317,15 +321,33 @@ export const PersonalInformationForm = () => {
   });
 
   const handleInputChange = (e) => {
-    const { name, type, value, checked, files } = e.target;
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : 
-              type === 'file' ? files : 
-              type === 'select-multiple' ? Array.from(e.target.selectedOptions, option => option.value) :
-              value
-    }));
+    const { name, type, value, checked, files, multiple } = e.target;
+  
+    // Handle different input types
+    if (type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: checked
+      }));
+    } else if (type === 'file') {
+      // Handle file input (for profileImage and certifications)
+      setFormData(prev => ({
+        ...prev,
+        [name]: files ? files : null
+      }));
+    } else if (multiple && e.target.selectedOptions) {
+      // Handle multiple select inputs
+      setFormData(prev => ({
+        ...prev,
+        [name]: Array.from(e.target.selectedOptions, option => option.value)
+      }));
+    } else {
+      // Handle regular text inputs
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleImageUpload = (e) => {
@@ -344,44 +366,43 @@ export const PersonalInformationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const isValid = e.target.checkValidity();
-    if (!isValid) {
-      return;
-    }
-
+  
     try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        if (value instanceof FileList) {
-          Array.from(value).forEach(file => {
-            formDataToSend.append(key, file);
-          });
-        } else if (Array.isArray(value)) {
-          formDataToSend.append(key, JSON.stringify(value));
-        } else if (value instanceof File) {
-          formDataToSend.append(key, value);
-        } else {
-          formDataToSend.append(key, value);
-        }
-      });
-
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
-        body: formDataToSend
-      });
-
-      if (!response.ok) {
-        throw new Error('Form submission failed');
-      }
-
-      alert('Form submitted successfully!');
+      const userUid = auth.currentUser?.uid;
+      if (!userUid) throw new Error('User is not authenticated');
+  
+      // Prepare form data
+      const userData = {
+        firstName: formData.firstName,
+        phone: formData.phone,
+        email: formData.email,
+        address: formData.address,
+        emergencyName: formData.emergencyName,
+        emergencyRelationship: formData.emergencyRelationship,
+        emergencyPhone: formData.emergencyPhone,
+        volunteerRoles: formData.volunteerRoles,
+        skills: formData.skills,
+        experience: formData.experience,
+        certifications: formData.certifications 
+          ? Array.from(formData.certifications, file => file.name) 
+          : null, // Store file names only
+        compliance: formData.compliance,
+        guidelines: formData.guidelines,
+        terms: formData.terms,
+        profileImage: formData.profileImage ? formData.profileImage.name : null, // Store file name only
+      };
+  
+      // Save user data to Firestore
+      const userDocRef = doc(db, 'User', userUid);
+      await setDoc(userDocRef, userData, { merge: true });
+  
+      alert('Form submitted and user data saved successfully!');
     } catch (error) {
-      alert('Error submitting form. Please try again.');
-      console.error('Form submission error:', error);
+      console.error('Error submitting form:', error);
+      alert('An error occurred while submitting the form. Please try again.');
     }
   };
-
+  
   return (
     
     <PersonalInfoContainer>
@@ -437,8 +458,7 @@ export const PersonalInformationForm = () => {
                     value={formData.firstName}
                     onChange={handleInputChange}
                     placeholder="First Name, Last Name, M.I"
-                    required
-                    aria-required="true"
+ 
                   />
                 </FieldGroup>
 
@@ -451,8 +471,7 @@ export const PersonalInformationForm = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="Phone Number"
-                    required
-                    aria-required="true"
+
                     pattern="[0-9]{10}"
                   />
                 </FieldGroup>
@@ -466,8 +485,7 @@ export const PersonalInformationForm = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Email Address"
-                    required
-                    aria-required="true"
+
                   />
                 </FieldGroup>
 
@@ -480,8 +498,7 @@ export const PersonalInformationForm = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="Full Address"
-                    required
-                    aria-required="true"
+
                   />
                 </FieldGroup>
 
@@ -494,8 +511,7 @@ export const PersonalInformationForm = () => {
                     value={formData.emergencyName}
                     onChange={handleInputChange}
                     placeholder="Name"
-                    required
-                    aria-required="true"
+
                   />
                   <InputField
                     type="text"
@@ -504,8 +520,7 @@ export const PersonalInformationForm = () => {
                     value={formData.emergencyRelationship}
                     onChange={handleInputChange}
                     placeholder="Relationship"
-                    required
-                    aria-required="true"
+
                     style={{ marginTop: '8px' }}
                   />
                   <InputField
@@ -515,30 +530,9 @@ export const PersonalInformationForm = () => {
                     value={formData.emergencyPhone}
                     onChange={handleInputChange}
                     placeholder="Contact Number"
-                    required
-                    aria-required="true"
                     pattern="[0-9]{10}"
                     style={{ marginTop: '8px' }}
                   />
-                </FieldGroup>
-
-                <FieldGroup>
-                  <FieldLabel htmlFor="volunteerRoles">Volunteer Role Preference</FieldLabel>
-                  <Select
-                    id="volunteerRoles"
-                    name="volunteerRoles"
-                    value={formData.volunteerRoles}
-                    onChange={handleInputChange}
-                    required
-                    aria-required="true"
-                    multiple
-                  >
-                    <option value="eventSupport">Event Support</option>
-                    <option value="administration">Administration</option>
-                    <option value="teaching">Teaching</option>
-                    <option value="mentoring">Mentoring</option>
-                    <option value="fundraising">Fundraising</option>
-                  </Select>
                 </FieldGroup>
 
                 <FieldGroup>
@@ -549,8 +543,7 @@ export const PersonalInformationForm = () => {
                     value={formData.skills}
                     onChange={handleInputChange}
                     placeholder="Relevant skills (e.g., customer service, language proficiency)"
-                    required
-                    aria-required="true"
+
                   />
                   <TextArea
                     id="experience"
@@ -563,30 +556,6 @@ export const PersonalInformationForm = () => {
                 </FieldGroup>
 
                 <FieldGroup>
-                  <FieldLabel htmlFor="certifications">Certifications</FieldLabel>
-                  <FileUploadLabel htmlFor="certifications">
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/13e7959447b5e987dfba9e000be189cc442142966a6fe41a8b0b10bf00bf1ea2?placeholderIfAbsent=true&apiKey=2293eafdf370425385c2452d5e99005b"
-                      alt="Upload icon"
-                      style={{ width: '24px', height: '24px' }}
-                    />
-                    <div style={{ marginTop: '10px' }}>
-                      Click to upload or drag and drop
-                    </div>
-                    <input
-                      type="file"
-                      id="certifications"
-                      name="certifications"
-                      onChange={handleInputChange}
-                      accept=".pdf,.doc,.docx"
-                      multiple
-                      style={{ display: 'none' }}
-                      aria-label="Upload certifications"
-                    />
-                  </FileUploadLabel>
-                </FieldGroup>
-
-                <FieldGroup>
                   <CheckboxGroup>
                     <Checkbox
                       type="checkbox"
@@ -594,8 +563,7 @@ export const PersonalInformationForm = () => {
                       name="compliance"
                       checked={formData.compliance}
                       onChange={handleInputChange}
-                      required
-                      aria-required="true"
+
                     />
                     <FieldLabel htmlFor="compliance">
                       Will you ensure compliance with local laws and regulations?
@@ -609,8 +577,7 @@ export const PersonalInformationForm = () => {
                       name="guidelines"
                       checked={formData.guidelines}
                       onChange={handleInputChange}
-                      required
-                      aria-required="true"
+
                     />
                     <FieldLabel htmlFor="guidelines">
                       Acknowledgment of guidelines and policies
@@ -624,8 +591,6 @@ export const PersonalInformationForm = () => {
                       name="terms"
                       checked={formData.terms}
                       onChange={handleInputChange}
-                      required
-                      aria-required="true"
                     />
                     <FieldLabel htmlFor="terms">
                       Agreement to adhere to the terms of the application
@@ -635,7 +600,7 @@ export const PersonalInformationForm = () => {
                 <SaveButtonContainer>
                   <SubmitButton 
                     type="submit"
-                    disabled={!formData.compliance || !formData.guidelines || !formData.terms}
+                    
                   >
                     Save
                   </SubmitButton>
