@@ -96,6 +96,8 @@ export const EventFormStyles = createGlobalStyle`
     flex-direction: column;
     font-weight: 600;
     width: 399px;
+    margin: auto 0px auto 0px;
+    overflow: hidden;
   }
 
   .upload-container {
@@ -107,17 +109,28 @@ export const EventFormStyles = createGlobalStyle`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 55px 73px;
     border: 1px dashed rgba(117, 117, 117, 1);
+    margin
+      width: 200px; /* Adjust width as needed */
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover;
   }
+
+  .uploaded-image-preview {
+  width: 100%;
+  height: 100%; /* Ensures it scales to the container dimensions */
+  object-fit: fit; /* Maintains the aspect ratio and fits the image inside */
+  border-radius: 5px; /* Optional: Rounds the corners */
+  background-color: #f5f5f5; /* Optional: Adds a background color for contrast */
+}
 
   .upload-content {
     border-radius: 5px;
     display: flex;
     max-width: 100%;
-    width: 233px;
     gap: 3px;
     cursor: pointer;
+    object-fit: cover;
   }
 
   .upload-prompt {
