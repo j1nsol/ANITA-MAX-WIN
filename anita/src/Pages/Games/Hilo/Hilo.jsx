@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../../../firebase"; // Adjust the path to your firebase.js
 import './Hilo.css';
+import Sidebar from '../../../components/Sidebar/Sidebar';
+import { UserTopBar } from '../../../components/Topbar/UserTopBar';
+import { updateDoc } from 'firebase/firestore';
+
 
 // Import the images
 import cardBack from './images/back.png';
@@ -26,6 +33,7 @@ import card13 from './images/13.png';
 import winSound from './audio/win.mp3';
 import loseSound from './audio/lose.mp3';
 import backgroundMusic from './audio/background.mp3';
+import TopBar from '../../../components/LandingPage/TopBar';
 
 const cardImages = {
   1: card1,
@@ -51,7 +59,8 @@ const HiLoGame = () => {
   const [message, setMessage] = useState('');
   const [betHistory, setBetHistory] = useState([]);
   const [musicPlaying, setMusicPlaying] = useState(true);
-
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const playMusic = () => {
     if (musicPlaying) {
       document.getElementById('background-music').play();
@@ -62,6 +71,45 @@ const HiLoGame = () => {
 
   const toggleMute = () => {
     setMusicPlaying(!musicPlaying);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setBalance(userData.token || 1000);
+          setUser(currentUser);
+        } else {
+          setBalance(1000);
+        }
+      } else {
+        setUser(null);
+        setBalance(1000);
+      }
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const fetchUserBalance = async (uid) => {
+    try {
+      const userDoc = doc(db, "User", uid); // Replace "users" with your collection name
+      const docSnap = await getDoc(userDoc);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setBalance(data.token || 0); // Assuming the token field is named "token"
+      } else {
+        console.error("No such document!");
+        setMessage("User data not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
 
   const updateCardImage = (cardValue, isCurrent = true) => {
@@ -86,39 +134,45 @@ const HiLoGame = () => {
     const currentDate = new Date().toLocaleString();
     setBetHistory([
       ...betHistory,
-      { date: currentDate, bet: betAmount, result, balance: balance },
+      { date: currentDate, bet: betAmount, result, token: token },
     ]);
   };
 
   const handleGuess = (guess) => {
     if (betAmount <= 0) {
-      setMessage("Please place a bet first.");
+      setMessage("Please select a valid bet amount before making a guess.");
       return;
     }
-
+  
+    if (betAmount > token) {
+      setMessage("Insufficient balance! Adjust your bet.");
+      return;
+    }
+  
     const nextCard = getNextCard();
     const correct =
       (guess === 'higher' && nextCard > currentCard) ||
       (guess === 'lower' && nextCard < currentCard);
-
+  
+    // Deduct the bet from balance
+    setBalance((prevBalance) => prevBalance - betAmount);
+  
     updateCardImage(currentCard, false);
     setCurrentCard(nextCard);
     updateCardImage(nextCard, true);
-
+  
     if (correct) {
       const winnings = betAmount * 2;
       updateBalanceAndWins(winnings, 0);
       setMessage(`Correct! You won $${winnings}.`);
       addBetToHistory(betAmount, "Win");
-      document.getElementById('win-sound').play();  // Play win sound
+      document.getElementById('win-sound').play(); // Play win sound
     } else {
       updateBalanceAndWins(0, betAmount);
       setMessage(`Wrong! You lost $${betAmount}.`);
       addBetToHistory(betAmount, "Lose");
       document.getElementById('lose-sound').play(); // Play lose sound
     }
-
-    setBetAmount(0); // Reset betAmount after a round
   };
 
   const handleSkip = () => {
@@ -130,7 +184,7 @@ const HiLoGame = () => {
   };
 
   const placeBet = (selectedBetAmount) => {
-    if (balance <= 0) {
+    if (token <= 0) {
       setMessage("Out of balance! You cannot place any bets.");
       return;
     }
@@ -140,7 +194,7 @@ const HiLoGame = () => {
       return;
     }
 
-    if (selectedBetAmount > balance) {
+    if (selectedBetAmount > token) {
       setMessage("Insufficient balance! You cannot bet more than your current balance.");
       return;
     }
@@ -155,6 +209,9 @@ const HiLoGame = () => {
   }, [musicPlaying]);
 
   return (
+    <body className="hilobody">
+          <Sidebar/>
+          <UserTopBar/>
     <div className="container">
       <div className="left-container">
         <div className="bet-info-container">
@@ -180,22 +237,21 @@ const HiLoGame = () => {
         </div>
 
         <div className="betting-container">
-          <p>Place Your Bet:</p>
-          <select onChange={(e) => placeBet(parseInt(e.target.value, 10))}>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-            <option value="60">60</option>
-            <option value="70">70</option>
-            <option value="80">80</option>
-            <option value="90">90</option>
-            <option value="100">100</option>
-          </select>
-          <button onClick={() => placeBet(betAmount)}>Place Bet</button>
-          <p>{message}</p>
-        </div>
+  <p>Select Your Bet:</p>
+  <select onChange={(e) => setBetAmount(parseInt(e.target.value, 10))}>
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+    <option value="60">60</option>
+    <option value="70">70</option>
+    <option value="80">80</option>
+    <option value="90">90</option>
+    <option value="100">100</option>
+  </select>
+  <p>{message}</p>
+</div>
 
         <div className="setting-container">
           <button id="menu-button" className="main-button">
@@ -236,6 +292,7 @@ const HiLoGame = () => {
         <audio id="background-music" src={backgroundMusic} preload="auto" loop></audio>
       </div>
     </div>
+    </body>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UserTopBarStyles } from "../../styles/TopBar/UserTopBar";
 import { auth, db } from "../../firebase"; // Update the path based on your project structure
 import { doc, getDoc } from "firebase/firestore";
-
+import { useNavigate } from 'react-router-dom';
 export function UserTopBar() {
   const [username, setUsername] = useState("Loading...");
   const [token, setToken] = useState(0.0); // Assuming balance is fetched similarly
@@ -37,11 +37,12 @@ export function UserTopBar() {
     setIsSigningOut(true);
     try {
       await auth.signOut();
-      // Redirect to login or handle post-signout logic
+      Navigate("/login");
     } catch (error) {
       console.error("Sign out failed:", error);
     } finally {
       setIsSigningOut(false);
+      Navigate("/login");
     }
   };
 

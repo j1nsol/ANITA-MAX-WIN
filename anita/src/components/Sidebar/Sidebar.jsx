@@ -81,6 +81,8 @@ export default function Sidebar() {
           max-width: 100px;
           z-index: 1500;
           flex-direction: column; 
+          left: 0;
+          top:0;
          
         }
         .sidebar-top {

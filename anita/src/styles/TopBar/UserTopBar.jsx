@@ -7,6 +7,7 @@ export const UserTopBarStyles = `
     width: 100%;
     position: fixed;
     z-index:1000;
+    top: 0;
   }
   
   .navigation-container {

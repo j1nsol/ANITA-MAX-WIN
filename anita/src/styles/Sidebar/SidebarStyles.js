@@ -42,6 +42,8 @@ export const sidebarStyles = `
     min-width: 114px;
     position: fixed;
     z-index: 1500;
+    left: 0;
+    top: 0;
   }
 
   .sidebar-content {
