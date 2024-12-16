@@ -28,14 +28,14 @@ const games = [
     playerCount: '318', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/2d5a631c6a4369a2665d633b6215dd7b3d0474f11367fed39274471662a1ae2c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&',
     backgroundGradient: 'linear-gradient(to top, #FF5E3E, #F89186, #FFCCCC)', // Three-color gradient
-    link : 'https://www.facebook.com/xyyjz'
+    link : '/games/hilo'
   },
   { 
     title: 'Fruity Bonanza', 
     playerCount: '394', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/9a76b988264afa59a85ed540c8b3a798c741732475359e2b1b2626ebddffb276?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', 
     backgroundGradient: 'linear-gradient(to top, #3EC8FF, #9CDBFF, #CCF6FF)', // Three-color gradient
-    link : 'https://www.facebook.com/stories/1984544804896915/UzpfSVNDOjI2NzkzMDQzNDIyNzk5MzU=/?bucket_count=9&source=story_tray'
+    link : '/games/slot'
   },
   { 
     title: 'Chess', 
