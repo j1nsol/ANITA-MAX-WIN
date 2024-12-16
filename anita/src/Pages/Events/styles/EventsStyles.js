@@ -1,14 +1,20 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const EventsGlobalStyles = createGlobalStyle`
-  .events {
-    background-color: rgba(57, 153, 218, 1);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    align-items: center;
-    justify-content: start;
-  }
+ .events {
+  background-image: url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2F94366f3f193545d4af5c1417f6233266);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* Ensures the image covers the entire screen */
+  width: 100vw; /* Sets width to the full viewport width */
+  height: 100vh; /* Sets height to the full viewport height */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  justify-content: start;
+}
+
 
   .landing-container {
     display: flex;
