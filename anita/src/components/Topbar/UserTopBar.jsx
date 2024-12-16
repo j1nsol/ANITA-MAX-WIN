@@ -58,7 +58,7 @@ export function UserTopBar() {
                 className="navigation-logo-primary"
                 alt="Primary company logo"
                 width="102"
-                height="88"
+                height="75"
               />
               <img
                 loading="lazy"
@@ -66,7 +66,7 @@ export function UserTopBar() {
                 className="navigation-logo-secondary"
                 alt="Secondary company logo"
                 width="199"
-                height="70"
+                height="75"
               />
             </div>
             <div className="navigation-user">
@@ -78,7 +78,7 @@ export function UserTopBar() {
                     className="navigation-profile-image"
                     alt="User profile picture"
                     width="89"
-                    height="89"
+                    height="80"
                   />
                   <div className="navigation-username" aria-label="Username">
                     {username}

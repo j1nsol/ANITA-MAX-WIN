@@ -114,7 +114,7 @@ export const SignInStyle = `
   background-color: rgba(53, 152, 219, 1);
   margin-top: 20px;
   height: 48px; /* Keep the submit button height as 48px */
-  width: 100%;
+  width: 95%;
   color: rgba(255, 255, 255, 0.9);
   font: 600 18px "PT Sans", sans-serif; /* Applied PT Sans font */
   border: none;

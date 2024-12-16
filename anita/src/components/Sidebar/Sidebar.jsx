@@ -1,26 +1,33 @@
 import * as React from "react";
 
 const imageData = [
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Navigation icon" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Settings icon" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Profile icon" }
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Navigation icon", detail: "Navigate to the dashboard" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Settings icon", detail: "Configure your settings" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Profile icon", detail: "View your profile" }
 ];
 
 const otherIconsData = [
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Help icon" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Support icon" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/142447c3128af8b4fa7c29fe0e5cc4db3c108f015d07b06b897cf277b5029ced?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Notifications icon" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bf6b8b5b94cb1452b3f324c68cfd38d28d9ecb575ee00ef2fb7b02e3b01e6b3b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Messages icon" }
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
+     alt: "Help icon" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
+    alt: "Support icon" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/142447c3128af8b4fa7c29fe0e5cc4db3c108f015d07b06b897cf277b5029ced?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
+    alt: "Notifications icon" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bf6b8b5b94cb1452b3f324c68cfd38d28d9ecb575ee00ef2fb7b02e3b01e6b3b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
+    alt: "Messages icon" }
 ];
 
-export function SidebarImage({ src, alt, className }) {
+export function SidebarImage({ src, alt, className, detail }) {
   return (
-    <img
-      loading="lazy"
-      src={src}
-      alt={alt}
-      className={className}
-    />
+    <div className="sidebar-image-container">
+      <img
+        loading="lazy"
+        src={src}
+        alt={alt}
+        className={className}
+      />
+      {detail && <div className="tooltip">{detail}</div>}
+    </div>
   );
 }
 
@@ -49,6 +56,7 @@ export default function Sidebar() {
             src={img.src}
             alt={img.alt}
             className="sidebar-icon"
+            detail={img.detail}
           />
         ))}
         <IconsContainer className="sidebar-event-container">
@@ -62,6 +70,7 @@ export default function Sidebar() {
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6830a173d7bbccabbe885bd76cfa28aa8e775e89213385f18478bc22e52fcc54?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
           alt="Calendar icon"
           className="sidebar-icon"
+          detail="Check calendar"
         />
         <IconsContainer className="sidebar-other-container">
           {otherIconsData.map((icon, index) => (
@@ -70,6 +79,7 @@ export default function Sidebar() {
               src={icon.src}
               alt={icon.alt}
               className="sidebar-other-icon"
+              detail={icon.detail}
             />
           ))}
         </IconsContainer>
@@ -83,7 +93,6 @@ export default function Sidebar() {
           flex-direction: column; 
           left: 0;
           top:0;
-         
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);
@@ -111,7 +120,7 @@ export default function Sidebar() {
           height: 100vh;
           align-items: center;
         }
-        .sidebar-icon {
+        .sidebar-icon, .sidebar-event-container, .sidebar-other-icon {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
@@ -124,21 +133,12 @@ export default function Sidebar() {
           gap: 10px;
           flex-shrink: 0;
           margin-top: 6px;
+          transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .sidebar-event-container {
-          border-radius: 10px;
-          background-color: rgba(201, 202, 203, 1);
-          display: flex;
-          width: 50px;
-          height: 50px;
-          padding: 5px 5px;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
-          flex-shrink: 0;
-          margin-top: 6px;
-          
+        .sidebar-icon:hover, .sidebar-event-container:hover, .sidebar-other-icon:hover {
+          transform: scale(1.1);
+          background-color: rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         .sidebar-event-icon {
           aspect-ratio: 0.98;
@@ -169,6 +169,26 @@ export default function Sidebar() {
         }
         .sidebar-other-icon:first-child {
           margin-top: 0;
+        }
+        .sidebar-image-container {
+          position: relative;
+        }
+        .tooltip {
+          position: absolute;
+          top: -25px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 5px;
+          border-radius: 4px;
+          font-size: 12px;
+          visibility: hidden;
+        }
+        .sidebar-icon:hover .tooltip,
+        .sidebar-event-container:hover .tooltip,
+        .sidebar-other-icon:hover .tooltip {
+          visibility: visible;
         }
       `}</style>
     </nav>
