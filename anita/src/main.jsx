@@ -19,6 +19,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { UserVerificationForm } from './Pages/UserVerify.jsx';
 
+
 import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
 import {EventForm} from './Pages/creatingevents.jsx';
 
@@ -93,6 +94,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  
   {
     path: "/volunteerform",
     element: (

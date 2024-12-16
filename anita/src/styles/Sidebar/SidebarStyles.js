@@ -69,13 +69,20 @@ export const sidebarStyles = `
     padding: 8px;
     align-items: center;
     justify-content: center;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sidebar-event-container:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background change on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow effect */
   }
 
   .sidebar-event-icon {
     aspect-ratio: 0.98;
     object-fit: contain;
     object-position: center;
-    width: 52px;
+    width: 50px;
   }
 
   .sidebar-utility-container {
@@ -85,7 +92,14 @@ export const sidebarStyles = `
     min-height: 272px;
     margin: 31px 0 -59px;
     padding: 7px 3px;
-    width: 68px;
+    width: 70px;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sidebar-utility-container:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background change on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow effect */
   }
 
   .sidebar-utility-icon {
