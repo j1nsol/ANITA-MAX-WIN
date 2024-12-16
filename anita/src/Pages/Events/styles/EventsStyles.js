@@ -188,8 +188,7 @@ export const EventsGlobalStyles = createGlobalStyle`
     overflow: hidden;
     flex-grow: 1;
     width: 572px;
-    padding: 22px 30px 43px;
-    
+    padding: 22px 30px 43px;s
     height: 430px;
     font: 500 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   }

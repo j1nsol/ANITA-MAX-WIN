@@ -1,6 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const SearchControls = () => {
+  const navigate = useNavigate();
+  const handleCreateEventClick = () => {
+    navigate('/events/create');
+  };
   return (
     <div className="search-controls" role="search">
       <div className="search-bar">
@@ -46,7 +51,7 @@ export const SearchControls = () => {
         </div>
       </div>
 
-      <button className="create-event-btn">Create event</button>
+      <button className="create-event-btn" onClick={handleCreateEventClick}>Create event</button>
     </div>
   );
 };
