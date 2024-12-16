@@ -1,4 +1,4 @@
-body {
+.fruitybody {
     text-align: center;
     padding: 0;
     margin: 0;
@@ -8,7 +8,7 @@ body {
     background-repeat: no-repeat;
     font-family: Arial, sans-serif;
 }
-.title{
+.fruitytitle{
     position: absolute;
     right: 80%;
     transform: translateX(-50%);

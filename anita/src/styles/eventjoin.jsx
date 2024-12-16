@@ -41,7 +41,7 @@ export const styles = `
       max-width: 100%;
     }
   }
-  .info-section {
+  .event-info-section {
     align-self: start;
     display: flex;
     min-width: 240px;
@@ -55,7 +55,7 @@ export const styles = `
       max-width: 100%;
     }
   }
-  .title {
+  .event-title {
     color: rgba(34, 51, 58, 1);
     font: 700 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   }
