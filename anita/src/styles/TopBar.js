@@ -5,7 +5,7 @@ export const DefaultTopBarStyles = `
     box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 100%;
-        font-family: 600 "PT Sans", sans serif;
+    font-family: 600 "PT Sans", sans serif;
 
     gap: 40px 100px;
     flex-wrap: wrap;

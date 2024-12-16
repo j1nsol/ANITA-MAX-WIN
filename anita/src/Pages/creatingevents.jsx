@@ -56,11 +56,14 @@ export const EventForm = () => {
     e.preventDefault();
   
     try {
-      const user = auth.currentUser ;
-      if (!user) throw new Error('User  not authenticated');
+      const user = auth.currentUser;
+      if (!user) throw new Error('User not authenticated');
   
       const eventUid = uuidv4(); // Generate unique event ID
       const eventDocRef = doc(db, 'Events', user.uid, 'HandledEvents', eventUid);
+  
+      // Create a document for the event under the user's UID in Events collection
+      const userEventRef = doc(db, 'Events', user.uid); // This will be under the user UID in Events
   
       // Ensure eventUid is appended to FormData
       const formDataForImage = new FormData();
@@ -72,6 +75,7 @@ export const EventForm = () => {
         console.log(key, value); // Should show eventUid as key-value pair
       }
   
+      // Upload the image
       const uploadResponse = await fetch('http://localhost:5000/upload-image', {
         method: 'POST',
         body: formDataForImage,
@@ -81,7 +85,8 @@ export const EventForm = () => {
         throw new Error('Failed to upload image');
       }
       console.log("this works until here1");
-      // Save metadata to Firestore
+  
+      // Save metadata to Firestore in HandledEvents subcollection
       const eventData = {
         EventTitle: formData.eventName,
         OrgName: formData.orgName,
@@ -94,7 +99,14 @@ export const EventForm = () => {
         ThumbnailPath: `EventThumbnails/${eventUid}.png`, // Use the correct file path
       };
   
-      await setDoc(eventDocRef, eventData);
+      await setDoc(eventDocRef, eventData); // Store the event under HandledEvents subcollection
+  
+      // Now, set the `valid` field for the user's UID document in Events
+      const userEventData = {
+        valid: true, // The new "valid" field
+      };
+  
+      await setDoc(userEventRef, userEventData, { merge: true }); // Use merge to avoid overwriting other fields
   
       alert('Event created successfully!');
     } catch (error) {
@@ -102,7 +114,6 @@ export const EventForm = () => {
       alert('Failed to create event');
     }
   };
-  
   
 
   const TimeInput = ({ timeType, values }) => (

@@ -2,12 +2,9 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 
 const imageData = [
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "casino icon", to: "/games" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "sports icon", to: "/settings" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "profile icon", to: "/profile" }
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", detail: "Navigate to the dashboard" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", detail: "Configure your settings" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", detail: "View your profile" }
 ];
 
 const otherIconsData = [
@@ -21,15 +18,19 @@ const otherIconsData = [
     alt: "Messages icon", to: "/messages" }
 ];
 
-export function SidebarImage({ src, alt, to, className }) {
+export function SidebarImage({ src, alt, to, className, detail }) {
   return (
     <Link to={to}>
+      <div className="sidebar-image-container">
       <img
-        loading="lazy"
-        src={src}
-        alt={alt}
-        className={className}
-      />
+          loading="lazy"
+          src={src}
+          alt={alt}
+          className={className}
+        />
+
+      {detail && <div className="tooltip">{detail}</div>}
+    </div>
     </Link>
   );
 }
@@ -60,6 +61,7 @@ export default function Sidebar() {
             src={img.src}
             alt={img.alt}
             className="sidebar-icon"
+            detail={img.detail}
             to={img.to}
           />
         ))}
@@ -75,6 +77,7 @@ export default function Sidebar() {
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6830a173d7bbccabbe885bd76cfa28aa8e775e89213385f18478bc22e52fcc54?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
           alt="Calendar icon"
           className="sidebar-icon"
+          detail="Check calendar"
           to="/calendar"
         />
         <IconsContainer className="sidebar-other-container">
@@ -84,6 +87,7 @@ export default function Sidebar() {
               src={icon.src}
               alt={icon.alt}
               className="sidebar-other-icon"
+              detail={icon.detail}
               to={icon.to}
             />
           ))}
@@ -125,7 +129,7 @@ export default function Sidebar() {
           height: 100vh;
           align-items: center;
         }
-        .sidebar-icon {
+        .sidebar-icon, .sidebar-event-container, .sidebar-other-icon {
           border-radius: 10px;
           background-color: rgba(201, 202, 203, 1);
           display: flex;
@@ -138,20 +142,12 @@ export default function Sidebar() {
           gap: 10px;
           flex-shrink: 0;
           margin-top: 6px;
+          transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .sidebar-event-container {
-          border-radius: 10px;
-          background-color: rgba(201, 202, 203, 1);
-          display: flex;
-          width: 50px;
-          height: 50px;
-          padding: 5px 5px;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
-          flex-shrink: 0;
-          margin-top: 6px;
+        .sidebar-icon:hover, .sidebar-event-container:hover, .sidebar-other-icon:hover {
+          transform: scale(1.1);
+          background-color: rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         .sidebar-event-icon {
           object-fit: contain;
@@ -178,6 +174,46 @@ export default function Sidebar() {
           object-fit: contain;
           object-position: center;
           flex-shrink: 0;
+        }
+        .sidebar-image-container {
+          position: relative;
+        }
+        .tooltip {
+          position: absolute;
+          top: -25px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 5px;
+          border-radius: 4px;
+          font-size: 12px;
+          visibility: hidden;
+        }
+        .sidebar-icon:hover .tooltip,
+        .sidebar-event-container:hover .tooltip,
+        .sidebar-other-icon:hover .tooltip {
+          visibility: visible;
+        }
+        .sidebar-image-container {
+          position: relative;
+        }
+        .tooltip {
+          position: absolute;
+          top: -25px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 5px;
+          border-radius: 4px;
+          font-size: 12px;
+          visibility: hidden;
+        }
+        .sidebar-icon:hover .tooltip,
+        .sidebar-event-container:hover .tooltip,
+        .sidebar-other-icon:hover .tooltip {
+          visibility: visible;
         }
       `}</style>
     </nav>
