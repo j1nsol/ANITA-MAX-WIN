@@ -36,14 +36,14 @@ const games = [
     playerCount: '394', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/9a76b988264afa59a85ed540c8b3a798c741732475359e2b1b2626ebddffb276?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', 
     backgroundGradient: 'linear-gradient(to top, #3EC8FF, #9CDBFF, #CCF6FF)', // Three-color gradient
-    link : '/games/slot'
+    link : '/comingsoon'
   },
   { 
     title: 'Chess', 
     playerCount: '400', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/d529ff4d6f071e7890cf355e13a979c55155856bd00406e4123e7ca58ae9a005?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', 
     backgroundGradient: 'linear-gradient(to top, #9645FF, #CBA3FF, #ECDDFF)', // Three-color gradient
-    link : 'https://www.facebook.com/xyyjz'
+    link : '/comingsoon'
   },
   { 
     title: 'Mines', 
@@ -57,7 +57,7 @@ const games = [
     playerCount: '301', 
     imageSrc: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7d53666a47eb33a0e96dbb762ef6b41e724734404a3f97933506bc7d1e700d32?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', 
     backgroundGradient: 'linear-gradient(to top, #20EED3, #8AFDB8, #C5FFD7)', // Three-color gradient
-    link : 'https://www.facebook.com/xyyjz'
+    link : '/comingsoon'
   }
 ];
 

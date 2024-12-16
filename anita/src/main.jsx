@@ -23,6 +23,7 @@ import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
 import Events from './Pages/Events/EventsPage.jsx';
 import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
 import ApplicantList from './Pages/EventMod.jsx';
+import ComingSoon from './Pages/comingsoon.jsx'
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
@@ -138,7 +139,15 @@ const router = createBrowserRouter([
         <ApplicantList />
       </PrivateRoute>
     ),
-  }
+  },
+  {
+    path: "/comingsoon",
+    element: (
+      <PrivateRoute>
+        <ComingSoon />
+      </PrivateRoute>
+    ),
+  },
 ]);
 
 

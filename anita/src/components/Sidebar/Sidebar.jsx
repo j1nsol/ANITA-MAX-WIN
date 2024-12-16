@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 
 const imageData = [
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", detail: "Navigate to the dashboard" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", detail: "Configure your settings" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/comingsoon", detail: "Configure your settings" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", detail: "View your profile" }
 ];
 
 const otherIconsData = [
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Help icon", to: "/help" },
+    alt: "Help icon", to: "/comingsoon" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Support icon", to: "/support" },
+    alt: "Support icon", to: "/comingsoon" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/142447c3128af8b4fa7c29fe0e5cc4db3c108f015d07b06b897cf277b5029ced?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Notifications icon", to: "/notifications" },
+    alt: "Notifications icon", to: "/comingsoon" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bf6b8b5b94cb1452b3f324c68cfd38d28d9ecb575ee00ef2fb7b02e3b01e6b3b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Messages icon", to: "/messages" }
+    alt: "Messages icon", to: "/comingsoon" }
 ];
 
 export function SidebarImage({ src, alt, to, className, detail }) {
@@ -78,7 +78,7 @@ export default function Sidebar() {
           alt="Calendar icon"
           className="sidebar-icon"
           detail="Check calendar"
-          to="/calendar"
+          to="/comingsoon"
         />
         <IconsContainer className="sidebar-other-container">
           {otherIconsData.map((icon, index) => (
