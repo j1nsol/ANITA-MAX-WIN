@@ -10,14 +10,16 @@ export const SignUpForm = ({ onClose, switchToSignIn }) => {
     email: '',
     password: '',
     agreement: false,
-    token: 0
+    token: 0,
+    verified: false
   });
 
   const [errors, setErrors] = useState({
     username: '',
     email: '',
     password: '',
-    agreement: ''
+    agreement: '',
+    verified: false
   });
 
   const socialIcons = [
@@ -76,16 +78,16 @@ export const SignUpForm = ({ onClose, switchToSignIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isValid = await validateForm();
-    if (!isValid) return; // Don't submit if validation fails
+    if (!isValid) return;
     
-    const { email, password, username, token } = formData;
+    const { email, password, username, token, verified } = formData;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       const userDocRef = doc(db, 'User', user.uid);
-      await setDoc(userDocRef, { username, token });
+      await setDoc(userDocRef, { username, token,verified });
 
       console.log("Account Created Successfully!", user);
     } catch (error) {

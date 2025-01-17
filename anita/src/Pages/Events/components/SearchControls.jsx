@@ -1,11 +1,34 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../../../firebase'
+import { doc, getDoc } from 'firebase/firestore';
 
 export const SearchControls = () => {
   const navigate = useNavigate();
-  const handleCreateEventClick = () => {
-    navigate('/events/create');
+
+  const handleCreateEventClick = async () => {
+    try {
+      const userUID = auth.currentUser?.uid;
+
+      if (!userUID) {
+        alert("User not authenticated.");
+        return;
+      }
+
+      const userDocRef = doc(db, 'User', userUID);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists() && userDocSnap.data()?.verified === true) {
+        navigate('/events/create');
+      } else {
+        navigate('/verify');
+      }
+    } catch (error) {
+      console.error("Error checking user verification status:", error);
+      alert("An error occurred while verifying your status.");
+    }
   };
+
   return (
     <div className="search-controls" role="search">
       <div className="search-bar">
@@ -17,7 +40,7 @@ export const SearchControls = () => {
         <label htmlFor="search-input" className="visually-hidden">
           Search events
         </label>
-        <input 
+        <input
           type="search"
           id="search-input"
           className="search-text"
@@ -51,7 +74,9 @@ export const SearchControls = () => {
         </div>
       </div>
 
-      <button className="create-event-btn" onClick={handleCreateEventClick}>Create event</button>
+      <button className="create-event-btn" onClick={handleCreateEventClick}>
+        Create event
+      </button>
     </div>
   );
 };

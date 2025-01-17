@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Your Firebase config
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { styles } from '../styles/eventjoin';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
 import Sidebar from '../components/Sidebar/Sidebar';
 import { UserTopBar } from '../components/Topbar/UserTopBar';
@@ -74,6 +74,7 @@ export function VolunteerForm() {
       console.log("Volunteer added successfully!");
       alert("You have successfully joined the event!");
       setFormData({ fullName: '', volunteerReason: '' }); // Reset form
+      Navigate("/events");
     } catch (error) {
       console.error("Error submitting volunteer form:", error.message);
       alert("An error occurred. Please try again.");
@@ -85,10 +86,11 @@ export function VolunteerForm() {
   }
 
   return (
+    
     <form className="landing-page" onSubmit={handleSubmit}>
-      <Sidebar />
-      <UserTopBar />
+
       <div className="event-frame">
+     
         <div className="content-wrapper">
           <section className="info-section">
             <h1 className="event-title">{eventDetails.EventTitle}</h1>
@@ -149,6 +151,8 @@ export function VolunteerForm() {
           </section>
         </div>
       </div>
+      <Sidebar />
+      <UserTopBar />
       <style jsx>{styles}</style>
     </form>
   );

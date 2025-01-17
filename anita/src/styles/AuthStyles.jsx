@@ -7,7 +7,6 @@ export const AuthStyles = createGlobalStyle`
   body {
     margin: 0;
     overflow: hidden; 
-    font-family: 36px 'PT Sans', sans-serif; /* Apply PT Sans to body */
   
   }
 
