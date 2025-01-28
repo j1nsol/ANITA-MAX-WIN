@@ -18,8 +18,8 @@ export const EventForm = () => {
     location: '',
     description: '',
     tokens: '',
-    image: null, // Local file
-    imagePreview: null, // For preview
+    image: null,
+    imagePreview: null,
   });
 
   const handleInputChange = (e) => {

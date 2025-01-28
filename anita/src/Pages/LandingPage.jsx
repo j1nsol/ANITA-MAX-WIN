@@ -94,14 +94,14 @@ export default function LandingPage() {
       {isSignUpVisible && (
         <div className="overlay" onClick={handleOverlayClick}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <SignUpForm onClose={closeModal} />
+            <SignUpForm onClose={closeModal} showSignInForm={showSignInForm}/>
           </div>
         </div>
       )}
-      {isSignInVisible && (
+      {isSignInVisible &&  (
         <div className="overlay" onClick={handleOverlayClick}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <SignInForm onClose={closeModal} />
+            <SignInForm onClose={closeModal} showSignUpForm={showSignUpForm}/>
           </div>
         </div>
       )}

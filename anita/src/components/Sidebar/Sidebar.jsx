@@ -51,7 +51,6 @@ export default function Sidebar() {
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7572a51549d29376362dc58db69d1e2413f45cd9ca88505a23e2c4a416ce318d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
           alt="Company logo"
           className="sidebar-logo"
-          to="/"
         />
       </div>
       <div className="sidebar-content">

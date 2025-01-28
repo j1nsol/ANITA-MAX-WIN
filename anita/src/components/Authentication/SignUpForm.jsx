@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDocs, collection, query, where } from 'firebase/firestore';
 import { auth, db } from '../../firebase'; // Ensure db is imported from your firebase.js
 
-export const SignUpForm = ({ onClose, switchToSignIn }) => {
+export const SignUpForm = ({ onClose, showSignInForm }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -208,7 +208,10 @@ export const SignUpForm = ({ onClose, switchToSignIn }) => {
             <span className="footer-text">Already have an account?</span>
             <button 
               className="signin-link"
-              onClick={switchToSignIn}
+              onClick={() => {
+                onClose(); // Close the sign in modal
+                showSignInForm(); // Call the showSignUpForm function from LandingPage
+              }}
               aria-label="Switch to sign in form"
             >
               Sign in

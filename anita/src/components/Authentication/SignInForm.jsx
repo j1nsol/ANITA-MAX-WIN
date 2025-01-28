@@ -4,14 +4,14 @@ import { auth } from "../../firebase"; // Adjust the import path as necessary
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
-export function SignInForm() {
+export function SignInForm({onClose,showSignUpForm }) {
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     username: "",
     password: ""
   });
   const [error, setError] = React.useState(null);
-  const [isVisible, setIsVisible] = React.useState(true); // State to control form visibility
+  const [isVisible, setIsVisible] = React.useState(true);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +62,7 @@ export function SignInForm() {
                 <h1 id="signin-header">Sign in</h1>
                 <button 
                   className="close-icon" 
-                  onClick={() => setIsVisible(false)} // Update state to hide the form
+                  onClick={onClose} // Update state to hide the form
                   aria-label="Close sign-in form"
                 >
                   <img
@@ -84,6 +84,11 @@ export function SignInForm() {
                 onChange={handleInputChange}
                 required
                 aria-required="true"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(e);
+                  }
+                }}
               />
             </div>
 
@@ -98,6 +103,11 @@ export function SignInForm() {
                 onChange={handleInputChange}
                 required
                 aria-required="true"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(e);
+                  }
+                }}
               />
             </div>                
             <div className="forgot-password-container">
@@ -150,7 +160,10 @@ export function SignInForm() {
               <button 
                 type="button" 
                 className="footer-link"
-                onClick={() => {}}
+                onClick={() => {
+                  onClose(); // Close the sign in modal
+                  showSignUpForm(); // Call the showSignUpForm function from LandingPage
+                }}
                 aria-label="Create a new account"
               >
                 Create account
