@@ -3,6 +3,8 @@ import { AuthStyles } from '../../styles/AuthStyles';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDocs, collection, query, where } from 'firebase/firestore';
 import { auth, db } from '../../firebase'; // Ensure db is imported from your firebase.js
+import eye_on from "../../assets/eye_on.svg";
+import eye_off from "../../assets/eye_off.svg";
 
 export const SignUpForm = ({ onClose, showSignInForm }) => {
   const [formData, setFormData] = useState({
@@ -21,6 +23,11 @@ export const SignUpForm = ({ onClose, showSignInForm }) => {
     agreement: '',
     verified: false
   });
+  const [showPassword, setShowPassword] = useState(false); // ✅ Add password visibility toggle state
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const socialIcons = [
     { icon: 'https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/24ced0b02863b36f16279f7c499953ce7e44c3f92e95aee4fcbdcea76766236c?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&', alt: 'Facebook' },
@@ -152,13 +159,26 @@ export const SignUpForm = ({ onClose, showSignInForm }) => {
               </label>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"} // ✅ Use the correct type based on the showPassword state
                 className={`form-input ${errors.password ? 'error' : (formData.password.length < 6 ? 'weak' : '')}`}
                 placeholder="Password"
                 value={formData.password}
                 onChange={(e) => setFormData({...formData, password: e.target.value})}
                 aria-required="true"
               />
+              <button
+               type="button"
+                className="password-toggle"
+                onClick={togglePasswordVisibility}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+               >
+              <img
+                src={showPassword ? eye_off : eye_on} // ✅ Use imported SVGs correctly
+                alt={showPassword ? "Hide password" : "Show password"}
+                width="20"
+                height="20"
+              />
+             </button>
               {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
 

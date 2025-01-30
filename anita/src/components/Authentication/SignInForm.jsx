@@ -3,6 +3,9 @@ import { SignInStyle } from "../../styles/SignInForm";
 import { auth } from "../../firebase"; // Adjust the import path as necessary
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import eye_on from "../../assets/eye_on.svg";
+import eye_off from "../../assets/eye_off.svg";
+
 
 export function SignInForm({onClose,showSignUpForm }) {
   const navigate = useNavigate();
@@ -12,6 +15,12 @@ export function SignInForm({onClose,showSignUpForm }) {
   });
   const [error, setError] = React.useState(null);
   const [isVisible, setIsVisible] = React.useState(true);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+const togglePasswordVisibility = () => {
+  setShowPassword((prev) => !prev);
+};
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -94,7 +103,7 @@ export function SignInForm({onClose,showSignUpForm }) {
 
             <div className="form-group">
               <input
-                type="password"
+                type={showPassword ? "text": "password"}
                 id="password"
                 name="password"
                 className="form-input"
@@ -109,6 +118,20 @@ export function SignInForm({onClose,showSignUpForm }) {
                   }
                 }}
               />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={togglePasswordVisibility}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <img
+                  src={showPassword ? eye_off : eye_on} // ✅ Use imported SVGs correctly
+                  alt={showPassword ? "Hide password" : "Show password"}
+                  width="20"
+                  height="20"
+                />
+              </button>
+
             </div>                
             <div className="forgot-password-container">
               {/* Error message aligned with the forgot password link */}
