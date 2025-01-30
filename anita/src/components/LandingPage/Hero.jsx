@@ -1,7 +1,23 @@
 import * as React from "react";
 import { styles } from "../../styles/styles";
 
-export default function Hero() {
+export default function Hero({ onSignUpClick }) {
+  const [isPressed, setIsPressed] = React.useState(false);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      setIsPressed(true);
+      event.preventDefault();
+    }
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      setIsPressed(false);
+      onSignUpClick(); // ✅ Open SignUpForm
+      event.preventDefault();
+    }
+  };
   return (
     <section className="hero-section" role="banner" aria-label="Main hero section">
       <div className="content-wrapper">
@@ -10,8 +26,10 @@ export default function Hero() {
         Anita Maxwin offers open-site betting that guarantees a worry-free, exciting experience for all players. Anita Maxwin ensures you enjoy every moment.
         </p>
         <button 
-          className="ctaButton"
-          onClick={() => {}}
+          className={'ctaButton ${isPressed ? "pressed" : ""}'}
+          onClick={onSignUpClick} // ✅ Calls the SignUp function
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
           tabIndex={0}
           aria-label="Join the Community"
         >

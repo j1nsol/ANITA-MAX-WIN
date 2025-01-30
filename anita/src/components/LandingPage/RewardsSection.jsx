@@ -1,7 +1,24 @@
 import * as React from "react";
 import { RewardsStyles } from "../../styles/RewardsStyles";
 
-export default function RewardsSection() {
+export default function RewardsSection({onSignUpClick}) {
+  const [ isPressed, setIsPressed] = React.useState(false);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " "){
+      setIsPressed(true);
+      event.preventDefault();
+    }
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.key === "Enter" || event.key === " "){
+      setIsPressed(true);
+      onSignUpClick();
+      event.preventDefault();
+    }
+  };
+
   return (
     <>
       <RewardsStyles />
@@ -27,8 +44,10 @@ export default function RewardsSection() {
                 Exchange your tokens for exciting rewards
               </h1>
               <button 
-                className="rewards-cta"
-                onClick={() => {}}
+                className={'rewards-cta ${isPressed ? "pressed" : ""}'}
+                onClick={onSignUpClick}
+                onKeyDown={handleKeyDown}
+                onKeyUp={handleKeyUp}
                 tabIndex={0}
                 aria-label="Explore rewards shop"
               >

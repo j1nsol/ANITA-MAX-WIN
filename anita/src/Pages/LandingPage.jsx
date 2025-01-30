@@ -55,7 +55,8 @@ export default function LandingPage() {
   return (
     <main className="landing-page">
       <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
-      <Hero />
+      <Hero onSignUpClick={showSignUpForm} />
+      {isSignUpVisible && <SignUpForm onClose={closeModal} />}
       <section className="features-section" style={{ overflow: "hidden", margin: "0 0 0 0" }}>
         {features.map((feature, index) => (
           <BreakImage key={index} {...feature} />
@@ -65,7 +66,8 @@ export default function LandingPage() {
         <GameGrid />
       </section>
       <section>
-        <RewardsSection />
+        <RewardsSection onSignUpClick={showSignUpForm}/>
+        {isSignUpVisible && <showSignUpForm onClose={closeModal} />}
       </section>
       <section className="events-section" style={{
         backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fc24ae5bfb01d41eab83aea3f5ce6f5d6%2Fe0421bcdc49848e9a0460ddd17b0d3f1)",
