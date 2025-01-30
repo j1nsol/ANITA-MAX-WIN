@@ -2,35 +2,30 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 
 const imageData = [
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", detail: "Navigate to the dashboard" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", detail: "Configure your settings" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", detail: "View your profile" }
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", detail: "Navigate to the dashboard", title: "Games" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", detail: "Configure your settings", title: "Sports" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", detail: "View your profile", title: "Profile" }
 ];
 
 const otherIconsData = [
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Help icon", to: "/help" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Support icon", to: "/support" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/142447c3128af8b4fa7c29fe0e5cc4db3c108f015d07b06b897cf277b5029ced?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Notifications icon", to: "/notifications" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bf6b8b5b94cb1452b3f324c68cfd38d28d9ecb575ee00ef2fb7b02e3b01e6b3b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", 
-    alt: "Messages icon", to: "/messages" }
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Help icon", to: "/help", title: "Help" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Support icon", to: "/support", title: "Support" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/142447c3128af8b4fa7c29fe0e5cc4db3c108f015d07b06b897cf277b5029ced?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Notifications icon", to: "/notifications", title: "Notifications" },
+  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/bf6b8b5b94cb1452b3f324c68cfd38d28d9ecb575ee00ef2fb7b02e3b01e6b3b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Messages icon", to: "/messages", title: "Messages" }
 ];
 
-export function SidebarImage({ src, alt, to, className, detail }) {
+export function SidebarImage({ src, alt, to, className, title }) {
   return (
     <Link to={to}>
       <div className="sidebar-image-container">
-      <img
+        <img
           loading="lazy"
           src={src}
           alt={alt}
           className={className}
         />
-
-      {detail && <div className="tooltip">{detail}</div>}
-    </div>
+        <div className="icon-title">{title}</div> {/* Show icon title */}
+      </div>
     </Link>
   );
 }
@@ -51,6 +46,7 @@ export default function Sidebar() {
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7572a51549d29376362dc58db69d1e2413f45cd9ca88505a23e2c4a416ce318d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
           alt="Company logo"
           className="sidebar-logo"
+          title="Company"
         />
       </div>
       <div className="sidebar-content">
@@ -60,8 +56,8 @@ export default function Sidebar() {
             src={img.src}
             alt={img.alt}
             className="sidebar-icon"
-            detail={img.detail}
             to={img.to}
+            title={img.title}
           />
         ))}
         <IconsContainer className="sidebar-event-container">
@@ -70,14 +66,15 @@ export default function Sidebar() {
             alt="Events icon"
             className="sidebar-event-icon"
             to="/events"
+            title="Events"
           />
         </IconsContainer>
         <SidebarImage
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6830a173d7bbccabbe885bd76cfa28aa8e775e89213385f18478bc22e52fcc54?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
           alt="Calendar icon"
           className="sidebar-icon"
-          detail="Check calendar"
           to="/calendar"
+          title="Calendar"
         />
         <IconsContainer className="sidebar-other-container">
           {otherIconsData.map((icon, index) => (
@@ -86,8 +83,8 @@ export default function Sidebar() {
               src={icon.src}
               alt={icon.alt}
               className="sidebar-other-icon"
-              detail={icon.detail}
               to={icon.to}
+              title={icon.title}
             />
           ))}
         </IconsContainer>
@@ -177,41 +174,20 @@ export default function Sidebar() {
         .sidebar-image-container {
           position: relative;
         }
-        .tooltip {
+        .icon-title {
           position: absolute;
-          top: -25px;
-          left: 50%;
+          top: 30%;
+          left: 150%;
           transform: translateX(-50%);
           background-color: rgba(0, 0, 0, 0.7);
           color: white;
-          padding: 5px;
-          border-radius: 4px;
-          font-size: 12px;
+          padding: 7px;
+          border-radius: 7px;
+          font-size: 17px;
           visibility: hidden;
+          z-index: 1500; /* Ensure title appears above other content */
         }
-        .sidebar-icon:hover .tooltip,
-        .sidebar-event-container:hover .tooltip,
-        .sidebar-other-icon:hover .tooltip {
-          visibility: visible;
-        }
-        .sidebar-image-container {
-          position: relative;
-        }
-        .tooltip {
-          position: absolute;
-          top: -25px;
-          left: 50%;
-          transform: translateX(-50%);
-          background-color: rgba(0, 0, 0, 0.7);
-          color: white;
-          padding: 5px;
-          border-radius: 4px;
-          font-size: 12px;
-          visibility: hidden;
-        }
-        .sidebar-icon:hover .tooltip,
-        .sidebar-event-container:hover .tooltip,
-        .sidebar-other-icon:hover .tooltip {
+        .sidebar-image-container:hover .icon-title {
           visibility: visible;
         }
       `}</style>
