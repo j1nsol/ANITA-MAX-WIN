@@ -15,12 +15,14 @@
   /* Logo container styling */
   .mines-logo-container {
     margin-top: 20px;
+    margin-left: 35%;
   }
   
   .mines-logo {
     width: 200px;
     height: auto;
   }
+
   
   /* Game container styling */
   .mines-game-container {

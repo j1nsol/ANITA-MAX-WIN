@@ -177,6 +177,7 @@ const MinesGame = () => {
     <body className='mines-body'>
       <UserTopBar />
       <Sidebar />
+      <div classname="mines-main-container">
       <div className='mines-logo-container'>
         <img className="mines-logo" src={logo} alt="logo" />
       </div>
@@ -224,6 +225,7 @@ const MinesGame = () => {
             </div>
           ))}
         </div>
+      </div>
       </div>
       {overlayVisible && (
         <div className="mines-overlay">
