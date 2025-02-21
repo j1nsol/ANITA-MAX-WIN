@@ -1,4 +1,4 @@
-export const styles = `
+export const ComingSoonStyle = `
   .coming-soon-section {
     background-color: rgba(57, 153, 218, 1);
     overflow-x: auto;

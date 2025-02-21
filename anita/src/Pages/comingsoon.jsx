@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styles } from "./styles";
+import { ComingSoonStyle } from "../styles/comingsoon";
 
 export default function ComingSoon() {
   return (
@@ -15,7 +15,7 @@ export default function ComingSoon() {
           COMING SOON
         </div>
       </section>
-      <style jsx>{styles}</style>
+      <style jsx>{ComingSoonStyle}</style>
     </>
   );
 }
