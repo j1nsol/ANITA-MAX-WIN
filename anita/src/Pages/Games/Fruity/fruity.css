@@ -6,12 +6,14 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    width: 100%;
 }
 .fruitytitle{
     position: absolute;
-    right: 80%;
+    right: 90%;
     transform: translateX(-50%);
-    width: 250px;
+    width: 150px;
     height: auto;
     z-index: 10;
 }
@@ -20,7 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 86px;
 }
 
 .slot-grid {
@@ -28,8 +30,9 @@
     grid-template-columns: repeat(5, 1fr); 
     grid-template-rows: repeat(4, 1fr); 
     gap: 10px; 
-    width: 600px;
-    height: 500px;
+    width: 550px;
+    height: 410px;
+    top: 10px;
     background-color: rgba(255, 255, 255, 0.3);
     padding: 10px;
     border-radius: 15px;
@@ -65,8 +68,8 @@
 }
 
 .slot img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     border-radius: 10px;
     position: relative;
     top: 0;
@@ -110,7 +113,7 @@
 #minus-btn {
     position: absolute;
     bottom: 10px;
-    left: 830px;
+    right: 500px;
     padding: 10px;
     font-size: 24px;
     background-color: #e2e0da;
@@ -126,7 +129,7 @@
 #plus-btn {
     position: absolute;
     bottom: 10px;
-    right: 330px;
+    left: 950px;
     padding: 10px;
     font-size: 24px;
     background-color: #e2e0da;
@@ -149,7 +152,7 @@
     border-radius: 50%;
     cursor: pointer;
     position: absolute; 
-    left: 350px;  
+    left: 380px;  
     top: 50%;   
     transform: translateY(-50%); 
     z-index: 10;
@@ -164,7 +167,7 @@
     font-weight: bold;
     margin-top: 20px;
     position: absolute; 
-    left: 400px;  
+    left: 450px;  
     top: 5%;  
     transform: translateY(-50%); 
     z-index: 10;
@@ -176,7 +179,7 @@
     font-weight:  bold;
     margin-top: 20px;
     position: absolute;
-    left: 420px;
+    left: 450px;
     top: 40%;
     transform: translateY(-50%);
     z-index: 10;
@@ -289,11 +292,15 @@
     }
 }
 .game-footer {
-    margin-top: 40px;
-    background-color: rgba(128, 128, 128, 0.658);
-    position: relative; 
-    padding: 30px;
-    
+    width: 100%; /* Occupy full width from left to right */
+    background-color: rgba(128, 128, 128, 0.658); /* Semi-transparent background */
+    position: fixed; /* Keep footer fixed at the bottom */
+    bottom: 0; /* Stick to the bottom */
+    padding: 40px 0; /* Top and bottom padding */
+    text-align: center; /* Center the text */
+    z-index: 1000; /* Keep it above other elements */
+    font-family: Arial, sans-serif;
+    color: white;
   }
 
   #jackpot-message {
