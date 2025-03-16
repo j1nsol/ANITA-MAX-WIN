@@ -38,15 +38,15 @@ export default function Sidebar() {
         .sidebar {
           position: fixed;
           display: flex;
-          max-width: 100px;
+          max-width: 80px;
           z-index: 1500;
           flex-direction: column; 
           left: 0;
           top: 0;
-          transition: max-width 0.3s ease;
+          transition: max-width 0.5s ease; /* Slower animation */
         }
         .sidebar.expanded {
-          max-width: 300px; /* Increased width for expanded sidebar */
+          max-width: 400px; /* Increased width for expanded sidebar */
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);
@@ -56,6 +56,7 @@ export default function Sidebar() {
           justify-content: center;
           padding: 5px 10px;
           cursor: pointer;
+          border-top-right-radius: 15px;
         }
         .sidebar-logo {
           aspect-ratio: 0.99;
@@ -84,7 +85,10 @@ export default function Sidebar() {
           display: flex;
           align-items: center;
           padding: 10px;
-          transition: background-color 0.3s ease, box-shadow 0.3s ease;
+          transition: background-color 0.5s ease, box-shadow 0.5s ease, padding 0.5s ease; /* Slower animation */
+        }
+        .sidebar.expanded .sidebar-item {
+          padding: 10px 100px 10px 10px; /* Adjust padding for expanded state */
         }
         .sidebar-item:hover {
           background-color: rgba(0, 0, 0, 0.1);
@@ -101,7 +105,7 @@ export default function Sidebar() {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          transition: opacity 0.3s ease;
+          transition: opacity 0.5s ease; /* Slower animation */
           opacity: 0;
         }
         .icon-title.visible {
@@ -120,7 +124,7 @@ export default function Sidebar() {
           white-space: nowrap;
           visibility: hidden;
           opacity: 0;
-          transition: visibility 0s, opacity 0.3s ease;
+          transition: visibility 0s, opacity 0.5s ease; /* Slower animation */
         }
         .sidebar-item:hover .tooltip {
           visibility: visible;
