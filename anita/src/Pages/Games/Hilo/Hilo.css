@@ -80,9 +80,15 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     position: fixed; /* Fix the position relative to the viewport */
     top: 50px; /* Adjust the vertical position */
     left: 100px; /* Set the horizontal position */
+=======
+    position: fixed;
+    top: 100px;
+    left: 100px;
+>>>>>>> Stashed changes
 =======
     position: fixed;
     top: 100px;

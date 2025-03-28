@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './Hilo.css';
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 // Import the images
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -91,6 +94,7 @@ const HiLoGame = () => {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const toggleMute = () => {
     setMusicPlaying(!musicPlaying);
   };
@@ -144,6 +148,8 @@ const HiLoGame = () => {
       document.getElementById('win-sound').play();  // Play win sound
 =======
 =======
+=======
+>>>>>>> Stashed changes
   const renderSettings = () => (
     <div className="settings-wrapper">
       {/* Theme Menu Button */}
@@ -219,6 +225,9 @@ const HiLoGame = () => {
     </div>
   );
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -312,6 +321,7 @@ const HiLoGame = () => {
         (guess === 'lower' && nextCard < cards[cards.length - 1]);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     if (correct) {
       const winnings = betAmount * 2;
       setToken((prevToken) => prevToken + winnings);
@@ -340,6 +350,11 @@ const HiLoGame = () => {
       setCards((prevCards) => [...prevCards, nextCard]);
       setIsFlipped(false);
 
+=======
+      setCards((prevCards) => [...prevCards, nextCard]);
+      setIsFlipped(false);
+
+>>>>>>> Stashed changes
       if (correct) {
         const winnings = betAmount * 2;
         setToken((prevToken) => prevToken + winnings);
@@ -359,6 +374,9 @@ const HiLoGame = () => {
         { date: currentDate, bet: betAmount, result: correct ? 'Win' : 'Lose', token },
       ]);
     }, 300);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   };
 
@@ -371,6 +389,7 @@ const HiLoGame = () => {
     setCards((prevCards) => [...prevCards, nextCard]);
   };
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
   const placeBet = (selectedBetAmount) => {
@@ -424,6 +443,10 @@ const HiLoGame = () => {
             <p>{balance}</p>
 =======
     <div className="hilobody">
+=======
+  return (
+    <div className={`hilobody ${darkMode ? 'dark-mode' : ''}`}>
+>>>>>>> Stashed changes
 =======
   return (
     <div className={`hilobody ${darkMode ? 'dark-mode' : ''}`}>
@@ -520,6 +543,21 @@ const HiLoGame = () => {
               <img src={upIcon} alt="higher" />
             </button>
 >>>>>>> Stashed changes
+
+            {cards.length > 1 && (
+              <img
+                id="previous-card"
+                src={cardImages[cards[cards.length - 2]]}
+                alt="Previous Card"
+                style={{
+                  position: 'absolute',
+                  right: '-100px',
+                  width: '100px',
+                  height: 'auto',
+                  opacity: 0.8
+                }}
+              />
+            )}
 
             {cards.length > 1 && (
               <img
