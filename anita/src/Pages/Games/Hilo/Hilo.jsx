@@ -59,13 +59,9 @@ const HiLoGame = () => {
   const [betHistory, setBetHistory] = useState([]);
   const [musicPlaying, setMusicPlaying] = useState(true);
   const [isFlipped, setIsFlipped] = useState(false);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
   const [volume, setVolume] = useState(0.7); // Add volume state
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 
   const playMusic = () => {
     const bgMusic = document.getElementById('background-music');
