@@ -60,7 +60,10 @@ const HiLoGame = () => {
   const [musicPlaying, setMusicPlaying] = useState(true);
   const [isFlipped, setIsFlipped] = useState(false);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   const [volume, setVolume] = useState(0.7); // Add volume state
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
