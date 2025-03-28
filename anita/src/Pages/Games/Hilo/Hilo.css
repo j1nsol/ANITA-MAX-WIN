@@ -1,37 +1,19 @@
-body {
+.hilobody {
     font-family: Arial, sans-serif;
-    background: url('images/back.png') no-repeat center center fixed;
+    background: url('./images/back.png') no-repeat center center fixed;
     color: #060607;
     text-align: center;
     margin: 0;
     padding: 0;
     display: flex;
-<<<<<<< Updated upstream
-    justify-content: center; /* Centers the content horizontally */
-    align-items: flex-start; /* Aligns the containers at the top */
-    height: 100vh; /* Ensures the body takes full viewport height */
-}
-
-/* Container for both left and game containers */
-.container {
-    display: flex; /* Aligns children (left-container and game-container) side by side */
-    justify-content: flex-start;
-    align-items: flex-start; /* Aligns both containers at the top */
-=======
     justify-content: center; 
     align-items: center;
     height: 100vh;
     background-position: center;
     background-size: cover;
-    transition: background-color 0.3s ease;
 }
 
-.hilobody.dark-mode {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-.html {
+.html{
     margin: 0px;
     padding: 0px;
 }
@@ -42,13 +24,12 @@ body {
     align-items: center;
 }
 
-.game-container {
+.game-container{
     display: flex; 
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
     margin-top: 50px;
->>>>>>> Stashed changes
 }
 
 #bet-history-list {
@@ -64,13 +45,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.dark-mode #bet-history-list li {
-    background-color: #3a3a3a;
-    color: #ffffff;
-    border-color: #555;
 }
 
 .left-container {
@@ -79,31 +53,14 @@ body {
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    position: fixed; /* Fix the position relative to the viewport */
-    top: 50px; /* Adjust the vertical position */
-    left: 100px; /* Set the horizontal position */
-=======
     position: fixed;
     top: 100px;
     left: 100px;
->>>>>>> Stashed changes
-=======
-    position: fixed;
-    top: 100px;
-    left: 100px;
->>>>>>> Stashed changes
     display: flex;
     height: 70vh;
     flex-direction: column;
     gap: 10px;
     z-index: 10;
-    transition: background-color 0.3s ease;
-}
-
-.dark-mode .left-container {
-    background-color: #2d2d2d;
 }
 
 .bet-info {
@@ -123,12 +80,6 @@ body {
     height: 40vh;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .bet-info-container {
-    background-color: #3a3a3a;
-    color: #ffffff;
 }
 
 .bet-history {
@@ -137,12 +88,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .bet-history {
-    background-color: #3a3a3a;
-    color: #ffffff;
 }
 
 ul {
@@ -154,11 +99,6 @@ ul {
 li {
     padding: 8px 0;
     border-bottom: 1px solid #ccc;
-    transition: all 0.3s ease;
-}
-
-.dark-mode li {
-    border-bottom-color: #555;
 }
 
 .top-containers {
@@ -174,13 +114,6 @@ li {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 45%;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .balance-container,
-.dark-mode .wins-container {
-    background-color: #3a3a3a;
-    color: #ffffff;
 }
 
 h3 {
@@ -194,154 +127,16 @@ p {
     margin: 0;
 }
 
-/* Settings and Volume Controls */
-.settings-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    position: relative;
+.settings-container {
+    background-color: #333;
 }
 
-.menu-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    transition: transform 0.2s ease;
+h1 {
+    font-size: 30px;
+    margin-bottom: 25px;
 }
 
-.menu-button:hover {
-    transform: scale(1.1);
-}
-
-.menu-button img {
-    width: 24px;
-    height: 24px;
-}
-
-.theme-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    padding: 10px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .theme-menu {
-    background: #3a3a3a;
-    color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-.theme-menu button {
-    padding: 5px 10px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    text-align: left;
-    border-radius: 3px;
-    transition: all 0.2s ease;
-}
-
-.theme-menu button:hover {
-    background: #f0f0f0;
-}
-
-.dark-mode .theme-menu button:hover {
-    background: #4a4a4a;
-}
-
-.theme-menu button.active {
-    background: #e0e0e0;
-    font-weight: bold;
-}
-
-.dark-mode .theme-menu button.active {
-    background: #555;
-}
-
-.volume-control-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.mute-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    transition: transform 0.2s ease;
-}
-
-.mute-button:hover {
-    transform: scale(1.1);
-}
-
-.mute-button img {
-    width: 24px;
-    height: 24px;
-}
-
-.volume-slider {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.volume-slider input[type="range"] {
-    width: 80px;
-    -webkit-appearance: none;
-    height: 5px;
-    background: #EAE0D5;
-    border-radius: 5px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .volume-slider input[type="range"] {
-    background: #555;
-}
-
-.volume-slider input[type="range"]:hover {
-    height: 8px;
-}
-
-.volume-slider input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    background: #DAD4B5;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.dark-mode .volume-slider input[type="range"]::-webkit-slider-thumb {
-    background: #888;
-}
-
-.volume-slider input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    background: #fff;
-}
-
-.setting-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 10px;
-}
-
-/* Card Styles */
+/* Card Flip Animation Styles */
 .card-flip-container {
     perspective: 1000px;
     width: 250px;
@@ -378,10 +173,6 @@ p {
     background-color: #fff;
     z-index: 2;
     transform: rotateY(0deg);
-}
-
-.dark-mode .card-front {
-    background-color: #3a3a3a;
 }
 
 .card-back {
@@ -452,12 +243,6 @@ p {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: all 0.3s ease;
-}
-
-.dark-mode .betting-container {
-    background-color: #3a3a3a;
-    color: #ffffff;
 }
 
 #bet-amount {
@@ -504,11 +289,6 @@ p {
     font-size: 18px;
     margin: 20px 0;
     color: #000000;
-    transition: color 0.3s ease;
-}
-
-.dark-mode #message {
-    color: #ffffff;
 }
 
 #previous-card {
@@ -519,7 +299,7 @@ p {
     height: auto;
     opacity: 0.8;
     border-radius: 3px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 5 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 #skip {
@@ -550,42 +330,64 @@ p {
     z-index: 1000;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .left-container {
-        left: 20px;
-    }
+.mute-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    left: 450px;
+    top: 500px;
 }
 
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-    
-    .left-container {
-        position: relative;
-        width: 90%;
-        top: auto;
-        left: auto;
-        margin-bottom: 20px;
-    }
-    
-    .card-layout {
-        flex-direction: column;
-        height: auto;
-    }
-    
-    #lower, #higher {
-        position: relative;
-        left: auto;
-        right: auto;
-        margin: 10px 0;
-    }
-    
-    #skip {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-top: 10px;
-    }
+.mute-button img {
+    width: 30px;
+    height: auto;
+}
+
+.main-button {
+    padding: 10px 10px;
+    font-size: 16px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    left: 40px;
+    top: 460px;
+    z-index: 1000;
+}
+
+.main-button img {
+    width: 30px;
+    height: auto;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
 }
