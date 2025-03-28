@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+<<<<<<< Updated upstream
     justify-content: center; /* Centers the content horizontally */
     align-items: flex-start; /* Aligns the containers at the top */
     height: 100vh; /* Ensures the body takes full viewport height */
@@ -16,6 +17,38 @@ body {
     display: flex; /* Aligns children (left-container and game-container) side by side */
     justify-content: flex-start;
     align-items: flex-start; /* Aligns both containers at the top */
+=======
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    transition: background-color 0.3s ease;
+}
+
+.hilobody.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.html {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    display: flex; 
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 50px;
+>>>>>>> Stashed changes
 }
 
 #bet-history-list {
@@ -31,28 +64,42 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* Left Container */
+.dark-mode #bet-history-list li {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border-color: #555;
+}
+
 .left-container {
-    width: 250px; /* Adjust width as necessary */
+    width: 250px;
     background-color: #333333;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+<<<<<<< Updated upstream
     position: fixed; /* Fix the position relative to the viewport */
     top: 50px; /* Adjust the vertical position */
     left: 100px; /* Set the horizontal position */
+=======
+    position: fixed;
+    top: 100px;
+    left: 100px;
+>>>>>>> Stashed changes
     display: flex;
     height: 70vh;
     flex-direction: column;
-    gap: 10px; /* Space between the containers */
-    z-index: 10; /* Ensures it stays on top of other content */
+    gap: 10px;
+    z-index: 10;
+    transition: background-color 0.3s ease;
 }
 
-/* Unified Bet Info and History Container */
+.dark-mode .left-container {
+    background-color: #2d2d2d;
+}
 
-/* Inner Bet Info Section (Amount Bet and Amount Won/Lost) */
 .bet-info {
     display: flex;
     justify-content: space-between;
@@ -60,7 +107,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Individual Bet Info Containers */
 .bet-info-container {
     background-color: #EAE0D5;
     padding: 20px;
@@ -68,18 +114,29 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     text-align: center;
-    height: 40vh; /* Fixed height */
-    overflow-y: auto; /* Adds vertical scroll bar */
-    overflow-x: hidden; /* Prevents horizontal scrolling */
+    height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Bet History Section */
+.dark-mode .bet-info-container {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
 .bet-history {
     background-color: #EAE0D5;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .bet-history {
+    background-color: #3a3a3a;
+    color: #ffffff;
 }
 
 ul {
@@ -91,26 +148,35 @@ ul {
 li {
     padding: 8px 0;
     border-bottom: 1px solid #ccc;
+    transition: all 0.3s ease;
 }
 
-/* Balance and Wins Container (Side by side) */
+.dark-mode li {
+    border-bottom-color: #555;
+}
+
 .top-containers {
-    display: flex; /* Use flexbox to display items side by side */
-    justify-content: space-between; /* Evenly space them apart */
-    gap: 20px; /* Adds space between balance and wins containers */
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-/* Individual Containers for Balance, Wins */
 .balance-container, .wins-container {
     background-color: #EAE0D5;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 45%; /* Make balance and wins containers share the space equally */
+    width: 45%;
+    transition: all 0.3s ease;
 }
 
-/* Header and Paragraph Styling */
+.dark-mode .balance-container,
+.dark-mode .wins-container {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
 h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -122,46 +188,171 @@ p {
     margin: 0;
 }
 
-.settings-container {
-    background-color: #333;
-}
-
-h1 {
-    font-size: 30px;
-    margin-bottom: 25px;
-}
-
-.card-layout {
+/* Settings and Volume Controls */
+.settings-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+    gap: 15px;
     position: relative;
 }
 
-.card-container {
-    position: relative;
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.menu-button:hover {
+    transform: scale(1.1);
+}
+
+.menu-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.theme-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .theme-menu {
+    background: #3a3a3a;
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.theme-menu button {
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.theme-menu button:hover {
+    background: #f0f0f0;
+}
+
+.dark-mode .theme-menu button:hover {
+    background: #4a4a4a;
+}
+
+.theme-menu button.active {
+    background: #e0e0e0;
+    font-weight: bold;
+}
+
+.dark-mode .theme-menu button.active {
+    background: #555;
+}
+
+.volume-control-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.mute-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.mute-button:hover {
+    transform: scale(1.1);
+}
+
+.mute-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.volume-slider {
+    width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.volume-slider input[type="range"] {
+    width: 80px;
+    -webkit-appearance: none;
+    height: 5px;
+    background: #EAE0D5;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .volume-slider input[type="range"] {
+    background: #555;
+}
+
+.volume-slider input[type="range"]:hover {
+    height: 8px;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #DAD4B5;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dark-mode .volume-slider input[type="range"]::-webkit-slider-thumb {
+    background: #888;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #fff;
+}
+
+.setting-container {
+    display: flex;
     align-items: center;
-    margin: 0 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
-#current-card, #previous-card {
-    width: 200px; /* Adjust the size of the cards */
-    height: auto;
-}
-
-.card-flip {
+/* Card Styles */
+.card-flip-container {
+    perspective: 1000px;
     width: 250px;
     height: 350px;
     position: relative;
-    transform-style: preserve-3d;
-    transform: rotateY(0deg);
-    transition: transform 0.8s;
+    margin: 0 10px;
 }
 
-.card-flip.flipping {
+.card-flip {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-flip.flipped {
     transform: rotateY(180deg);
 }
 
@@ -170,42 +361,60 @@ h1 {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-front {
+    background-color: #fff;
     z-index: 2;
     transform: rotateY(0deg);
 }
 
-.card-back {
-    transform: rotateY(180deg);
-    background: #333; /* Optional fallback color */
+.dark-mode .card-front {
+    background-color: #3a3a3a;
 }
 
-#current-card {
-    width: 250px; /* Adjust the current card size */
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+.card-back {
+    background: url('./images/back.png') no-repeat center center;
+    background-size: cover;
+    transform: rotateY(180deg);
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.card-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+    height: 350px;
 }
 
 .side-button img {
-    width: 70px; /* Adjust the size of the images */
+    width: 70px;
     height: auto;
-    display: block; /* Centers the image */
+    display: block;
     margin: 0 auto;
-    pointer-events: none; /* Ensures only the button is clickable, not the image */
+    pointer-events: none;
 }
 
 .side-button {
-    padding: 10px; /* Remove text-specific padding */
-    background-color: transparent; /* Optional: transparent background */
-    border: 5px solid transparent; /* Correct border syntax */
+    padding: 10px;
+    background-color: transparent;
+    border: 5px solid transparent;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth transition for scaling */
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .side-button:hover {
@@ -214,20 +423,20 @@ h1 {
 }
 
 #lower {
-    position: absolute; /* Position relative to the card container */
-    left: -80px; /* Position to the left of the card layout */
+    position: absolute;
+    left: -80px;
 }
 
 #higher {
-    position: absolute; /* Position relative to the card container */
-    right: -80px; /* Position to the right of the card layout */
+    position: absolute;
+    right: -80px;
 }
 
 .betting-buttons {
     display: flex;
-    align-items: center; /* Align buttons and container vertically */
-    justify-content: center; /* Center the whole layout */
-    gap: 10px; /* Add space between the buttons and the betting container */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     margin-top: 20px;
 }
 
@@ -237,12 +446,18 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .betting-container {
+    background-color: #3a3a3a;
+    color: #ffffff;
 }
 
 #bet-amount {
     font-size: 16px;
     padding: 5px;
-    margin: 0 10px; /* Spacing inside the container */
+    margin: 0 10px;
 }
 
 .bet-button {
@@ -283,20 +498,24 @@ h1 {
     font-size: 18px;
     margin: 20px 0;
     color: #000000;
+    transition: color 0.3s ease;
+}
+
+.dark-mode #message {
+    color: #ffffff;
 }
 
 #previous-card {
     position: absolute;
-    bottom: 0px;  /* Position slightly below the current card */
-    right: -100px;   /* Position to the right of the current card */
-    width: 100px;    /* Smaller size for the previous card */
+    bottom: 0px;
+    right: -100px;
+    width: 100px;
     height: auto;
-    opacity: 0.8;   /* Slightly faded look */
+    opacity: 0.8;
     border-radius: 3px;
-    box-shadow: 5 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Skip Button styles */
 #skip {
     position: absolute;
     top: 10px;
@@ -307,7 +526,7 @@ h1 {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth transition for scaling */
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 #skip:hover {
@@ -316,78 +535,51 @@ h1 {
     transform: scale(1.2);
 }
 
-/* Top Buttons Container */
 .top-buttons {
-    position: fixed; /* Keeps buttons at the top */
+    position: fixed;
     top: 10px;
-    right: 10px; /* Positions buttons relative to the top-right corner */
-    display: flex; /* Align buttons horizontally */
-    gap: 10px; /* Adds spacing between buttons */
-    z-index: 1000; /* Keeps buttons above all elements */
-}
-
-/* Mute Button */
-.mute-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: transparent; /* Remove background */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    left: 450px; /* Move to the left side */
-    top: 500px; /* Adjust top to your preference */
-}
-
-.mute-button img {
-    width: 30px; /* Set the size of the image */
-    height: auto;
-}
-
-/* Main Menu Button */
-.main-button {
-    padding: 10px 10px;
-    font-size: 16px;
-    background-color: transparent; /* Remove background */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    left: 40px; /* Move to the left side */
-    top: 460px; /* Adjust top to your preference */
-    z-index: 1000; /* Make sure it's on top of other elements */
-}
-
-.main-button img {
-    width: 30px; /* Set the size of the image */
-    height: auto;
-}
-
-/* Dropdown Menu */
-.dropdown-menu {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 40px; /* Positioned below the Menu button */
-    right: 0; /* Aligns with the Menu button */
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    right: 10px;
+    display: flex;
+    gap: 10px;
     z-index: 1000;
 }
 
-/* Dropdown Items */
-.dropdown-item {
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: white;
-    color: #333;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    width: 100%;
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .left-container {
+        left: 20px;
+    }
 }
 
-.dropdown-item:hover {
-    background-color: #f0f0f0;
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .left-container {
+        position: relative;
+        width: 90%;
+        top: auto;
+        left: auto;
+        margin-bottom: 20px;
+    }
+    
+    .card-layout {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    #lower, #higher {
+        position: relative;
+        left: auto;
+        right: auto;
+        margin: 10px 0;
+    }
+    
+    #skip {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 10px;
+    }
 }

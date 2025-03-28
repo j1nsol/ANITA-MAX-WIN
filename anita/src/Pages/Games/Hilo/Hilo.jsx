@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Hilo.css';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 // Import the images
 =======
+=======
+>>>>>>> Stashed changes
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../../firebase';
@@ -56,7 +59,7 @@ const HiLoGame = () => {
   const [earned, setEarned] = useState(0);
   const [gameActive, setGameActive] = useState(false);
   const [betAmount, setBetAmount] = useState(10);
-  const [cards, setCards] = useState([]); // Track an array of cards
+  const [cards, setCards] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [userId, setUserId] = useState(null);
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -64,15 +67,29 @@ const HiLoGame = () => {
   const [wins, setWins] = useState(0);
   const [betHistory, setBetHistory] = useState([]);
   const [musicPlaying, setMusicPlaying] = useState(true);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [volume, setVolume] = useState(0.7);
+  const [showVolumeControl, setShowVolumeControl] = useState(false);
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const playMusic = () => {
+    const bgMusic = document.getElementById('background-music');
+    const winSound = document.getElementById('win-sound');
+    const loseSound = document.getElementById('lose-sound');
+    
+    [bgMusic, winSound, loseSound].forEach(audio => {
+      audio.volume = musicPlaying ? volume : 0;
+    });
+
     if (musicPlaying) {
-      document.getElementById('background-music').play();
+      bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
     } else {
-      document.getElementById('background-music').pause();
+      bgMusic.pause();
     }
   };
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   const toggleMute = () => {
     setMusicPlaying(!musicPlaying);
@@ -126,6 +143,83 @@ const HiLoGame = () => {
       addBetToHistory(betAmount, "Win");
       document.getElementById('win-sound').play();  // Play win sound
 =======
+=======
+  const renderSettings = () => (
+    <div className="settings-wrapper">
+      {/* Theme Menu Button */}
+      <button 
+        className="menu-button"
+        onClick={() => setShowThemeMenu(!showThemeMenu)}
+      >
+        <img src={menuIcon} alt="Menu" />
+      </button>
+
+      {/* Theme Menu Dropdown */}
+      {showThemeMenu && (
+        <div className="theme-menu">
+          <button 
+            onClick={() => {
+              setDarkMode(false);
+              setShowThemeMenu(false);
+            }}
+            className={!darkMode ? 'active' : ''}
+          >
+            Light Mode
+          </button>
+          <button 
+            onClick={() => {
+              setDarkMode(true);
+              setShowThemeMenu(false);
+            }}
+            className={darkMode ? 'active' : ''}
+          >
+            Dark Mode
+          </button>
+        </div>
+      )}
+
+      {/* Volume Controls */}
+      <div className="volume-control-container">
+        <button 
+          onClick={() => {
+            setShowVolumeControl(!showVolumeControl);
+            if (showVolumeControl) {
+              setMusicPlaying(!musicPlaying);
+            }
+          }}
+          className="mute-button"
+        >
+          <img 
+            src={musicPlaying ? unmuteIcon : muteIcon} 
+            alt={musicPlaying ? "Mute" : "Unmute"} 
+          />
+        </button>
+        
+        {showVolumeControl && (
+          <div className="volume-slider">
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={volume}
+              onChange={(e) => {
+                const newVolume = parseFloat(e.target.value);
+                setVolume(newVolume);
+                if (newVolume === 0) {
+                  setMusicPlaying(false);
+                } else {
+                  setMusicPlaying(true);
+                }
+              }}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+>>>>>>> Stashed changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -139,7 +233,6 @@ const HiLoGame = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch token from Firestore when user logs in
   useEffect(() => {
     const fetchTokenAndUpdateFirestore = async () => {
       if (userId !== null) {
@@ -147,7 +240,7 @@ const HiLoGame = () => {
         const userSnap = await getDoc(userRef);
         if (userSnap.exists()) {
           const userData = userSnap.data();
-          setToken(userData.token); // Set the token state correctly
+          setToken(userData.token);
         } else {
           console.error('No user data found!');
         }
@@ -157,17 +250,39 @@ const HiLoGame = () => {
     fetchTokenAndUpdateFirestore();
   }, [userId]);
 
-  // Update Firestore when token changes
   useEffect(() => {
     if (userId !== null && token !== 0) {
       const userRef = doc(db, 'User', userId);
-      updateDoc(userRef, { token: token }) // Update token in Firestore
+      updateDoc(userRef, { token: token })
         .then(() => console.log("Token updated"))
         .catch((error) => console.error("Error updating token:", error));
     }
   }, [token, userId]);
 
-  // Handle placing a bet
+  useEffect(() => {
+    playMusic();
+  }, [musicPlaying, volume]);
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      setIsFlipped(true);
+      const timer = setTimeout(() => {
+        setIsFlipped(false);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [cards]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showThemeMenu && !e.target.closest('.settings-wrapper')) {
+        setShowThemeMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showThemeMenu]);
+
   const placeBet = (selectedBetAmount) => {
     if (selectedBetAmount <= 0 || selectedBetAmount > token) {
       setMessage('Invalid bet amount or insufficient balance.');
@@ -177,7 +292,6 @@ const HiLoGame = () => {
     setMessage(`Bet of $${selectedBetAmount} placed!`);
   };
 
-  // Handle card guessing
   const handleGuess = (guess) => {
     if (betAmount <= 0) {
       setMessage("Please place a bet before making a guess.");
@@ -189,15 +303,15 @@ const HiLoGame = () => {
       return;
     }
 
-    const nextCard = Math.floor(Math.random() * 13) + 1;
-    const correct =
-      (guess === 'higher' && nextCard > cards[cards.length - 1]) ||
-      (guess === 'lower' && nextCard < cards[cards.length - 1]);
+    setIsFlipped(true);
 
-    // Deduct the bet amount and update tokens
-    setToken((prevToken) => prevToken - betAmount);
-    setCards((prevCards) => [...prevCards, nextCard]);
+    setTimeout(() => {
+      const nextCard = Math.floor(Math.random() * 13) + 1;
+      const correct =
+        (guess === 'higher' && nextCard > cards[cards.length - 1]) ||
+        (guess === 'lower' && nextCard < cards[cards.length - 1]);
 
+<<<<<<< Updated upstream
     if (correct) {
       const winnings = betAmount * 2;
       setToken((prevToken) => prevToken + winnings);
@@ -222,20 +336,42 @@ const HiLoGame = () => {
       { date: currentDate, bet: betAmount, result: correct ? 'Win' : 'Lose', token },
     ]);
 >>>>>>> Stashed changes
+=======
+      setCards((prevCards) => [...prevCards, nextCard]);
+      setIsFlipped(false);
+
+      if (correct) {
+        const winnings = betAmount * 2;
+        setToken((prevToken) => prevToken + winnings);
+        setWins(wins + 1);
+        setEarned(earned + winnings);
+        setMessage(`Correct! You won $${winnings}`);
+        document.getElementById('win-sound').play();
+      } else {
+        setMessage(`Wrong! You lost $${betAmount}`);
+        setGameOver(true);
+        document.getElementById('lose-sound').play();
+      }
+
+      const currentDate = new Date().toLocaleString();
+      setBetHistory((prevHistory) => [
+        ...prevHistory,
+        { date: currentDate, bet: betAmount, result: correct ? 'Win' : 'Lose', token },
+      ]);
+    }, 300);
+>>>>>>> Stashed changes
   };
 
-  // Handle skip
   const handleSkip = () => {
     setMessage('You skipped the round!');
-    setGameActive(false); // Disable further guesses for now
-    setGameOver(false);   // Reset game over state
-    setBetAmount(10);     // Reset bet amount to default
-  
-    // Add a new card to the cards array to simulate skipping the round
-    const nextCard = Math.floor(Math.random() * 13) + 1; // Generate a new card
-    setCards((prevCards) => [...prevCards, nextCard]);  // Add new card to the array
+    setGameActive(false);
+    setGameOver(false);
+    setBetAmount(10);
+    const nextCard = Math.floor(Math.random() * 13) + 1;
+    setCards((prevCards) => [...prevCards, nextCard]);
   };
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   const placeBet = (selectedBetAmount) => {
     if (balance <= 0) {
@@ -288,6 +424,10 @@ const HiLoGame = () => {
             <p>{balance}</p>
 =======
     <div className="hilobody">
+=======
+  return (
+    <div className={`hilobody ${darkMode ? 'dark-mode' : ''}`}>
+>>>>>>> Stashed changes
       <UserTopBar />
       <Sidebar />
       <div className="container">
@@ -333,12 +473,7 @@ const HiLoGame = () => {
           </div>
 
           <div className="setting-container">
-            <button id="menu-button" className="main-button">
-              <img src={menuIcon} alt="Menu" />
-            </button>
-            <button id="mute-button" className="mute-button" onClick={toggleMute}>
-              <img src={musicPlaying ? unmuteIcon : muteIcon} alt="Mute" />
-            </button>
+            {renderSettings()}
           </div>
         </div>
 
@@ -369,27 +504,37 @@ const HiLoGame = () => {
               <img src={downIcon} alt="lower" />
             </button>
 
-            <div className="card-container">
-  {/* Display the most recent card */}
-  <img
-    id="current-card"
-    src={cardImages[cards[cards.length - 1] || 1]} // Fallback to card 1 if no card is in array
-    alt="Card"
-  />
+            <div className="card-flip-container">
+              <div className={`card-flip ${isFlipped ? 'flipped' : ''}`}>
+                <div className="card-front">
+                  <img 
+                    src={cards.length > 0 ? cardImages[cards[cards.length - 1]] : card1} 
+                    alt="Current Card" 
+                  />
+                </div>
+                <div className="card-back"></div>
+              </div>
+            </div>
 
-  {/* Show the previous card if available */}
-  {cards.length > 1 && (
-    <img
-      id="previous-card"
-      src={cardImages[cards[cards.length - 2]]}
-      alt="Previous Card"
-    />
-  )}
-</div>
             <button id="higher" className="side-button" onClick={() => handleGuess('higher')}>
               <img src={upIcon} alt="higher" />
             </button>
 >>>>>>> Stashed changes
+
+            {cards.length > 1 && (
+              <img
+                id="previous-card"
+                src={cardImages[cards[cards.length - 2]]}
+                alt="Previous Card"
+                style={{
+                  position: 'absolute',
+                  right: '-100px',
+                  width: '100px',
+                  height: 'auto',
+                  opacity: 0.8
+                }}
+              />
+            )}
 
             <button id="skip" onClick={handleSkip}>Skip</button>
           </div>
