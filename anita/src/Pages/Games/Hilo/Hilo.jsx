@@ -176,44 +176,77 @@ const HiLoGame = () => {
       setMessage("Please place a bet before making a guess.");
       return;
     }
-
+  
     if (betAmount > token) {
       setMessage("Insufficient balance! Adjust your bet.");
       return;
     }
-
+  
+    if (cards.length === 0) {
+      // First card draw (no comparison needed)
+      const firstCard = Math.floor(Math.random() * 13) + 1;
+      setCards([firstCard]);
+      setMessage("First card drawn! Make your guess for the next card.");
+      return;
+    }
+  
     setIsFlipped(true);
-
+  
     setTimeout(() => {
       const nextCard = Math.floor(Math.random() * 13) + 1;
-      const correct =
-        (guess === 'higher' && nextCard > cards[cards.length - 1]) ||
-        (guess === 'lower' && nextCard < cards[cards.length - 1]);
-
+      const currentCard = cards[cards.length - 1];
+      const isEqual = nextCard === currentCard;
+      
       setCards((prevCards) => [...prevCards, nextCard]);
       setIsFlipped(false);
-
-      if (correct) {
-        const winnings = betAmount * 2;
-        setToken((prevToken) => prevToken + winnings);
-        setWins(wins + 1);
-        setEarned(earned + winnings);
-        setMessage(`Correct! You won ${winnings}`);
-        document.getElementById('win-sound').play();
+  
+      let newToken = token;
+      let resultMessage = "";
+      let result = "";
+      let soundToPlay = null;
+  
+      if (isEqual) {
+        // Cards are equal - no win or loss
+        resultMessage = "Cards are equal! No change to your balance.";
+        result = "Push";
       } else {
-        setMessage(`Wrong! You lost ${betAmount}`);
-        setGameOver(true);
-        document.getElementById('lose-sound').play();
+        const correct =
+          (guess === 'higher' && nextCard > currentCard) ||
+          (guess === 'lower' && nextCard < currentCard);
+  
+        if (correct) {
+          const winnings = betAmount * 2;
+          newToken = token + winnings;
+          setWins(wins + 1);
+          setEarned(earned + winnings);
+          resultMessage = `Correct! You won ${winnings}`;
+          result = "Win";
+          soundToPlay = 'win-sound';
+        } else {
+          newToken = token - betAmount;
+          resultMessage = `Wrong! You lost ${betAmount}`;
+          result = "Lose";
+          soundToPlay = 'lose-sound';
+          setGameOver(true);
+        }
       }
-
+  
+      setToken(newToken);
+      setMessage(resultMessage);
+      if (soundToPlay) document.getElementById(soundToPlay).play();
+  
       const currentDate = new Date().toLocaleString();
       setBetHistory((prevHistory) => [
         ...prevHistory,
-        { date: currentDate, bet: betAmount, result: correct ? 'Win' : 'Lose', token },
+        { 
+          date: currentDate, 
+          bet: betAmount, 
+          result: result, 
+          token: newToken 
+        },
       ]);
     }, 300);
   };
-
   const handleSkip = () => {
     setMessage('You skipped the round!');
     setGameActive(false);
