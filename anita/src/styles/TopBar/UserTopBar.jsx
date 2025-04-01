@@ -98,9 +98,11 @@ export const UserTopBarStyles = `
   
   .navigation-profile-image {
     aspect-ratio: 1;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     width: 70px;
+    height: 70px;
+    border-radius: 50%;
   }
   
   .navigation-username {

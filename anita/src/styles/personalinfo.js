@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 // Styled Components
 const PersonalInfoForm = styled.form`
   background-color: rgba(57, 153, 218, 1);

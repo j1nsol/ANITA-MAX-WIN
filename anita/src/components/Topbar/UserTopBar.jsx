@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { UserTopBarStyles } from "../../styles/TopBar/UserTopBar";
-import { auth, db } from "../../firebase"; // Update the path based on your project structure
+import { auth, db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
+
 export function UserTopBar() {
   const [username, setUsername] = useState("Loading...");
-  const [token, setToken] = useState(0.0); // Assuming balance is fetched similarly
+  const [token, setToken] = useState(0.0);
+  const [profileImage, setProfileImage] = useState(null);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -14,15 +18,24 @@ export function UserTopBar() {
         const user = auth.currentUser;
         if (!user) return;
 
-        const userDoc = doc(db, "User", user.uid); // Replace "User" with your collection name
+        const userDoc = doc(db, "User", user.uid);
         const docSnap = await getDoc(userDoc);
 
         if (docSnap.exists()) {
           const data = docSnap.data();
-          setUsername(data.username || "Unknown"); // Update based on your Firestore fields
-          setToken(data.token || 0.0); // Optional: Fetch other fields like balance
+          setUsername(data.username || "Unknown");
+          setToken(data.token || 0.0);
         } else {
           console.error("No such document!");
+        }
+
+        // Fetch profile image from Firebase Storage
+        const imageRef = ref(storage, `images/${user.uid}.jfif`);
+        try {
+          const imageUrl = await getDownloadURL(imageRef);
+          setProfileImage(imageUrl);
+        } catch (error) {
+          console.error("No profile image found, using default.");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -37,12 +50,12 @@ export function UserTopBar() {
     setIsSigningOut(true);
     try {
       await auth.signOut();
-      Navigate("/login");
+      navigate("/login");
     } catch (error) {
       console.error("Sign out failed:", error);
     } finally {
       setIsSigningOut(false);
-      Navigate("/login");
+      navigate("/login");
     }
   };
 
@@ -67,6 +80,8 @@ export function UserTopBar() {
                 alt="Secondary company logo"
                 width="199"
                 height="75"
+                border-radius="50%"
+                
               />
             </div>
             <div className="navigation-user">
@@ -74,7 +89,7 @@ export function UserTopBar() {
                 <div className="navigation-profile">
                   <img
                     loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6915d84e76836b882aa259489055a969edc3345c2ebf0e5b9df622b730afb8d1?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
+                    src={profileImage || "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6915d84e76836b882aa259489055a969edc3345c2ebf0e5b9df622b730afb8d1?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"}
                     className="navigation-profile-image"
                     alt="User profile picture"
                     width="89"

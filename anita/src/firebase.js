@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
-const storage = getStorage(app);
+const storage = getStorage(app, 'gs://anita-9b8b6.firebasestorage.app');
 
-export { auth, database, storage };
+export { auth, database, storage};
 export const db = getFirestore(app);
