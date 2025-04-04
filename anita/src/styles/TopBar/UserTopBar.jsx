@@ -76,6 +76,7 @@ export const UserTopBarStyles = `
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 24px;
+    justify-content: flex-end;
   }
   
   .navigation-user-info {
