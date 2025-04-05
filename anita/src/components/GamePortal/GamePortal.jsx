@@ -63,6 +63,46 @@ const games = [
 
 
 export function GamingPortal() {
+  const sliderRef = React.useRef(null);
+
+  const handlePrevClick = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const handleNextClick = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4, // Number of cards to show
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: false, // Disable default arrows
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2, // Number of cards to show at this breakpoint
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1, // Number of cards to show at this breakpoint
+          slidesToScroll: 1,
+          initialSlide: 1
+        }
+      }
+    ]
+  };
+
   return (
     <body>
     <UserTopBar/>
@@ -126,6 +166,7 @@ const PortalWrapper = styled.main`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  margin-left: 50px;
 `;
 
 const PortalContent = styled.div`
