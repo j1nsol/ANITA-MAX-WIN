@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { GameCard } from './Components/GameCard';
 import { LearningPlatformCard } from './Components/LearningPlatform';
