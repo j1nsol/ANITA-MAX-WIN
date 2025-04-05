@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
+import dpSample from "/src/assets/images/dpsample.png";
 
 const iconsData = [
+  { src: dpSample, alt: "User icon", to: "/profile", title: "Jez Bayot" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", title: "Games" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", title: "Sports" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", title: "Profile" },
@@ -27,7 +29,10 @@ export default function Sidebar() {
         {iconsData.map((icon, index) => (
           <Link to={icon.to} key={index} className="sidebar-link">
             <div className="sidebar-item">
-              <img src={icon.src} alt={icon.alt} className="sidebar-icon" />
+              <img src={icon.src} 
+              alt={icon.alt} 
+              className={`sidebar-icon ${icon.src === dpSample ? "rounded-icon" : ""}`} 
+              />
               <span className={`icon-title ${isExpanded ? "visible" : ""}`}>{icon.title}</span>
               {!isExpanded && <span className="tooltip">{icon.title}</span>}
             </div>
@@ -38,15 +43,15 @@ export default function Sidebar() {
         .sidebar {
           position: fixed;
           display: flex;
-          max-width: 100px;
+          max-width: 80px;
           z-index: 1500;
           flex-direction: column; 
           left: 0;
           top: 0;
-          transition: max-width 0.3s ease;
+          transition: max-width 0.5s ease; /* Slower animation */
         }
         .sidebar.expanded {
-          max-width: 300px; /* Increased width for expanded sidebar */
+          max-width: 400px; /* Increased width for expanded sidebar */
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);
@@ -56,6 +61,7 @@ export default function Sidebar() {
           justify-content: center;
           padding: 5px 10px;
           cursor: pointer;
+          border-top-right-radius: 15px;
         }
         .sidebar-logo {
           aspect-ratio: 0.99;
@@ -84,7 +90,10 @@ export default function Sidebar() {
           display: flex;
           align-items: center;
           padding: 10px;
-          transition: background-color 0.3s ease, box-shadow 0.3s ease;
+          transition: background-color 0.5s ease, box-shadow 0.5s ease, padding 0.5s ease; /* Slower animation */
+        }
+        .sidebar.expanded .sidebar-item {
+          padding: 10px 100px 10px 10px; /* Adjust padding for expanded state */
         }
         .sidebar-item:hover {
           background-color: rgba(0, 0, 0, 0.1);
@@ -94,14 +103,21 @@ export default function Sidebar() {
           width: 50px;
           height: 50px;
           margin-right: 10px;
+          border-radius: 25%;
+          objectfit: cover;
         }
+
+        .sidebar-icon.rounded-icon {
+          border-radius: 50%; /* Make the icon circular */
+        }
+          
         .icon-title {
           font-size: 16px;
           color: #000;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          transition: opacity 0.3s ease;
+          transition: opacity 0.5s ease; /* Slower animation */
           opacity: 0;
         }
         .icon-title.visible {
@@ -120,7 +136,7 @@ export default function Sidebar() {
           white-space: nowrap;
           visibility: hidden;
           opacity: 0;
-          transition: visibility 0s, opacity 0.3s ease;
+          transition: visibility 0s, opacity 0.5s ease; /* Slower animation */
         }
         .sidebar-item:hover .tooltip {
           visibility: visible;

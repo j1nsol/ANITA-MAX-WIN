@@ -1,8 +1,12 @@
+import React from 'react';
 import styled from 'styled-components';
+import Slider from 'react-slick';
 import { GameCard } from './Components/GameCard';
 import { LearningPlatformCard } from './Components/LearningPlatform';
 import { UserTopBar } from '../Topbar/UserTopBar';
 import Sidebar from '../Sidebar/Sidebar';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 const learningPlatforms = [
   { 
@@ -21,7 +25,6 @@ const learningPlatforms = [
     backgroundGradient: 'linear-gradient(to top, #EA82E1 1%, #D6DCE7 60%)' // New gradient
   }
 ];
-
 
 const games = [
   { 
@@ -61,56 +64,100 @@ const games = [
   }
 ];
 
-
 export function GamingPortal() {
+  const sliderRef = React.useRef(null);
+
+  const handlePrevClick = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const handleNextClick = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4, // Number of cards to show
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false, // Disable default arrows
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2, // Number of cards to show at this breakpoint
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1, // Number of cards to show at this breakpoint
+          slidesToScroll: 1,
+          initialSlide: 1
+        }
+      }
+    ]
+  };
+
   return (
     <body>
-    <UserTopBar/>
-    <Sidebar/>
-    
-    <PortalWrapper>
-      
-      <PortalContent>
-        <Background>
-          <LearningSection>
-            {learningPlatforms.map((platform, index) => (
-             <LearningPlatformCard
-             key={index}
-             title={platform.title}
-             imageSrc={platform.imageSrc}
-             backgroundGradient={platform.backgroundGradient}  // Ensure this is passed correctly
-           />
-            ))}
-          </LearningSection>
-          
-          <GamesSection>
-            <SectionHeader>
-              <Title>MAXWIN Originals</Title>
-              <LogoWrapper>
-                <Logo loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a764da91915be219eb94877b86fffe990fcae44c8b2e50fdb8d86dd150c6464e?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" alt="Logo 2" />
-                <Logo loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/57deac5d4c5203e13aafeecdaa32dbeaa52a22957196e9a52944cfe4b54b70d5?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&" alt="Logo 1" />
-
-              </LogoWrapper>
-            </SectionHeader>
-            
-            <GameGrid>
-  {games.map((game, index) => (
-    <GameCard
-      key={index}
-      title={game.title}
-      playerCount={game.playerCount}
-      imageSrc={game.imageSrc}
-      backgroundGradient={game.backgroundGradient} // Ensure this is being passed
-      link={game.link}
-    />
-  ))}
-</GameGrid>
-
-
-          </GamesSection>
-        </Background>
-      </PortalContent>
-    </PortalWrapper>
+      <UserTopBar/>
+      <Sidebar/>
+      <PortalWrapper>
+        <PortalContent>
+          <Background>
+            <LearningSection>
+              {learningPlatforms.map((platform, index) => (
+                <LearningPlatformCard
+                  key={index}
+                  title={platform.title}
+                  imageSrc={platform.imageSrc}
+                  backgroundGradient={platform.backgroundGradient}  // Ensure this is passed correctly
+                />
+              ))}
+            </LearningSection>
+            <GamesSection>
+              <SectionHeader>
+                <Title>MAXWIN Originals</Title>
+                <LogoWrapper>
+                  <Logo
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a764da91915be219eb94877b86fffe990fcae44c8b2e50fdb8d86dd150c6464e?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
+                    alt="Logo 2"
+                    onClick={handlePrevClick}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <Logo
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/57deac5d4c5203e13aafeecdaa32dbeaa52a22957196e9a52944cfe4b54b70d5?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
+                    alt="Logo 1"
+                    onClick={handleNextClick}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </LogoWrapper>
+              </SectionHeader>
+              <Slider ref={sliderRef} {...settings}>
+                {games.map((game, index) => (
+                  <GameCard
+                    key={index}
+                    title={game.title}
+                    playerCount={game.playerCount}
+                    imageSrc={game.imageSrc}
+                    backgroundGradient={game.backgroundGradient} // Ensure this is being passed
+                    link={game.link}
+                  />
+                ))}
+              </Slider>
+            </GamesSection>
+          </Background>
+        </PortalContent>
+      </PortalWrapper>
     </body>
   );
 }
@@ -194,7 +241,6 @@ const SectionHeader = styled.div`
   }
 `;
 
-
 const Title = styled.h1`
   color: #fff;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -216,8 +262,8 @@ const Logo = styled.img`
   width: 74px;
   height: auto;
   border-radius: 15px;
+  cursor: pointer;
 `;
-
 
 const GameGrid = styled.div`
   display: flex;
@@ -232,4 +278,3 @@ const GameGrid = styled.div`
     max-width: 100%;
   }
 `;
-
