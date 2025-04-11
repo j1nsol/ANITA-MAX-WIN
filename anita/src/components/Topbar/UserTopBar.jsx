@@ -86,19 +86,7 @@ export function UserTopBar() {
             </div>
             <div className="navigation-user">
               <div className="navigation-user-info">
-                <div className="navigation-profile">
-                  <img
-                    loading="lazy"
-                    src={profileImage || "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6915d84e76836b882aa259489055a969edc3345c2ebf0e5b9df622b730afb8d1?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"}
-                    className="navigation-profile-image"
-                    alt="User profile picture"
-                    width="89"
-                    height="80"
-                  />
-                  <div className="navigation-username" aria-label="Username">
-                    {username}
-                  </div>
-                </div>
+                
                 <div className="navigation-balance" aria-label="Account balance">
                   <div>Balance</div>
                   <div aria-live="polite">{token.toFixed(2)}</div>
