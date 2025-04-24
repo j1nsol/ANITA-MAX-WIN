@@ -4,7 +4,6 @@ export const styles = `
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  position: fixed; /* Ensures it covers the full viewport */
   top: 0;
   left: 0;
   width: 100vw;
