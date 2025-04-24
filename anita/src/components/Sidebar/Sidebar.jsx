@@ -1,9 +1,50 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
+import { auth, db, storage } from '../../firebase';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { ref, getDownloadURL } from "firebase/storage";
 import dpSample from "/src/assets/images/dpsample.png";
 
-const iconsData = [
-  { src: dpSample, alt: "User icon", to: "/profile", title: "Jez Bayot" },
+const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [username, setUsername] = useState("Loading...");
+  const [profileImage, setProfileImage] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const userDoc = doc(db, "User", user.uid);
+        const docSnap = await getDoc(userDoc);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUsername(data.username || "Unknown");
+        } else {
+          console.error("No such document!");
+        }
+
+        // Fetch profile image from Firebase Storage
+        const imageRef = ref(storage, `Profile_Images/${user.uid}.png`);
+        try {
+          const imageUrl = await getDownloadURL(imageRef);
+          setProfileImage(imageUrl);
+          console.log("Profile Image URL:", profileImage);
+        } catch (error) {
+          console.error("No profile image found, using default.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+  const iconsData = [
+    { src: profileImage, alt: "User  icon", to: "/profile", title: username },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", title: "Games" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", title: "Sports" },
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", title: "Profile" },
@@ -13,8 +54,8 @@ const iconsData = [
   { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Support icon", to: "/support", title: "Support" }
 ];
 
-export default function Sidebar() {
-  const [isExpanded, setIsExpanded] = React.useState(false);
+
+
 
   return (
     <nav className={`sidebar ${isExpanded ? "expanded" : ""}`}>
@@ -31,7 +72,7 @@ export default function Sidebar() {
             <div className="sidebar-item">
               <img src={icon.src} 
               alt={icon.alt} 
-              className={`sidebar-icon ${icon.src === dpSample ? "rounded-icon" : ""}`} 
+              className={`sidebar-icon ${icon.src === null ? "rounded-icon" : ""}`} 
               />
               <span className={`icon-title ${isExpanded ? "visible" : ""}`}>{icon.title}</span>
               {!isExpanded && <span className="tooltip">{icon.title}</span>}
@@ -146,3 +187,5 @@ export default function Sidebar() {
     </nav>
   );
 }
+
+export default Sidebar;
