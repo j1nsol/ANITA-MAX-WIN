@@ -354,7 +354,7 @@ export const PersonalInformationForm = () => {
           }));
   
           // Fetch Profile Image from Storage
-          const storageRef = ref(storage, `images/${userUid}.jfif`);
+          const storageRef = ref(storage, `Profile_Images/${userUid}.png`);
           try {
             const url = await getDownloadURL(storageRef);
             setFormData(prevData => ({
@@ -415,42 +415,72 @@ export const PersonalInformationForm = () => {
       const fileType = file.type;
       const fileSize = file.size;
   
-      // Validate file type
-      if (fileType !== "image/jpeg" && fileType !== "image/png") {
-        throw new Error("Invalid file type. Only JPEG and PNG are allowed.");
-      }
-  
       // Validate file size (5MB limit)
       if (fileSize > 5 * 1024 * 1024) {
         throw new Error("File is too large. Maximum size is 5MB.");
       }
   
-      const userUid = auth.currentUser?.uid;
+      const userUid = auth.currentUser ?.uid;
       if (!userUid) {
-        throw new Error("User is not authenticated.");
+        throw new Error("User  is not authenticated.");
       }
   
-      const fileExtension = file.name.split('.').pop();
-      const storage = getStorage();
-      const storageRef = ref(storage, `images/${userUid}.${fileExtension}`);
+      // Create a FileReader to read the image file
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const img = new Image();
+        img.src = e.target.result;
   
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
-        },
-        (error) => {
-          console.error(error);
-          alert("Error uploading image: " + error.message);
-        },
-        async () => {
-
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log("File available at", downloadURL);
-        }
-      );
+        img.onload = async () => {
+          // Create a canvas to draw the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+  
+          // Set canvas dimensions to the image dimensions
+          canvas.width = img.width;
+          canvas.height = img.height;
+  
+          // Draw the image on the canvas
+          ctx.drawImage(img, 0, 0);
+  
+          // Convert the canvas to a PNG data URL
+          const pngDataUrl = canvas.toDataURL('image/png');
+  
+          // Convert the data URL to a Blob
+          const response = await fetch(pngDataUrl);
+          const blob = await response.blob();
+  
+          // Create a reference to the storage location
+          const storage = getStorage();
+          const storageRef = ref(storage, `Profile_Images/${userUid}.png`); // Save as PNG
+  
+          // Upload the Blob to Firebase Storage
+          const uploadTask = uploadBytesResumable(storageRef, blob);
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log(`Upload is ${progress}% done`);
+            },
+            (error) => {
+              console.error(error);
+              alert("Error uploading image: " + error.message);
+            },
+            async () => {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              console.log("File available at", downloadURL);
+              // Optionally, save the download URL to Firestore or update state
+              setFormData(prevData => ({
+                ...prevData,
+                profileImage: img.src // Store the data URL for immediate display
+              }));
+            }
+          );
+        };
+      };
+  
+      // Read the image file as a data URL
+      reader.readAsDataURL(file);
     } catch (error) {
       console.error(error);
       alert("Error uploading image: " + error.message);
@@ -483,7 +513,6 @@ export const PersonalInformationForm = () => {
         compliance: formData.compliance,
         guidelines: formData.guidelines,
         terms: formData.terms,
-        profileImage: formData.profileImage ? formData.profileImage.name : null, // Store file name only
       };
   
       // Save user data to Firestore
