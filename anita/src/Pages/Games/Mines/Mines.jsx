@@ -4,7 +4,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { UserTopBar } from '../../../components/Topbar/UserTopBar';
-import Sidebar  from '../../../components/Sidebar/Sidebar';
+import Sidebar from '../../../components/Sidebar/Sidebar';
 import logo from './logo.svg';
 
 const MinesGame = () => {
@@ -19,6 +19,7 @@ const MinesGame = () => {
   const [revealedSafeCards, setRevealedSafeCards] = useState(0);
   const [userId, setUserId] = useState(null);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // State for error messages
 
   const totalCards = 25;
 
@@ -27,7 +28,7 @@ const MinesGame = () => {
       if (user) {
         setUserId(user.uid);
       } else {
-        alert('Please sign in to play the game.');
+        setErrorMessage('Please sign in to play the game.');
         setUserId(null);
       }
     });
@@ -74,17 +75,17 @@ const MinesGame = () => {
     try {
       await updateDoc(userRef, { token: amount });
     } catch (error) {
-      console.error('Error updating Firestore token:', error);
+      setErrorMessage('Error updating Firestore token.');
     }
   };
 
   const handleCardClick = (index) => {
     if (!gameActive) {
-      alert('Please click the start button to begin the game.');
+      setErrorMessage('Please click the start button to begin the game.');
       return;
     }
     if (cards[index].clicked) {
-      alert('This card has already been clicked.');
+      setErrorMessage('This card has already been clicked.');
       return;
     }
 
@@ -133,12 +134,12 @@ const MinesGame = () => {
 
   const startGame = async () => {
     if (token < betAmount) {
-      alert('Insufficient tokens to place the bet.');
+      setErrorMessage('Insufficient tokens to place the bet.');
       return;
     }
 
     if (totalMines < 1 || totalMines > 25) {
-      alert('Please enter a valid number of mines (1-25).');
+      setErrorMessage('Please enter a valid number of mines (1-25).');
       return;
     }
 
@@ -164,7 +165,7 @@ const MinesGame = () => {
       if (userSnap.exists()) {
         setToken(userSnap.data().token);
       } else {
-        console.error('No user data found!');
+        setErrorMessage('No user data found!');
       }
     };
 
@@ -174,62 +175,80 @@ const MinesGame = () => {
   }, [userId]);
 
   return (
-    <body className='mines-body'>
+    <body className="mines-body">
       <UserTopBar />
       <Sidebar />
-      <div classname="mines-main-container">
-      <div className='mines-logo-container'>
-        <img className="mines-logo" src={logo} alt="logo" />
-      </div>
-      <div className="mines-game-container">
-        <div className="mines-sidebar">
-          <h3>Set Number of Mines</h3>
-          <div>
-            <input
-              type="number"
-              min="1"
-              max="25"
-              value={totalMines}
-              onChange={(e) => setTotalMines(parseInt(e.target.value))}
-            />
-            <p>Number of Mines</p>
-            <input
-              type="number"
-              min="1"
-              max={token}
-              value={betAmount}
-              onChange={(e) => setBetAmount(parseInt(e.target.value))}
-            />
-            <p>Bet Amount</p>
-          </div>
-          <button className="mines-start-btn" onClick={startGame}>
-            Start Game
-          </button>
-          <button className="mines-cashout-btn" onClick={cashOut} disabled={!gameActive}>
-            Cash Out
-          </button>
-          <div className="mines-balance-container">
-            <p>Current Tokens: <span>{token.toFixed(2)}</span></p>
-            <p>Amount Earned: <span>{earned.toFixed(2)}</span></p>
-          </div>
+      <div className="mines-main-container">
+        <div className="mines-logo-container">
+          <img className="mines-logo" src={logo} alt="logo" />
         </div>
-        <div className="mines-card-container">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className={`mines-card ${card.clicked ? (card.mined ? 'mine' : 'safe') : ''}`}
-              style={card.style}
-              onClick={() => handleCardClick(index)}
-            >
-              {card.clicked && (card.mined ? '💣' : '💎')}
+        <div className="mines-game-container">
+          <div className="mines-sidebar">
+            <h3>Set Number of Mines</h3>
+            <div>
+              <input
+                type="number"
+                min="1"
+                max="25"
+                value={totalMines}
+                onChange={(e) => setTotalMines(parseInt(e.target.value))}
+              />
+              <p>Number of Mines</p>
+              <input
+                type="number"
+                min="1"
+                max={token}
+                value={betAmount}
+                onChange={(e) => setBetAmount(parseInt(e.target.value))}
+              />
+              <p>Bet Amount</p>
             </div>
-          ))}
+            <button className="mines-start-btn" onClick={startGame}>
+              Start Game
+            </button>
+            <button
+              className="mines-cashout-btn"
+              onClick={cashOut}
+              disabled={!gameActive}
+            >
+              Cash Out
+            </button>
+            <div className="mines-balance-container">
+              <p>
+                Current Tokens: <span>{token.toFixed(2)}</span>
+              </p>
+              <p>
+                Amount Earned: <span>{earned.toFixed(2)}</span>
+              </p>
+            </div>
+          </div>
+          <div className="mines-card-container">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className={`mines-card ${
+                  card.clicked ? (card.mined ? 'mine' : 'safe') : ''
+                }`}
+                style={card.style}
+                onClick={() => handleCardClick(index)}
+              >
+                {card.clicked && (card.mined ? '💣' : '💎')}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       </div>
       {overlayVisible && (
         <div className="mines-overlay">
-          <div className="mines-overlay-message">Game Over! You clicked a mine.</div>
+          <div className="mines-overlay-message">
+            Game Over! You clicked a mine.
+          </div>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="mines-error-popup">
+          <p>{errorMessage}</p>
+          <button onClick={() => setErrorMessage('')}>Close</button>
         </div>
       )}
     </body>
