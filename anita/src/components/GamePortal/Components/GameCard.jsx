@@ -42,6 +42,7 @@ const CardWrapper = styled.article`
   background: ${({ backgroundGradient }) => backgroundGradient || 'linear-gradient(to top, #ffffff, #f0f0f0)'};
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
   cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+   margin: 0 80px;
 
   &:hover {
     transform: scale(1.1); /* Scales the card to 1.1 times */

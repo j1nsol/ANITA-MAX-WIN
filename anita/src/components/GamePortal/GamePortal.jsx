@@ -81,7 +81,7 @@ export function GamingPortal() {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     arrows: false,
     responsive: [
@@ -182,6 +182,9 @@ const StyledSlider = styled(Slider)`
 
   .slick-track {
     overflow: visible !important;
+  }
+    .slick-slide > div {
+    margin: 0 15px; /* Add horizontal spacing between cards */
   }
 `;
 
