@@ -30,6 +30,7 @@ export const GameCard = ({ title, playerCount, imageSrc, backgroundGradient, lin
 };
 
 const CardWrapper = styled.article`
+  position: relative; /* Ensure the card is positioned relative for z-index to work */
   border-radius: 15px;
   box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.25);
   min-height: 415px;
@@ -37,14 +38,16 @@ const CardWrapper = styled.article`
   max-width: 301px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible; /* Allow hover effects to extend outside the card */
   background: ${({ backgroundGradient }) => backgroundGradient || 'linear-gradient(to top, #ffffff, #f0f0f0)'};
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
   cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+   margin: 0 80px;
 
   &:hover {
     transform: scale(1.1); /* Scales the card to 1.1 times */
     box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.35); /* Enhances shadow for hover effect */
+    z-index: 10; /* Brings the card to the front on hover */
   }
 `;
 
