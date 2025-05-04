@@ -358,7 +358,7 @@
   }
   
   .balance-container, .wins-container {
-    background-color: rgba(234, 224, 213, 0.9);
+    background-color: rgba(2, 2, 1, 0.9);
     padding: 15px;
     border-radius: 10px;
     flex: 1;
@@ -367,7 +367,13 @@
   }
   
   .betting-container {
-    background-color: rgba(234, 224, 213, 0.9);
+    background-color:      linear-gradient(135deg, 
+    rgba(57, 153, 218, 0.4) 0%, 
+    rgba(0, 255, 255, 0.2) 50%, 
+    rgba(128, 0, 255, 0.15) 100%),
+  radial-gradient(circle at center, 
+    rgba(255, 20, 147, 0.1) 0%, 
+    transparent 70%);;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
@@ -411,7 +417,7 @@
     font-weight: bold;
     min-width: 80px;
     text-align: center;
-    background-color: #f8f8f8;
+    background-color: #0e0b0b;
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
