@@ -53,13 +53,13 @@ const HiLoGame = () => {
   const [cards, setCards] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [overlayVisible, setOverlayVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [wins, setWins] = useState(0);
   const [betHistory, setBetHistory] = useState([]);
   const [musicPlaying, setMusicPlaying] = useState(true);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [volume, setVolume] = useState(0.7); // Add volume state
+  const [volume, setVolume] = useState(0.7);
+  const [showWinMessage, setShowWinMessage] = useState(false);
 
   const playMusic = () => {
     const bgMusic = document.getElementById('background-music');
@@ -76,6 +76,7 @@ const HiLoGame = () => {
       bgMusic.pause();
     }
   };
+
   const renderSettings = () => (
     <div className="volume-control">
       <button onClick={toggleMute} className="mute-button">
@@ -146,7 +147,7 @@ const HiLoGame = () => {
 
   useEffect(() => {
     playMusic();
-  }, [musicPlaying]);
+  }, [musicPlaying, volume]);
 
   useEffect(() => {
     if (cards.length > 0) {
@@ -159,7 +160,6 @@ const HiLoGame = () => {
   }, [cards]);
 
   const placeBet = (selectedBetAmount) => {
-    // Ensure bet stays within valid range
     const newBet = Math.max(10, Math.min(selectedBetAmount, token));
     
     if (newBet <= 0 || newBet > token) {
@@ -183,7 +183,6 @@ const HiLoGame = () => {
     }
   
     if (cards.length === 0) {
-      // First card draw (no comparison needed)
       const firstCard = Math.floor(Math.random() * 13) + 1;
       setCards([firstCard]);
       setMessage("First card drawn! Make your guess for the next card.");
@@ -206,7 +205,6 @@ const HiLoGame = () => {
       let soundToPlay = null;
   
       if (isEqual) {
-        // Cards are equal - no win or loss
         resultMessage = "Cards are equal! No change to your balance.";
         result = "Push";
       } else {
@@ -222,6 +220,8 @@ const HiLoGame = () => {
           resultMessage = `Correct! You won ${winnings}`;
           result = "Win";
           soundToPlay = 'win-sound';
+          setShowWinMessage(true);
+          setTimeout(() => setShowWinMessage(false), 3000);
         } else {
           newToken = token - betAmount;
           resultMessage = `Wrong! You lost ${betAmount}`;
@@ -247,6 +247,7 @@ const HiLoGame = () => {
       ]);
     }, 300);
   };
+
   const handleSkip = () => {
     setMessage('You skipped the round!');
     setGameActive(false);
@@ -260,45 +261,47 @@ const HiLoGame = () => {
     setMusicPlaying((prev) => !prev);
   };
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-PH', {
+      style: 'currency',
+      currency: 'PHP',
+      minimumFractionDigits: 2
+    }).format(value).replace('PHP', '₱');
+  };
+
   return (
     <div className="hilobody">
       <UserTopBar />
       <Sidebar />
       <div className="container">
         <div className="left-container">
-        <div className="bet-info-container">
-  <h3>Bet History</h3>
-  <div className="bet-history-container">
-    {betHistory.length > 0 ? (
-      <table className="bet-history-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Bet</th>
-            <th>Result</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {betHistory.map((bet, index) => (
-            <tr key={index} className={bet.result === 'Win' ? 'win-row' : 'lose-row'}>
-              <td>{bet.date}</td>
-              <td>Php{bet.bet.toFixed(2)}</td>
-              <td>{bet.result}</td>
-              <td>Php{bet.token.toFixed(2)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    ) : (
-      <p>No bet history yet</p>
-    )}
-  </div>
-</div>
+          <div className="bet-info-container">
+            <h2 className="history-title">MAXWIN</h2>
+            
+            <div className="history-header">
+              <span className="header-item">Result</span>
+              <span className="header-item">Balance</span>
+            </div>
+            
+            <div className="history-items">
+              {betHistory.length > 0 ? (
+                betHistory.map((bet, index) => (
+                  <div key={index} className={`history-item ${bet.result.toLowerCase()}`}>
+                    <span className="bet-amount">{formatCurrency(bet.bet)}</span>
+                    <span className="result">{bet.result}</span>
+                    <span className="balance">{formatCurrency(bet.token)}</span>
+                  </div>
+                ))
+              ) : (
+                <p>No bet history yet</p>
+              )}
+            </div>
+          </div>
+
           <div className="top-containers">
             <div className="balance-container">
               <h3>Current Tokens</h3>
-              <p>{token.toFixed(2)}</p>
+              <p>{formatCurrency(token)}</p>
             </div>
             <div className="wins-container">
               <h3>Wins</h3>
@@ -307,26 +310,26 @@ const HiLoGame = () => {
           </div>
 
           <div className="betting-container">
-  <p>Select Your Bet:</p>
-  <div className="bet-adjust-container">
-    <button 
-      className="bet-adjust-button" 
-      onClick={() => placeBet(Math.max(10, betAmount - 10))}
-      disabled={betAmount <= 10}
-    >
-      -10
-    </button>
-    <span className="bet-display">Php{betAmount}</span>
-    <button 
-      className="bet-adjust-button" 
-      onClick={() => placeBet(betAmount + 10)}
-      disabled={betAmount + 10 > token}
-    >
-      +10
-    </button>
-  </div>
-  <p>{message}</p>
-</div>
+            <p>Select Your Bet:</p>
+            <div className="bet-adjust-container">
+              <button 
+                className="bet-adjust-button" 
+                onClick={() => placeBet(Math.max(10, betAmount - 10))}
+                disabled={betAmount <= 10}
+              >
+                -10
+              </button>
+              <span className="bet-display">{formatCurrency(betAmount)}</span>
+              <button 
+                className="bet-adjust-button" 
+                onClick={() => placeBet(betAmount + 10)}
+                disabled={betAmount + 10 > token}
+              >
+                +10
+              </button>
+            </div>
+            <p>{message}</p>
+          </div>
 
           <div className="setting-container">
             <button id="menu-button" className="main-button">
@@ -339,8 +342,7 @@ const HiLoGame = () => {
           </div>
         </div>
 
-<div className="gradient-container">      
-
+        <div className="gradient-container">
           <div className="card-layout">
             <button id="lower" className="side-button" onClick={() => handleGuess('lower')}>
               <img src={downIcon} alt="lower" />
@@ -354,7 +356,9 @@ const HiLoGame = () => {
                     alt="Current Card" 
                   />
                 </div>
-                <div className="card-back"></div>
+                <div className="card-back">
+                  <img src={cardBack} alt="Card Back" />
+                </div>
               </div>
             </div>
 
@@ -363,22 +367,30 @@ const HiLoGame = () => {
             </button>
 
             {cards.length > 1 && (
-              <img
-                id="previous-card"
-                src={cardImages[cards[cards.length - 2]]}
-                alt="Previous Card"
-                style={{
-                  position: 'absolute',
-                  right: '-100px',
-                  width: '100px',
-                  height: 'auto',
-                  opacity: 0.8
-                }}
-              />
+              <div className="previous-card-container">
+                <div className="previous-card-label">Previous:</div>
+                <img
+                  className="previous-card"
+                  src={cardImages[cards[cards.length - 2]]}
+                  alt="Previous Card"
+                />
+              </div>
             )}
 
             <button id="skip" onClick={handleSkip}>Skip</button>
           </div>
+
+          {showWinMessage && (
+            <div className="win-message">
+              Correct! You won {formatCurrency(betAmount * 2)}
+              <button 
+                className="close-message" 
+                onClick={() => setShowWinMessage(false)}
+              >
+                ×
+              </button>
+            </div>
+          )}
 
           <audio id="win-sound" src={winSound} preload="auto"></audio>
           <audio id="lose-sound" src={loseSound} preload="auto"></audio>
