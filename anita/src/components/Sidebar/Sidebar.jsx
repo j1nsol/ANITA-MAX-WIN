@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from "firebase/storage";
 import dpSample from "/src/assets/images/dpsample.png";
+import MAXWINLOGO from "../../assets/images/maxwinlogo.png";
+import maxwinlogotext from "../../assets/images/maxwinlogotxt.png";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -59,6 +61,26 @@ const Sidebar = () => {
 
   return (
     <nav className={`sidebar ${isExpanded ? "expanded" : ""}`}>
+      <div className="navigation-logo">
+              <img
+                loading="lazy"
+                src={MAXWINLOGO}
+                className="navigation-logo-primary"
+                alt="Primary company logo"
+                width="102"
+                height="75"
+              />
+              <img
+                loading="lazy"
+                src={maxwinlogotext}
+                className="navigation-logo-secondary"
+                alt="Secondary company logo"
+                width="100"
+                height="50"
+                border-radius="50%"
+                
+              />
+            </div>
       <div className="sidebar-top" onClick={() => setIsExpanded(!isExpanded)}>
         <img
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7572a51549d29376362dc58db69d1e2413f45cd9ca88505a23e2c4a416ce318d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
@@ -92,7 +114,8 @@ const Sidebar = () => {
           transition: max-width 0.5s ease; /* Slower animation */
         }
         .sidebar.expanded {
-          max-width: 400px; /* Increased width for expanded sidebar */
+          max-width: 800px; /* Increased width for expanded sidebar */
+          overflow:visible;
         }
         .sidebar-top {
           background-color: rgba(229, 231, 235, 1);

@@ -42,17 +42,19 @@ export const UserTopBarStyles = `
     align-self: stretch;
     display: flex;
     min-width: 240px;
-    padding-left: 116px;
     align-items: center;
     justify-content: flex-start;
     margin: auto 0;
+    position: fixed;
+    top: 5px;
+    left: 85px;
   }
   
   .navigation-logo-primary {
     aspect-ratio: 1.16;
     object-fit: contain;
     object-position: center;
-    width: 102px;
+    width: 40px;
     align-self: stretch;
     margin: auto 0;
   }
@@ -61,7 +63,7 @@ export const UserTopBarStyles = `
     aspect-ratio: 2.84;
     object-fit: contain;
     object-position: center;
-    width: 199px;
+    width: 130px;
     align-self: stretch;
     margin: auto 0;
   }

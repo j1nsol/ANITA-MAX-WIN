@@ -109,7 +109,7 @@ export const sidebarStyles = `
     width: 52px;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 800px) {
     .sidebar {
       margin-right: auto;
     }

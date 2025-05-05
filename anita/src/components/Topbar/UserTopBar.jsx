@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 
+
 export function UserTopBar() {
   const [username, setUsername] = useState("Loading...");
   const [token, setToken] = useState(0.0);
@@ -62,28 +63,10 @@ export function UserTopBar() {
   return (
     <>
       <nav className="navigation" role="navigation" aria-label="Main navigation">
+      
         <div className="navigation-container">
           <div className="navigation-content">
-            <div className="navigation-logo">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/80407b765b62464b1ed8cfbe325a4a648975ddfbe691c0c276fa71e613bb0b6e?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
-                className="navigation-logo-primary"
-                alt="Primary company logo"
-                width="102"
-                height="75"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/ea6aecb91eac79a590fed19496e459d4e8d4fa75c3aecf2ce256f592d96eb957?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
-                className="navigation-logo-secondary"
-                alt="Secondary company logo"
-                width="199"
-                height="75"
-                border-radius="50%"
-                
-              />
-            </div>
+            
             <div className="navigation-user">
               <div className="navigation-user-info">
                 
