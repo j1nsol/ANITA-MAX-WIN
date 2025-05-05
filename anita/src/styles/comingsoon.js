@@ -1,51 +1,40 @@
 export const ComingSoonStyle = `
   .coming-soon-section {
-    background-color: rgba(57, 153, 218, 1);
-    overflow-x: auto;
+    background: linear-gradient(to bottom,rgb(19, 145, 230),rgb(255, 255, 255));
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    color: rgba(33, 51, 53, 1);
-    font: 700 128px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-height: 1080px;
-    width: 100%;
-    padding: 463px 70px 370px;
+    color: #ffffff;
+    font-family: 'Alexandria', -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 700;
   }
 
-  .background-image {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
+  .title {
+    font-size: 150px;
+    margin: 0;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+  .subtitle {
+    font-size: 30px;
+    margin-top: 20px;
+    font-weight: 400;
+    color: #003355;
   }
 
   @media (max-width: 991px) {
-    .coming-soon-section {
-      font-size: 40px;
+    .title {
+      font-size: 48px;
     }
-    .content-wrapper {
-      max-width: 100%;
-      font-size: 40px;
-      padding: 100px 20px 110px;
+
+    .subtitle {
+      font-size: 16px;
     }
   }
-`
+`;
