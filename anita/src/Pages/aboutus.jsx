@@ -3,7 +3,13 @@ import TopBar from "../components/LandingPage/TopBar";
 import Footer from "../components/LandingPage/Footer";
 import SignUpForm from "../components/Authentication/SignUpForm";
 import SignInForm from "../components/Authentication/SignInForm";
-import defaultProfileImage from "/src/assets/images/dpsample.png";
+import jezImage from "/src/assets/images/about us/jez.png";
+import edImage from "/src/assets/images/about us/ed.png";
+import flexImage from "/src/assets/images/about us/flex.png";
+import jeadImage from "/src/assets/images/about us/jead.png";
+import jim2Image from  "/src/assets/images/about us/jim2.png";
+import sephImage from "/src/assets/images/about us/seph.png";
+import mayetImage from "/src/assets/images/about us/mayet.png";
 
 export default function AboutUs() {
   const [isSignUpVisible, setSignUpVisible] = React.useState(false);
@@ -30,44 +36,45 @@ export default function AboutUs() {
     }
   };
 
-  const teamMembers = Array(9).fill({
-    name: "Jez Xyrel K. Olpoc",
-    position: "Senior Developer",
-    image: defaultProfileImage
-  });
+  const teamMembers = [
+    {name: "Jez Xyrel K. Olpoc", position: "Lead Senior Developer", image: jezImage},
+    {name: "Johanna Mae R. Penional", position: "Project Manager", image: mayetImage},
+    {name: "Ed Bernard B. Añasco", position: "Junior Developer", image: edImage},
+    {name: "James Andrei S. Atienza", position: "UI/UX Designer", image: jim2Image},
+    {name: "Flexter C. Vega", position: "Senior Developer", image: flexImage},
+    {name: "Jead Rick C. Belande", position: "Senior Citizen", image: jeadImage},
+    {name: "Carl Joseph R. Perez", position: "Frontend Developer", image: sephImage}
+
+  ]
+  
 
   return (
     <main className="about-page" style={{ fontFamily: "Arial, sans-serif" }}>
       <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
 
       {/* HERO */}
-<section className="hero-section" style={{
-  height: "80vh",
-  width: "100vw",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  textAlign: "center",
-  padding: "4rem 2rem",
-  background: "linear-gradient(to bottom, #0077c0, #ffffff)"
-}}>
-  <h2 style={{ 
-    fontSize: "4rem", 
-    color: "#fff",
-    marginBottom: "0.5rem" // Reduced from default
-  }}>
-    Meet our team of passionate,
-  </h2>
-  <h2 style={{
-    fontSize: "5rem",
-    fontWeight: "700",
-    color: "#001f3f",
-    marginTop: "0" // Removes default margin
-  }}>
-    VISIONARY INNOVATORS!
-  </h2>
-</section>
+      <section className="hero-section" style={{
+        height: "80vh",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        padding: "4rem 2rem",
+        background: "linear-gradient(to bottom, #0077c0, #ffffff)"
+      }}>
+        <h2 style={{ fontSize: "4rem", color: "#fff"  }}>
+          Meet our team of passionate,
+        </h2>
+        <h2 style={{
+          fontSize: "5rem",
+          fontWeight: "700",
+          color: "#001f3f"
+        }}>
+          VISIONARY INNOVATORS!
+        </h2>
+      </section>
 
       {/* TEAM MEMBERS */}
       <section className="team-section" style={{
