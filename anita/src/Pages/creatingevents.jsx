@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { EventFormStyles } from '../styles/creatingevents';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
-import fs from 'fs'; // For local file saving
+import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
 export const EventForm = () => {
   const db = getFirestore();

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { storage } from '../firebase';
+
 
 
 const PersonalInfoContainer = styled.main`
@@ -94,7 +96,7 @@ const UploadArea = styled.div`
   text-align: center;
   justify-content: center;
   height: 120px;
-  padding: 0 6px 0 5px;
+  padding: 0 0px 0 0px;
   font: 600 12px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   border: 1px dashed rgba(117, 117, 117, 1);
   cursor: pointer;
@@ -300,7 +302,9 @@ import { doc, setDoc } from 'firebase/firestore'; // Firestore
 import { auth, db } from '../firebase';
 import { UserTopBar } from '../components/Topbar/UserTopBar';
 import Sidebar from '../components/Sidebar/Sidebar';
-
+import { useEffect } from 'react';
+import { getDoc, collection, query, where } from 'firebase/firestore';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 export const PersonalInformationForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -319,6 +323,59 @@ export const PersonalInformationForm = () => {
     terms: false,
     profileImage: null
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userUid = auth.currentUser?.uid;
+        if (!userUid) return;
+  
+        const userRef = doc(db, 'User', userUid);
+        const userSnap = await getDoc(userRef);
+  
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          setFormData(prevData => ({
+            ...prevData,
+            firstName: userData.firstName || '',
+            phone: userData.phone || '',
+            email: userData.email || '',
+            address: userData.address || '',
+            emergencyName: userData.emergencyName || '',
+            emergencyRelationship: userData.emergencyRelationship || '',
+            emergencyPhone: userData.emergencyPhone || '',
+            volunteerRoles: userData.volunteerRoles || [],
+            skills: userData.skills || '',
+            experience: userData.experience || '',
+            certifications: userData.certifications || null,
+            compliance: userData.compliance || false,
+            guidelines: userData.guidelines || false,
+            terms: userData.terms || false
+          }));
+  
+          // Fetch Profile Image from Storage
+          const storageRef = ref(storage, `Profile_Images/${userUid}.png`);
+          try {
+            const url = await getDownloadURL(storageRef);
+            setFormData(prevData => ({
+              ...prevData,
+              profileImage: url // Store the fetched URL
+            }));
+          } catch (error) {
+            console.error('Error fetching image:', error);
+            setFormData(prevData => ({
+              ...prevData,
+              profileImage: null // Default to null if fetching fails
+            }));
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, type, value, checked, files, multiple } = e.target;
@@ -349,18 +406,84 @@ export const PersonalInformationForm = () => {
       }));
     }
   };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.type.startsWith('image/')) {
-        setFormData(prev => ({
-          ...prev,
-          profileImage: file
-        }));
-      } else {
-        alert('Please upload an image file');
+  
+  const handleImageUpload = async (event) => {
+    try {
+      const file = event.target.files[0];
+      if (!file) throw new Error("No file selected.");
+  
+      const fileType = file.type;
+      const fileSize = file.size;
+  
+      // Validate file size (5MB limit)
+      if (fileSize > 5 * 1024 * 1024) {
+        throw new Error("File is too large. Maximum size is 5MB.");
       }
+  
+      const userUid = auth.currentUser ?.uid;
+      if (!userUid) {
+        throw new Error("User  is not authenticated.");
+      }
+  
+      // Create a FileReader to read the image file
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+  
+        img.onload = async () => {
+          // Create a canvas to draw the image
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+  
+          // Set canvas dimensions to the image dimensions
+          canvas.width = img.width;
+          canvas.height = img.height;
+  
+          // Draw the image on the canvas
+          ctx.drawImage(img, 0, 0);
+  
+          // Convert the canvas to a PNG data URL
+          const pngDataUrl = canvas.toDataURL('image/png');
+  
+          // Convert the data URL to a Blob
+          const response = await fetch(pngDataUrl);
+          const blob = await response.blob();
+  
+          // Create a reference to the storage location
+          const storage = getStorage();
+          const storageRef = ref(storage, `Profile_Images/${userUid}.png`); // Save as PNG
+  
+          // Upload the Blob to Firebase Storage
+          const uploadTask = uploadBytesResumable(storageRef, blob);
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log(`Upload is ${progress}% done`);
+            },
+            (error) => {
+              console.error(error);
+              alert("Error uploading image: " + error.message);
+            },
+            async () => {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              console.log("File available at", downloadURL);
+              // Optionally, save the download URL to Firestore or update state
+              setFormData(prevData => ({
+                ...prevData,
+                profileImage: img.src // Store the data URL for immediate display
+              }));
+            }
+          );
+        };
+      };
+  
+      // Read the image file as a data URL
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error(error);
+      alert("Error uploading image: " + error.message);
     }
   };
 
@@ -369,8 +492,9 @@ export const PersonalInformationForm = () => {
   
     try {
       const userUid = auth.currentUser?.uid;
-      if (!userUid) throw new Error('User is not authenticated');
-  
+      if (!auth.currentUser) {
+        throw new Error('You must be authenticated to submit this form.');
+      }
       // Prepare form data
       const userData = {
         firstName: formData.firstName,
@@ -385,11 +509,10 @@ export const PersonalInformationForm = () => {
         experience: formData.experience,
         certifications: formData.certifications 
           ? Array.from(formData.certifications, file => file.name) 
-          : null, // Store file names only
+          : null,
         compliance: formData.compliance,
         guidelines: formData.guidelines,
         terms: formData.terms,
-        profileImage: formData.profileImage ? formData.profileImage.name : null, // Store file name only
       };
   
       // Save user data to Firestore
@@ -413,40 +536,50 @@ export const PersonalInformationForm = () => {
           <MainContent>
             <PageTitle>PERSONAL INFORMATION</PageTitle>
             <FormContainer onSubmit={handleSubmit} noValidate>
-              <ImageSection>
-                <input
-                  type="file"
-                  id="profileImage"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  style={{ display: 'none' }}
-                  aria-label="Upload profile picture"
-                />
-                <UploadArea
-                  role="button"
-                  tabIndex="0"
-                  onClick={() => document.getElementById('profileImage').click()}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      document.getElementById('profileImage').click();
-                    }
-                  }}
-                  aria-label="Click to upload profile picture"
-                >
-                  <img
-                    src={formData.profileImage ? URL.createObjectURL(formData.profileImage) : "https://cdn.builder.io/api/v1/image/assets/TEMP/fdf1045261e7dbc54c80b60eea42f8e854d1c00f60d223cf14f256f4ec01ffa8?placeholderIfAbsent=true&apiKey=2293eafdf370425385c2452d5e99005b"}
-                    alt="Profile preview"
-                    style={{ width: '59px', height: '59px', objectFit: 'cover' }}
-                  />
-                  <div>Drop your image here</div>
-                </UploadArea>
-                <UploadButton
-                  type="button"
-                  onClick={() => document.getElementById('profileImage').click()}
-                >
-                  Upload image
-                </UploadButton>
-              </ImageSection>
+            <ImageSection>
+  <input
+    type="file"
+    id="profileImage"
+    accept="image/*"
+    onChange={handleImageUpload}
+    style={{ display: 'none' }}
+    aria-label="Upload profile picture"
+  />
+  <UploadArea
+    role="button"
+    tabIndex="0"
+    onClick={() => document.getElementById('profileImage').click()}
+    onKeyPress={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        document.getElementById('profileImage').click();
+      }
+    }}
+    aria-label="Click to upload profile picture"
+  >
+    <img
+    src={formData.profileImage || "https://via.placeholder.com/120"}
+      alt="Profile preview"
+      style={{ width: '120px', height: '120px', objectFit: 'cover' }}
+    />
+    <div
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        color: 'white',
+        display: formData.profileImage ? 'none' : 'block',
+      }}
+    >
+    </div>
+  </UploadArea>
+  <UploadButton
+    type="button"
+    onClick={() => document.getElementById('profileImage').click()}
+  >
+    Upload image
+  </UploadButton>
+</ImageSection>
 
               <FormFieldsContainer>
                 <FieldGroup>

@@ -25,6 +25,7 @@ export const EventsGlobalStyles = createGlobalStyle`
     justify-content: start;
     flex: 1;
     padding: 132px 96px;
+    overflow-y: scroll;
   }
 
   @media (max-width: 991px) {
@@ -186,6 +187,7 @@ export const EventsGlobalStyles = createGlobalStyle`
   }
 
   .event-card {
+  position: relative;
     border-radius: 15px;
     background-color: rgba(214, 220, 231, 1);
     display: flex;
@@ -193,11 +195,57 @@ export const EventsGlobalStyles = createGlobalStyle`
     flex-direction: column;
     overflow: hidden;
     flex-grow: 1;
-    width: 572px;
-    padding: 22px 30px 43px;s
-    height: 430px;
+    width: 356px;
+    height: 636px;
+    transition: transform 0.3s ease;
+    align-items: center;
+    justify-conten: center;
     font: 500 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   }
+  
+.event-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit; /* Inherit the background image */
+    background-size: cover;
+    background-position: center;
+    transition: filter 0.3s ease; /* Smooth transition for filter */
+    z-index: 1; /* Place it behind the content */
+}
+
+.event-card:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+.event-card:hover::before {
+    filter: blur(4px); /* Apply blur effect on hover */
+}
+.event-content {
+display: flex;
+width: 407px;
+flex-direction: column;
+z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+    transform: translate(-50%, -50%); /* Center the content */
+    text-align: center;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.event-card:hover .event-content {
+    filter: none;
+    opacity: 1; /* Show content on hover */
+    z-index: 2;
+}
 
   .event-header {
     display: flex;
@@ -210,12 +258,14 @@ export const EventsGlobalStyles = createGlobalStyle`
   }
 
   .event-title {
+  
     font-size: 24px;
     font-weight: 700;
-    color: rgba(34, 51, 58, 1);
+    color: #FFFFFF;
     margin: 0;
-    font: 500 24px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
-  }
+    font: 700 40px Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+    text-shadow: 5px 2px 5px #00000080;  
+    }
 
   .event-organizer {
     font-size: 14px;
@@ -248,11 +298,17 @@ width: 400px;
 
   .event-datetime,
   .event-location {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: rgba(34, 51, 58, 1);
-    font-size: 14px;
+    font-family: PT Sans;
+font-weight: 700;
+font-size: 20px;
+line-height: 100%;
+letter-spacing: 0%;
+vertical-align: middle;
+color: white;
+text-shadow: 5px 5px 10px #00000080;
+
+
+
   }
 
   .event-icon {
@@ -276,22 +332,33 @@ width: 400px;
   }
 
   .join-button {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 6px 16px;
-    border-radius: 5px;
-    background-color: #22333b;
-    border: none;
-    color: #fffbff;
-    font-size: 20px;
+    font-family: PT Sans;
     font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+
+    width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  padding-top: 10px;
+  border-color: rgba(214, 220, 231, 1);
+  padding-right: 28px;
+  padding-bottom: 10px;
+  padding-left: 28px;
+  gap: 8px;
+  center-items: center;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for button */
   }
 
   .join-button:hover {
     background-color: #1a282f;
+    border-color: #1a282f;
+    color: #ffffff;
+    box-shadow: 0px 0px 10px 5px white;
+  transform: scale(1.05);
   }
 
   .join-button:focus {
