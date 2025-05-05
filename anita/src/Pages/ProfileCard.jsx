@@ -60,8 +60,8 @@ export default function ProfileCard() {
           left: 0,
           width: "100vw",
           height: "100vh",
-          background: "linear-gradient(to top, #3999DA,rgb(245, 245, 245))", // Gradient background
-          zIndex: -1,
+          background: "linear-gradient(to right,rgb(255, 255, 255), #3999DA)", // Gradient background
+          zIndex: 1,
         }}
       />
 
