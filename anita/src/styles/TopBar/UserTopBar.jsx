@@ -133,7 +133,7 @@ export const UserTopBarStyles = `
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
-    padding: 0px 0px;
+    padding: 0px 80px 0px 0px;
     border-radius: 4px;
     transition: background-color 0.2s ease;
   }
