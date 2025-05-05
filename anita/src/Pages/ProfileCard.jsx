@@ -59,9 +59,9 @@ export default function ProfileCard() {
           top: 0,
           left: 0,
           width: "100vw",
-          height: "vh",
-          background: "linear-gradient(to bottom, #3999DA,rgb(252, 252, 252))", // Gradient background
-          zIndex: -1,
+          height: "100vh",
+          background: "linear-gradient(to right,rgb(255, 255, 255), #3999DA)", // Gradient background
+          zIndex: 1,
         }}
       />
 
