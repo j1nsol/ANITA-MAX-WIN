@@ -41,28 +41,33 @@ export default function AboutUs() {
       <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
 
       {/* HERO */}
-      <section className="hero-section" style={{
-        height: "80vh",
-        width: "100vw",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        padding: "4rem 2rem",
-        background: "linear-gradient(to bottom, #0077c0, #ffffff)"
-      }}>
-        <h2 style={{ fontSize: "4rem", color: "#fff"  }}>
-          Meet our team of passionate,
-        </h2>
-        <h2 style={{
-          fontSize: "5rem",
-          fontWeight: "700",
-          color: "#001f3f"
-        }}>
-          VISIONARY INNOVATORS!
-        </h2>
-      </section>
+<section className="hero-section" style={{
+  height: "80vh",
+  width: "100vw",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  padding: "4rem 2rem",
+  background: "linear-gradient(to bottom, #0077c0, #ffffff)"
+}}>
+  <h2 style={{ 
+    fontSize: "4rem", 
+    color: "#fff",
+    marginBottom: "0.5rem" // Reduced from default
+  }}>
+    Meet our team of passionate,
+  </h2>
+  <h2 style={{
+    fontSize: "5rem",
+    fontWeight: "700",
+    color: "#001f3f",
+    marginTop: "0" // Removes default margin
+  }}>
+    VISIONARY INNOVATORS!
+  </h2>
+</section>
 
       {/* TEAM MEMBERS */}
       <section className="team-section" style={{
