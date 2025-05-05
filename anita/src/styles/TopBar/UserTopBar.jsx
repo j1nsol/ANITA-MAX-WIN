@@ -35,7 +35,7 @@ export const UserTopBarStyles = `
     justify-content: space-between;
     flex-wrap: wrap;
     margin: auto 0;
-    padding: 0px 20px;
+    padding: 20px 20px;
   }
   
   .navigation-logo {
@@ -75,6 +75,7 @@ export const UserTopBarStyles = `
     gap: 40px 100px;
     width: 614px;
     margin: auto 0;
+    margin-left: auto;
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 24px;
