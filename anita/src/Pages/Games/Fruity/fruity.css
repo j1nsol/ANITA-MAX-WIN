@@ -7,15 +7,25 @@
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh; /* Ensure it covers the full viewport height */
-    width: 100%;
+    min-width: 100vw; /* Add this */
+    overflow: hidden;
+
 }
 .fruitytitle{
     position: absolute;
-    right: 90%;
+    top: -128px;
+    left: 50%;
     transform: translateX(-50%);
     width: 150px;
     height: auto;
     z-index: 10;
+}
+.slot-container {
+    position: relative; /* Contains the absolutely positioned children */
+    display: flex;
+    justify-content: center; /* Keeps .slot-grid centered */
+    align-items: center;
+    height: 100vh;
 }
 
 .slot-machine {
@@ -26,19 +36,21 @@
 }
 
 .slot-grid {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(5, 1fr); 
-    grid-template-rows: repeat(4, 1fr); 
-    gap: 10px; 
-    width: 550px;
-    height: 410px;
-    top: 10px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    width: 700px;
+    height: 545px;
+    top: 100px;
     background-color: rgba(255, 255, 255, 0.3);
     padding: 10px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    position: relative;
+    z-index: 1;
 }
+
 
 .slot {
     overflow: hidden; 
@@ -68,8 +80,8 @@
 }
 
 .slot img {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     position: relative;
     top: 0;
@@ -96,11 +108,11 @@
 
 #spin-button {
     position: absolute; 
-    bottom: -100px;    
-    right: 10px;     
+    bottom: 10px;    
+    right: 620px;     
     padding: 10px 20px;
     font-size: 18px;
-    background-color: rgb(151, 149, 149);
+    background-color: #9999998e;
     color: rgb(255, 255, 255);
     border: none;
     border-radius: 50%; 
@@ -108,38 +120,41 @@
     width: 100px;      
     height: 100px;    
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: translateX(-275px); /* Fine-tune position */
 }
 
 #minus-btn {
     position: absolute;
     bottom: 10px;
-    right: 500px;
+    left: 1020px;
     padding: 10px;
     font-size: 24px;
-    background-color: #e2e0da;
-    color: rgb(124, 122, 122);
+    background-color: #4747478e;
+    color: rgb(253, 249, 249);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     width: 50px;
     height: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(129, 128, 128, 0);
+    transform: translateX(-270px); /* Fine-tune position */
 }
 
 #plus-btn {
     position: absolute;
     bottom: 10px;
-    left: 950px;
+    right: 510px;
     padding: 10px;
     font-size: 24px;
-    background-color: #e2e0da;
-    color: rgb(124, 122, 122);
+    background-color: #4747478e;
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     width: 50px;
     height: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateX(-275px); /* Fine-tune position */
 }
 
 #game-rules {
@@ -152,7 +167,7 @@
     border-radius: 50%;
     cursor: pointer;
     position: absolute; 
-    left: 380px;  
+    left: 730px;  
     top: 50%;   
     transform: translateY(-50%); 
     z-index: 10;
@@ -167,7 +182,7 @@
     font-weight: bold;
     margin-top: 20px;
     position: absolute; 
-    left: 450px;  
+    left: 800px;  
     top: 5%;  
     transform: translateY(-50%); 
     z-index: 10;
@@ -179,7 +194,7 @@
     font-weight:  bold;
     margin-top: 20px;
     position: absolute;
-    left: 450px;
+    left: 800px;
     top: 40%;
     transform: translateY(-50%);
     z-index: 10;
@@ -191,30 +206,32 @@
     font-weight:  bold;
     margin-top: 20px;
     position: absolute;
-    left: 600px;
+    right: 1000px;
     top: -10%;
     transform: translateY(-50%); 
     z-index: 10;
 }
 #tumble-history {
     position: absolute;
-    height: 300px; /* Adjust based on content */
-    width: 300px; /* Adjust width */
-    right: 70px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-image: url('image2/tumblehistory.webp'); /* Use correct image URL */
-    background-size: cover; /* Ensures image covers the container */
+    left: 100%; /* Push to the left of .slot-grid */
+    margin-right: 20px; /* Spacing between history and grid */
+    height: 400px;
+    width: 350px;
+    background-image: url('image2/tumblehistory.webp');
+    background-size: cover;
     background-position: center center;
-    padding: 20px; /* Added padding for text inside */
+    padding: 20px;
     border-radius: 10px;
     z-index: 10;
     overflow-y: auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align text to the top */
+    justify-content: flex-start;
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 
 .tumble-history-item {
     display: flex; /* Horizontally align image and text */
@@ -252,7 +269,8 @@
     flex-direction: column;
     z-index: 1000;
     font-family: Arial, sans-serif;
-    overflow-y: scroll;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 #rules-area img {
@@ -261,18 +279,52 @@
     height: auto;
     margin-bottom: 20px;
 }
+#mute-btn {
+    all: unset;                /* Resets all default styles */
+    cursor: pointer;           /* Keeps pointer cursor */
+    display: inline-block;     /* Keeps it inline and controllable */
+    line-height: 0;            /* Removes any space from text line-height */
+  }
+  
+  #mute-btn {
+    all: unset;
+  position: absolute;
+  left: 650px;
+  top: 65px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  min-width: 32px;
+  min-height: 32px;
+  }
+  
+  #mute-btn img {
+    width: 80px;
+    height: 80px;
+    display: block;
+    pointer-events: none;
+  }
+  
 
-#rules-area button {
+#unmute-btn img {
+    width: 45px;       /* Adjust the size here */
+    height: 32px;
+    object-fit: contain;
+  }
+
+/*#rules-area button {
+    
     background-color: #ff5722;
+    font-size: 14px;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-}
+    
+}/*/
 
 #rules-area:hover {
-    background-color: orangered;
+    background-color: rgb(22, 22, 22);
 }
 @keyframes bounce {
     0% {
@@ -292,18 +344,60 @@
     }
 }
 .game-footer {
-    width: 100%; /* Occupy full width from left to right */
-    background-color: rgba(128, 128, 128, 0.658); /* Semi-transparent background */
-    position: fixed; /* Keep footer fixed at the bottom */
-    bottom: 0; /* Stick to the bottom */
-    padding: 40px 0; /* Top and bottom padding */
-    text-align: center; /* Center the text */
-    z-index: 1000; /* Keep it above other elements */
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.658);
+    position: fixed;
+    bottom: 0;
+    padding: -10px 0;
+    text-align: center;
+    z-index: 1000;
     font-family: Arial, sans-serif;
     color: white;
-  }
+    display: flex;
+    justify-content: flex-end; /* Move the buttons slightly to the right */
+    align-items: center;
+    padding-right: 400px; /* Push buttons to the right */
+    gap: 20px;
+}
 
-  #jackpot-message {
+.game-footer button {
+    background-color: #4747478e;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.game-footer button:hover {
+    transform: scale(1.1);
+    background-color: #9999998e;
+}
+
+/* Ensure the spin button stays in the middle */
+.game-footer #spin-button {
+    background-color: #9999998e;
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    border-radius: 50%;
+}
+
+/* Prevent buttons from shifting on zoom */
+.game-footer button {
+    flex-shrink: 0;
+}
+
+/* Prevent them from moving when zooming */
+#minus-btn, #plus-btn, #spin-button {
+    position: static;
+}
+
+#jackpot-message {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -315,6 +409,7 @@
     color: rgb(253, 249, 6); 
     font-size: 20px;
     animation: fadeIn 3s forwards; 
+    cursor: pointer; /* Merged from duplicate rule */
 }
 #jackpot-image{
     width: 1250px;
@@ -323,6 +418,9 @@
 }
 #jackpot-message {
     cursor: pointer; 
+}
+#jackpot-message.show {
+    display: block; /* Show when the 'show' class is added */
 }
 
 @keyframes bounceIn {
@@ -359,4 +457,3 @@
     cursor: pointer;
 
 }
-
