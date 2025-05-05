@@ -197,6 +197,8 @@ export const EventsGlobalStyles = createGlobalStyle`
     flex-grow: 1;
     width: 356px;
     height: 636px;
+    max-width: 356px;
+    max-height: 636px;
     transition: transform 0.3s ease;
     align-items: center;
     justify-conten: center;
@@ -226,7 +228,7 @@ export const EventsGlobalStyles = createGlobalStyle`
 }
 .event-content {
 display: flex;
-width: 407px;
+width: 300px;
 flex-direction: column;
 z-index: 2;
     position: absolute;
