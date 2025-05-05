@@ -4,14 +4,22 @@ import { auth, db, storage } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from "firebase/storage";
-import dpSample from "/src/assets/images/dpsample.png";
+import dpSample from "/src/assets/images/dpsample.png"; // Import the default placeholder image
 import MAXWINLOGO from "../../assets/images/maxwinlogo.png";
 import maxwinlogotext from "../../assets/images/maxwinlogotxt.png";
+
+// Import new sidebar icons
+import casinoIcon from "/src/assets/images/sidebar_icons/casino.png";
+import sportsIcon from "/src/assets/images/sidebar_icons/sports.png";
+import profileIcon from "/src/assets/images/sidebar_icons/profile.png";
+import eventsIcon from "/src/assets/images/sidebar_icons/events.png";
+import supportIcon from "/src/assets/images/sidebar_icons/chat.png";
+import globe from "/src/assets/images/sidebar_icons/globe.png";
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [username, setUsername] = useState("Loading...");
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(dpSample); // Set dpSample as the default profile image
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,10 +41,10 @@ const Sidebar = () => {
         const imageRef = ref(storage, `Profile_Images/${user.uid}.png`);
         try {
           const imageUrl = await getDownloadURL(imageRef);
-          setProfileImage(imageUrl);
-          console.log("Profile Image URL:", profileImage);
+          setProfileImage(imageUrl); // Set the fetched profile image
         } catch (error) {
           console.error("No profile image found, using default.");
+          setProfileImage(dpSample); // Use dpSample as the default profile image
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -45,42 +53,38 @@ const Sidebar = () => {
 
     fetchUserData();
   }, []);
+
   const iconsData = [
-    { src: profileImage, alt: "User  icon", to: "/profile", title: username },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/8ce95f0ce5869a3ab8c4bd2a8d88e63636ad63685752c10d128d0db0bb9e54dd?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "casino icon", to: "/games", title: "Games" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/df0952cc08237801f32a31b3ad8ac54d9035fa785e0b58d6bf23d007b445739b?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "sports icon", to: "/sports", title: "Sports" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a52b7b089fd59e95cfdf1466edc04d3b69c52c597edaac694283447a641f27e6?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "profile icon", to: "/info", title: "Profile" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7111e4101ba9e8f17b34d118b3a1be1173f9121a121a36bcf49df5b144dbd7fe?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Events icon", to: "/events", title: "Events" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/6830a173d7bbccabbe885bd76cfa28aa8e775e89213385f18478bc22e52fcc54?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Calendar icon", to: "/calendar", title: "Calendar" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/1acbf83b7efa59e232393ed90efbf644b7f7a4a10917fbaea94bd00f9f9bb61d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Help icon", to: "/help", title: "Help" },
-  { src: "https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/5b2ee72992631a01a245dc5ca4b779b2fe7356dabe8ac569cf848472738ff941?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&", alt: "Support icon", to: "/support", title: "Support" }
-];
-
-
-
+    { src: profileImage, alt: "User icon", to: "/profile", title: username },
+    { src: casinoIcon, alt: "Casino icon", to: "/games", title: "Games" },
+    { src: sportsIcon, alt: "Sports icon", to: "/sports", title: "Sports" },
+    { src: profileIcon, alt: "Profile icon", to: "/info", title: "Personal Information" },
+    { src: eventsIcon, alt: "Events icon", to: "/events", title: "Events" },
+    { src: supportIcon, alt: "Support icon", to: "/support", title: "Support" },
+    { src: globe, alt: "Globe icon", to: "/language", title: "Language" }
+  ];
 
   return (
     <nav className={`sidebar ${isExpanded ? "expanded" : ""}`}>
       <div className="navigation-logo">
-              <img
-                loading="lazy"
-                src={MAXWINLOGO}
-                className="navigation-logo-primary"
-                alt="Primary company logo"
-                width="102"
-                height="75"
-              />
-              <img
-                loading="lazy"
-                src={maxwinlogotext}
-                className="navigation-logo-secondary"
-                alt="Secondary company logo"
-                width="100"
-                height="50"
-                border-radius="50%"
-                
-              />
-            </div>
+        <img
+          loading="lazy"
+          src={MAXWINLOGO}
+          className="navigation-logo-primary"
+          alt="Primary company logo"
+          width="102"
+          height="75"
+        />
+        <img
+          loading="lazy"
+          src={maxwinlogotext}
+          className="navigation-logo-secondary"
+          alt="Secondary company logo"
+          width="100"
+          height="50"
+          border-radius="50%"
+        />
+      </div>
       <div className="sidebar-top" onClick={() => setIsExpanded(!isExpanded)}>
         <img
           src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/7572a51549d29376362dc58db69d1e2413f45cd9ca88505a23e2c4a416ce318d?apiKey=c24ae5bfb01d41eab83aea3f5ce6f5d6&"
@@ -92,9 +96,10 @@ const Sidebar = () => {
         {iconsData.map((icon, index) => (
           <Link to={icon.to} key={index} className="sidebar-link">
             <div className="sidebar-item">
-              <img src={icon.src} 
-              alt={icon.alt} 
-              className={`sidebar-icon ${icon.src === null ? "rounded-icon" : ""}`} 
+              <img
+                src={icon.src}
+                alt={icon.alt}
+                className={`sidebar-icon ${icon.src === dpSample ? "rounded-icon" : ""}`}
               />
               <span className={`icon-title ${isExpanded ? "visible" : ""}`}>{icon.title}</span>
               {!isExpanded && <span className="tooltip">{icon.title}</span>}
