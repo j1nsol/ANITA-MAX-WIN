@@ -24,6 +24,7 @@ import Events from './Pages/Events/EventsPage.jsx';
 import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
 import ApplicantList from './Pages/EventMod.jsx';
 import ComingSoon from './Pages/comingsoon.jsx';
+import ProfileCard from './Pages/ProfileCard.jsx';
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
@@ -137,6 +138,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <ApplicantList />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <PrivateRoute>
+        <ProfileCard />
       </PrivateRoute>
     ),
   },
