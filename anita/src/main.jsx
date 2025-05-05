@@ -156,7 +156,11 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <ComingSoon />,
+    element: (
+    <PrivateRoute>
+    <ComingSoon />
+    </PrivateRoute>
+    ) ,
   },
 ]);
 
