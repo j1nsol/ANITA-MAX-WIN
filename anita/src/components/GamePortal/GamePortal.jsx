@@ -82,7 +82,7 @@ export function GamingPortal() {
     slidesToShow: 4, // Number of cards to show
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     arrows: false, // Disable default arrows
     responsive: [
       {
@@ -173,6 +173,7 @@ const PortalWrapper = styled.main`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  margin-left: 50px;
 `;
 
 const PortalContent = styled.div`

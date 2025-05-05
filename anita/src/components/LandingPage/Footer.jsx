@@ -12,7 +12,7 @@ export default function Footer() {
   ];
 
   const navigationLinks = [
-    { text: "About us", href: "/about", label: "Learn more about our company" },
+    { text: "About us", href: "/aboutus", label: "Learn more about our company" },
     { text: "Work with us", href: "/careers", label: "View career opportunities" },
     { text: "Business Contact", href: "/contact", label: "Get in touch with our business team" }
   ];
