@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './Profile.styles';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { UserTopBar } from '../components/Topbar/UserTopBar';
 
 export default function Profile() {
   const quizData = [
@@ -30,7 +32,10 @@ export default function Profile() {
   ];
 
   return (
+    
     <div className="profile-container">
+     <UserTopBar />
+     <Sidebar />
       <div className="profile-landing">
         <div className="profile-main">
           <div className="profile-content">
