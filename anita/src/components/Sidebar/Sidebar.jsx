@@ -181,15 +181,17 @@ const Sidebar = () => {
         }
           
         .icon-title {
+        
           font-size: 16px;
           color: #000;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          transition: opacity 0.5s ease; /* Slower animation */
           opacity: 0;
         }
         .icon-title.visible {
+        font-family: 'Alexandria', sans-serif;
+        font-weight:700; /* Optional: bold on hover */
           opacity: 1;
         }
         .tooltip {
