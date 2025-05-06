@@ -1,132 +1,138 @@
-
-"use client";
+import { collection, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
-import { collection, getDocs, query, where, doc, updateDoc } from 'firebase/firestore';
+import {onSnapshot } from 'firebase/firestore';
 
 export function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [stats, setStats] = useState({
     volunteers: 0,
     events: 0,
-    users: 0
+    users: 0,
   });
   const [showModal, setShowModal] = useState(false);
-const [selectedUsername, setSelectedUsername] = useState('');
-const [tokenAmount, setTokenAmount] = useState('');
-const [isLoading, setIsLoading] = useState(false);
-const [message, setMessage] = useState('');
-
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'User'));
-        const userList = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            username: data.username || 'N/A',
-            token: (data.token ?? 0).toFixed(2),
-            verified: data.verified ? 'Yes' : 'No',
-            email: data.email || '',
-          };
-        });
-        setUsers(userList);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const [selectedUsername, setSelectedUsername] = useState('');
+  const [tokenAmount, setTokenAmount] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        // 1. Count total users
-        const userSnapshot = await getDocs(collection(db, 'User'));
-        const totalUsers = userSnapshot.size;
-  
-        // 2. Count HandledEvents and total Volunteers
-        const eventsSnapshot = await getDocs(collection(db, 'Events'));
-        let totalHandledEvents = 0;
-        let totalVolunteers = 0;
-  
-        for (const userDoc of eventsSnapshot.docs) {
-          const handledEventsRef = collection(db, `Events/${userDoc.id}/HandledEvents`);
-          const handledEventsSnapshot = await getDocs(handledEventsRef);
-  
-          totalHandledEvents += handledEventsSnapshot.size;
-  
-          for (const eventDoc of handledEventsSnapshot.docs) {
-            const volunteersRef = collection(db, `Events/${userDoc.id}/HandledEvents/${eventDoc.id}/Volunteers`);
-            const volunteersSnapshot = await getDocs(volunteersRef);
-            totalVolunteers += volunteersSnapshot.size;
-          }
+    // Real-time listener for users
+    const unsubscribeUsers = onSnapshot(collection(db, 'User'), (snapshot) => {
+      const userList = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          username: data.username || 'N/A',
+          token: (data.token ?? 0).toFixed(2),
+          verified: data.verified ? 'Yes' : 'No',
+          email: data.email || '',
+        };
+      });
+      setUsers(userList);
+
+      // Update total users count in stats
+      setStats((prevStats) => ({
+        ...prevStats,
+        users: userList.length,
+      }));
+    });
+
+    // Real-time listener for events and volunteers
+    const unsubscribeEvents = onSnapshot(collection(db, 'Events'), async (snapshot) => {
+      let totalHandledEvents = 0;
+      let totalVolunteers = 0;
+
+      for (const eventDoc of snapshot.docs) {
+        const handledEventsRef = collection(db, `Events/${eventDoc.id}/HandledEvents`);
+        const handledEventsSnapshot = await getDocs(handledEventsRef);
+
+        totalHandledEvents += handledEventsSnapshot.size;
+
+        for (const handledEventDoc of handledEventsSnapshot.docs) {
+          const volunteersRef = collection(
+            db,
+            `Events/${eventDoc.id}/HandledEvents/${handledEventDoc.id}/Volunteers`
+          );
+          const volunteersSnapshot = await getDocs(volunteersRef);
+          totalVolunteers += volunteersSnapshot.size;
         }
-  
-        // Set state to update the stats UI
-        setStats({
-          users: totalUsers,
-          events: totalHandledEvents,
-          volunteers: totalVolunteers
-        });
-  
-      } catch (err) {
-        console.error("Error fetching stats:", err);
       }
+
+      setStats((prevStats) => ({
+        ...prevStats,
+        events: totalHandledEvents,
+        volunteers: totalVolunteers,
+      }));
+    });
+
+    // Cleanup listeners on component unmount
+    return () => {
+      unsubscribeUsers();
+      unsubscribeEvents();
     };
-  
-    fetchStats();
   }, []);
+
   const handleAddTokens = async () => {
     if (!selectedUsername || !tokenAmount) {
-      setMessage("Please fill in both fields.");
+      setMessage('Please fill in both fields.');
       return;
     }
-  
+
     setIsLoading(true);
-    setMessage("");
-  
+    setMessage('');
+
     try {
       // Find user by username
       const usersRef = collection(db, 'User');
       const q = query(usersRef, where('username', '==', selectedUsername));
       const querySnapshot = await getDocs(q);
-  
+
       if (querySnapshot.empty) {
-        setMessage("User not found.");
+        setMessage('User not found.');
         setIsLoading(false);
         return;
       }
-  
+
       const userDoc = querySnapshot.docs[0];
       const currentToken = userDoc.data().token || 0;
       const newToken = parseFloat(currentToken) + parseFloat(tokenAmount);
-  
+
       await updateDoc(doc(db, 'User', userDoc.id), { token: newToken });
-  
-      setMessage("Tokens successfully added!");
+
+      setMessage('Tokens successfully added!');
     } catch (error) {
-      console.error("Error adding tokens:", error);
-      setMessage("Failed to add tokens.");
+      console.error('Error adding tokens:', error);
+      setMessage('Failed to add tokens.');
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <main className="dashboard-container">
         {/* Header Section */}
         <header className="header">
           <div className="logo-container">
-            <img src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/f64440cbb0958c6d932df3e1da7c5c6cf8fb477f?placeholderIfAbsent=true" className="logo-image" alt="Company logo" />
-            <img src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/e107fcfc8d0d49120fbaf125896306df81950855?placeholderIfAbsent=true" className="logo-text" alt="Company name" />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/f64440cbb0958c6d932df3e1da7c5c6cf8fb477f?placeholderIfAbsent=true"
+              className="logo-image"
+              alt="Company logo"
+            />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/e107fcfc8d0d49120fbaf125896306df81950855?placeholderIfAbsent=true"
+              className="logo-text"
+              alt="Company name"
+            />
           </div>
           <div className="profile-container">
             <h2 className="profile-name">JZXY</h2>
-            <img src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/32a8807e747bcb5bb4f0eff76072054ef9ba097d?placeholderIfAbsent=true" className="profile-image" alt="User profile" />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/32a8807e747bcb5bb4f0eff76072054ef9ba097d?placeholderIfAbsent=true"
+              className="profile-image"
+              alt="User profile"
+            />
           </div>
         </header>
 
@@ -138,97 +144,152 @@ const [message, setMessage] = useState('');
 
           <div className="content-wrapper">
             {/* Action Bar */}
-            <div class= "container" style={{ display: "flex", justifyContent: "space-between" }}>
-            <div className="action-bar">
-              <div className="search-container">
-                <label className="search-label">Search</label>
-                <img src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a8e7cb19cc7c2732a06cf2ee6587d53738521c66?placeholderIfAbsent=true" className="search-icon" alt="Search icon" />
+            <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div className="action-bar">
+                <div className="search-container">
+                  <label className="search-label">Search</label>
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a8e7cb19cc7c2732a06cf2ee6587d53738521c66?placeholderIfAbsent=true"
+                    className="search-icon"
+                    alt="Search icon"
+                  />
+                </div>
+                <button className="add-tokens-button" onClick={() => setShowModal(true)}>
+                  <span className="button-text">Add tokens</span>
+                </button>
               </div>
-              <button className="add-tokens-button" onClick={() => setShowModal(true)}>
-                <span className="button-text">Add tokens</span>
-              </button>
-            </div>
 
-            {/* Stats Section */}
-            <section className="stats-container">
-              <div className="stat-box">
-                <h3 className="stat-title">VOLUNTEERS</h3>
-                <p className="stat-value">{stats.volunteers}</p>
-              </div>
-              <div className="stat-box">
-                <h3 className="stat-title">EVENTS</h3>
-                <p className="stat-value">{stats.events}</p>
-              </div>
-              <div className="stat-box">
-                <h3 className="stat-title">ACTIVE USER</h3>
-                <p className="stat-value">{stats.users}</p>
-              </div>
-            </section>
+              {/* Stats Section */}
+              <section className="stats-container">
+                <div className="stat-box">
+                  <h3 className="stat-title">VOLUNTEERS</h3>
+                  <p className="stat-value">{stats.volunteers}</p>
+                </div>
+                <div className="stat-box">
+                  <h3 className="stat-title">EVENTS</h3>
+                  <p className="stat-value">{stats.events}</p>
+                </div>
+                <div className="stat-box">
+                  <h3 className="stat-title">ACTIVE USER</h3>
+                  <p className="stat-value">{stats.users}</p>
+                </div>
+              </section>
             </div>
 
             {/* User Table */}
             <div className="table-container">
-        <table className="user-table">
-          <thead>
-            <tr className="table-header">
-              <th className="header-cell">Username</th>
-              <th className="header-cell">Token</th>
-              <th className="header-cell">Verified</th>
-              <th className="header-cell">Email</th>
-              <th className="header-cell">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={user.id} className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}>
-                <td className="table-cell">{user.username}</td>
-                <td className="table-cell">{user.token}</td>
-                <td className="table-cell">{user.verified}</td>
-                <td className="table-cell">{user.email}</td>
-                <td className="table-cell">
-                  <button className="edit-button">edit</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
+              <table className="user-table">
+                <thead>
+                  <tr className="table-header">
+                    <th className="header-cell">Username</th>
+                    <th className="header-cell">Token</th>
+                    <th className="header-cell">Verified</th>
+                    <th className="header-cell">Email</th>
+                    <th className="header-cell">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user, index) => (
+                    <tr
+                      key={user.id}
+                      className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}
+                    >
+                      <td className="table-cell">{user.username}</td>
+                      <td className="table-cell">{user.token}</td>
+                      <td className="table-cell">{user.verified}</td>
+                      <td className="table-cell">{user.email}</td>
+                      <td className="table-cell">
+                        <button className="edit-button">edit</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
+
         {showModal && (
-  <div className="modal-overlay">
-    <div className={`modal-content ${isLoading ? 'blurred' : ''}`}>
-      <button className="close-button" onClick={() => setShowModal(false)} disabled={isLoading}>
-        &times;
-      </button>
-      <h2 className = "modal-title">Add Tokens</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={selectedUsername}
-        onChange={(e) => setSelectedUsername(e.target.value)}
-        disabled={isLoading}
-      />
-      <input
-        type="number"
-        placeholder="Token Amount"
-        value={tokenAmount}
-        onChange={(e) => setTokenAmount(e.target.value)}
-        disabled={isLoading}
-      />
-      <button onClick={handleAddTokens} disabled={isLoading}>
-        Confirm
-      </button>
-      {message && <p>{message}</p>}
-    </div>
-  </div>
-)}
+          <div className="modal-overlay">
+            <div className={`modal-content ${isLoading ? 'blurred' : ''}`}>
+              <button
+                className="close-button"
+                onClick={() => setShowModal(false)}
+                disabled={isLoading}
+              >
+                &times;
+              </button>
+              <h2 className="modal-title">
+                Add <br />
+                Tokens
+              </h2>
+              <div className="modal-body">
+                <input
+                  type="text"
+                  placeholder="Enter username"
+                  value={selectedUsername}
+                  onChange={(e) => setSelectedUsername(e.target.value)}
+                  disabled={isLoading}
+                  className="modal-input"
+                />
+                <input
+                  type="number"
+                  placeholder="Enter token amount"
+                  value={tokenAmount}
+                  onChange={(e) => setTokenAmount(e.target.value)}
+                  disabled={isLoading}
+                  className="modal-input"
+                />
+                <button
+                  onClick={handleAddTokens}
+                  disabled={isLoading}
+                  className="modal-button"
+                >
+                  Add Tokens
+                </button>
+                {message && <p className="modal-message">{message}</p>}
+              </div>
+            </div>
+          </div>
+        )}
 
       </main>
 
       <style jsx>{`
-      .close-button {
+      .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+  position: relative;
+  align-items: flex-start;
+}
+
+.modal-content.blurred {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.close-button {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -245,65 +306,70 @@ const [message, setMessage] = useState('');
   opacity: 0.5;
 }
 
-      .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  z-index: 999;
-}
-
-.modal-content {
- align-items: center;
-background-color: #ffffff;
-border: 1px solid;
-border-color: #000000;
-display: flex;
-flex-direction: column;
-height: 598px;
-width: 765px;
-justify-content: space-between;
-padding: 40px 0px;
-position: relative;
-}
-
-.modal-content.blurred {
-  filter: blur(3px);
-  pointer-events: none;
-}
-
 .modal-title {
-font-family: Alexandria;
-font-weight: 700;
-font-size: 80px;
-line-height: 100%;
-letter-spacing: 0%;
+  margin-bottom: 20px;font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 64px;
+    color: rgba(0, 0, 0, 1);
+    font-weight: 700;\
+    margin-top: 0;
+    margin-bottom: 50px;
 
 }
 
-.modal-content input {
+.modal-body {
   width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.modal-content button {
-  margin-top: 10px;
-  padding: 10px 20px;
+.modal-label {
+  font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 18px;
-  font-weight: bold;
-  background-color: #22333b;
-  color: #fff;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-input {
+  width: 94%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.modal-input:focus {
+  border-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button {
+  background-color: #0A0A0A;
+  color: #ffffff;
+  font-family: PT Sans, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background-color: #1a262e;
+}
+
+.modal-message {
+  font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  text-align: center;
 }
 
         .dashboard-container {
