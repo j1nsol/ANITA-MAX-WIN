@@ -53,7 +53,7 @@ export default function AboutUs() {
       <TopBar onSignUpClick={showSignUpForm} onSignInClick={showSignInForm} />
 
       {/* HERO */}
-      <section className="hero-section" style={{
+     <section className="hero-section" style={{
   height: "80vh",
   width: "100vw",
   display: "flex",
