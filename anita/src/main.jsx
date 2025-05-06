@@ -26,8 +26,9 @@ import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
 
 import ComingSoon from './Pages/comingsoon.jsx';
 import { AdminDashboard } from './Pages/Admin/AdminDashboard.jsx';
-import Profile from './Pages/Profile.jsx';
+//import Profile from './Pages/Profile.jsx';
 import EventDashboard from './Pages/eventdashboard.jsx';
+import Profile from './Pages/Profile/profile-with-managed-events.jsx';
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
