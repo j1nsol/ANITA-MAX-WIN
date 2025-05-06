@@ -4,6 +4,7 @@ import { auth, db, storage } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
+import { onSnapshot } from "firebase/firestore";
 
 
 export function UserTopBar() {
@@ -14,38 +15,28 @@ export function UserTopBar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = auth.currentUser;
-        if (!user) return;
-
-        const userDoc = doc(db, "User", user.uid);
-        const docSnap = await getDoc(userDoc);
-
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setUsername(data.username || "Unknown");
-          setToken(data.token || 0.0);
-        } else {
-          console.error("No such document!");
-        }
-
-        // Fetch profile image from Firebase Storage
-        const imageRef = ref(storage, `images/${user.uid}.jfif`);
-        try {
-          const imageUrl = await getDownloadURL(imageRef);
-          setProfileImage(imageUrl);
-        } catch (error) {
-          console.error("No profile image found, using default.");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+    const user = auth.currentUser;
+    if (!user) return;
+  
+    const userDoc = doc(db, "User", user.uid);
+  
+    // Real-time listener
+    const unsubscribe = onSnapshot(userDoc, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setUsername(data.username || "Unknown");
+        setToken(data.token || 0.0);
+      } else {
+        console.error("User document does not exist.");
       }
-    };
-
-    fetchUserData();
+    }, (error) => {
+      console.error("Error listening to user document:", error);
+    });
+  
+  
+    // Clean up listener on unmount
+    return () => unsubscribe();
   }, []);
-
   const handleSignOut = async () => {
     if (isSigningOut) return;
     setIsSigningOut(true);
@@ -62,6 +53,7 @@ export function UserTopBar() {
 
   return (
     <>
+    
       <nav className="navigation" role="navigation" aria-label="Main navigation">
       
         <div className="navigation-container">

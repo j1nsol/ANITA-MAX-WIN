@@ -6,6 +6,8 @@ import {
   getCardImageStyle,
   getProgressBarStyle,
 } from "../styles/profilecard"; // adjust import path as needed
+import Sidebar from "../components/Sidebar/Sidebar";
+import { UserTopBar } from "../components/Topbar/UserTopBar";
 
 export default function ProfileCard() {
   const [responsiveStyles, setResponsiveStyles] = useState({});
@@ -52,7 +54,10 @@ export default function ProfileCard() {
   ];
 
   return (
+    
     <div style={{ position: "relative", width: "100%" }}>
+      <UserTopBar />
+      <Sidebar />
       <div
         style={{
           position: "fixed",

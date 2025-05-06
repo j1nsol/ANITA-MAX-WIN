@@ -1,141 +1,476 @@
-import React from 'react';
-import styles from './Profile.styles';
+"use client";
+import * as React from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
+import { UserTopBar } from "../components/Topbar/UserTopBar";
+import dpSample from "/src/assets/images/dpsample.png"; 
+import { getAuth } from "firebase/auth";
+import { db } from "../firebase";
+import { collection, getDoc,getDocs, doc } from "firebase/firestore";
+import EventCard from "./Events/components/EventCard";
+import { useEffect, useState } from "react";
+import EventsGlobalStyles from "./Events/styles/EventsStyles";
+function Profile() {
+  const [recentEvents, setRecentEvents] = useState([]);
 
-export default function Profile() {
-  const quizData = [
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/c639bd404fa1ed27331d0ed0b14861809f20a2139baaae14f18ea495aed328c9?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06",
-      title: "Basic of C",
-      progress: 100,
-      color: "rgba(52, 152, 219, 1)"
-    },
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/fefe5dc855de19fd3d459ec8fa521bb18457aac763dc54278b4b8b4220883fe3?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06",
-      title: "C++ isn't a C upgrade",
-      progress: 28,
-      color: "rgba(47, 64, 71, 1)"
-    },
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/9c94b0dd1149c1bf3fe07f7134069078ce75342c01b275e779001e545a91dd43?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06",
-      title: "Philosophy 101",
-      progress: 28,
-      color: "rgba(230, 127, 34, 1)"
-    },
-    {
-      image: "https://cdn.builder.io/api/v1/image/assets/TEMP/278df84c52c3efb87586f60ecc42d20afc9c869971664af4217e097ddd625344?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06",
-      title: "That was hot",
-      progress: 28,
-      color: "rgba(52, 152, 219, 1)"
+  useEffect(() => {
+    const loadEvents = async () => {
+      const events = await fetchAttendedEvents();
+      setRecentEvents(events);
+    };
+
+    loadEvents();
+  }, []);
+
+  const fetchAttendedEvents = async () => {
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+  
+    if (!currentUser) {
+      console.warn("User not authenticated.");
+      return [];
     }
-  ];
-
+  
+    const currentUserUID = currentUser.uid;
+    const attendedEvents = [];
+  
+    try {
+      const eventsSnapshot = await getDocs(collection(db, "Events"));
+  
+      for (const userDoc of eventsSnapshot.docs) {
+        const handledEventsSnapshot = await getDocs(
+          collection(db, "Events", userDoc.id, "HandledEvents")
+        );
+  
+        for (const eventDoc of handledEventsSnapshot.docs) {
+          const volunteerDocRef = doc(db, "Events", userDoc.id, "HandledEvents", eventDoc.id, "Volunteers", currentUserUID);
+          const volunteerDocSnap = await getDoc(volunteerDocRef);
+  
+          if (volunteerDocSnap.exists()) {
+            const eventData = eventDoc.data();
+            attendedEvents.push({
+              eventuid: eventDoc.id,
+              title: eventData.EventTitle,
+              organizer: eventData.OrgName,
+              image: eventData.ThumbnailPath,
+              date: eventData.EventDate,
+              time: `${eventData.StartTime} - ${eventData.EndTime}`,
+              location: eventData.Location,
+              description: eventData.Description,
+              tokens: eventData.TokenReward || 0,
+            });
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching attended events:", err.message);
+    }
+  
+    return attendedEvents;
+  };
+  
   return (
-    <div className="profile-container">
-      <div className="profile-landing">
-        <div className="profile-main">
+    <>
+    <EventsGlobalStyles />
+    <UserTopBar />
+    <Sidebar />
+      <main className="landing-page">
+        <section className="profile-section">
+          <img
+            src={dpSample}
+            alt="Profile"
+            className="profile-image"
+          />
           <div className="profile-content">
-            <div className="profile-header">
-              <div className="profile-avatar-wrapper">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d3d0c5e372b1655034b5d5bfd32bebb9b0e1164901fa7e7b9ca6b66923420ca?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                  alt="Profile avatar"
-                  className="profile-avatar"
-                />
-              </div>
-              <div className="profile-info">
-                <div className="profile-details">
-                  <div className="profile-name">
-                    Jez Xyrel Olpoc
-                    <br />
-                    @jzxyREAL
-                    <br />
-                    <br />
-                  </div>
-                  <div className="profile-bio">
-                    I'm someone who thrives on curiosity and creativity.
-                    Whether it's diving into a new hobby, tackling a
-                    challenge, or exploring fresh ideas, I'm always eager to
-                    learn and grow.
-                  </div>
-                  <div className="profile-actions">
-                    <button 
-                      className="edit-profile-btn"
-                      aria-label="Edit profile"
-                    >
-                      EDIT PROFILE
-                    </button>
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/91844f46352a157b36d434338ed70907e978878c86f803ef74f667a0f481b974?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                      alt="Settings"
-                      className="settings-icon"
-                    />
-                  </div>
+            <div className="profile-info">
+              <div className="profile-name">
+                <div className="name-text">
+                  FIRST FIRST MI LAST NAME
                 </div>
+                <div className="username-text">
+                  @Sample username
+                </div>
+                <br />
+                <br />
               </div>
+              <p className="profile-description">
+                I'm someone who thrives on curiosity and creativity. Whether
+                it's diving into a new hobby, tackling a challenge, or exploring
+                fresh ideas, I'm always eager to learn and grow.
+              </p>
+            </div>
+            <div className="profile-actions">
+              <button className="edit-profile-btn">
+                EDIT PROFILE
+              </button>
+              <button className="action-btn" aria-label="Additional actions" />
             </div>
           </div>
-          <div className="activity-section">
-            <div className="activity-container">
-              <div className="activity-header">
-                <div className="activity-title">Recent Activity</div>
-                <div className="activity-icons">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/40b51ce1e9069e984d674b3cd7d8a2ca48d71ab54e093bc403bf28cd3c101c48?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                    alt="Activity icon 1"
-                    className="activity-icon"
-                  />
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/c521b0bc645ad1fd0de77aa643f4447b7598e1f65ae756c4e754a1148b30d0b6?placeholderIfAbsent=true&apiKey=d7d67a4d824c46b4aa861d05b7657a06"
-                    alt="Activity icon 2"
-                    className="activity-icon"
-                  />
-                </div>
-              </div>
-              <div className="quiz-grid">
-                {quizData.map((quiz, index) => (
-                  <div key={index} className="quiz-card">
-                    <div className="quiz-content">
-                      <div className="quiz-inner">
-                        <img
-                          loading="lazy"
-                          src={quiz.image}
-                          alt={`${quiz.title} quiz thumbnail`}
-                          className="quiz-image"
-                        />
-                        <div className="quiz-details">
-                          <div className="quiz-title">{quiz.title}</div>
-                          <div className="progress-bar">
-                            <div 
-                              className="progress-background"
-                              style={{backgroundColor: `${quiz.color}50`}}
-                            />
-                            <div 
-                              className="progress-fill"
-                              style={{
-                                backgroundColor: quiz.color,
-                                width: `${quiz.progress}%`
-                              }}
-                            />
-                            <div className="progress-text">
-                              {quiz.progress}% Complete
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        </section>
+
+        <section className="events-section">
+        <div className="recent-events-container">
+          <div className="events-header">
+            <h2 className="section-title">Recent Events</h2>
+            <div className="navigation-controls">
+              <button className="nav-btn prev" aria-label="Previous events" />
+              <button className="nav-btn next" aria-label="Next events" />
             </div>
           </div>
-        </div>
-        <div className="background" />
-      </div>
-      <style jsx>{styles}</style>
-    </div>
+          <div className="events-grid">
+            {recentEvents.map(event => (
+              <EventCard key={event.eventuid} {...event} />
+            ))}
+          </div>
+          </div>
+
+          <div className="managed-events-container">
+            <div className="events-header">
+              <h2 className="section-title">
+                Managed Events
+              </h2>
+              <div className="navigation-controls">
+                <button className="nav-btn prev" aria-label="Previous managed events" />
+                <button className="nav-btn next" aria-label="Next managed events" />
+              </div>
+            </div>
+            <div className="managed-events-grid">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/3995d14222b71b1d419c6f62c8dbc7ccb4c54381?placeholderIfAbsent=true"
+                alt="Managed event 1"
+                className="managed-event-image"
+              />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/3995d14222b71b1d419c6f62c8dbc7ccb4c54381?placeholderIfAbsent=true"
+                alt="Managed event 2"
+                className="managed-event-image"
+              />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/3995d14222b71b1d419c6f62c8dbc7ccb4c54381?placeholderIfAbsent=true"
+                alt="Managed event 3"
+                className="managed-event-image"
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <style jsx>{`
+        .landing-page {
+          overflow-x: auto;
+          display: flex;
+          padding: 144px 114px 144px 200px;
+          flex-direction: column;
+          overflow: hidden;
+          align-items: stretch;
+          justify-content: start;
+          background: linear-gradient(
+            135deg,
+            #1e90ff 0%,
+            #87ceeb 50%,
+            #ffffff 100%
+          );
+        }
+
+        @media (max-width: 991px) {
+          .landing-page {
+            padding: 100px 20px;
+          }
+        }
+
+        .profile-section {
+          align-self: start;
+          display: flex;
+          align-items: center;
+          gap: 40px 52px;
+          font-weight: 700;
+          justify-content: start;
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 991px) {
+          .profile-section {
+            max-width: 100%;
+          }
+        }
+
+        .profile-image {
+          aspect-ratio: 1;
+          object-fit: contain;
+          object-position: center;
+          width: 300px;
+          box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
+          align-self: stretch;
+          min-width: 240px;
+          margin: auto 0;
+          flex-shrink: 0;
+          overflow: hidden;
+        }
+
+        .profile-content {
+          align-self: stretch;
+          display: flex;
+          min-width: 240px;
+          margin: auto 0;
+          min-height: 278px;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: center;
+          width: 893px;
+        }
+
+        @media (max-width: 991px) {
+          .profile-content {
+            max-width: 100%;
+          }
+        }
+
+        .profile-info {
+          border-radius: 0;
+          max-width: 100%;
+          width: 893px;
+          color: rgba(255, 255, 255, 1);
+        }
+
+        .profile-name {
+          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          font-size: 64px;
+          font-family: PT Sans, -apple-system, Roboto, Helvetica, sans-serif;
+          max-height:150px;
+        }
+
+        .name-text {
+          font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+        }
+
+        .username-text {
+          font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+          font-size: 36px;
+        }
+
+        @media (max-width: 991px) {
+          .profile-name {
+            max-width: 100%;
+            font-size: 40px;
+          }
+        }
+
+        .profile-description {
+          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          font-size: 20px;
+          font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+          margin-top: 23px;
+        }
+
+        @media (max-width: 991px) {
+          .profile-description {
+            max-width: 100%;
+            margin-right: 10px;
+          }
+        }
+
+        .profile-actions {
+          border-radius: 0;
+          display: flex;
+          margin-top: 12px;
+          width: 275px;
+          max-width: 100%;
+          align-items: stretch;
+          gap: 16px;
+          font-family: PT Sans, -apple-system, Roboto, Helvetica, sans-serif;
+          font-size: 24px;
+          color: #fffbff;
+        }
+
+        .edit-profile-btn {
+          border-radius: 10px;
+          background-color: rgba(57, 153, 218, 1);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          min-height: 57px;
+          padding: 13px 28px;
+          gap: 8px;
+          color: #fffbff;
+          align-self: stretch;
+          border: none;
+          cursor: pointer;
+        }
+
+        @media (max-width: 991px) {
+          .edit-profile-btn {
+            padding: 13px 20px;
+          }
+        }
+
+        .action-btn {
+          border-radius: 10px;
+          background-color: rgba(57, 153, 218, 1);
+          width: 54px;
+          flex-shrink: 0;
+          height: 57px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .events-section {
+          background-color: rgba(255, 255, 255, 0);
+          margin-top: 25px;
+          max-width: 100%;
+          width: 1606px;
+          overflow: hidden;
+        }
+
+        .recent-events-container {
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: center;
+        }
+
+        @media (max-width: 991px) {
+          .recent-events-container {
+            max-width: 100%;
+          }
+        }
+
+        .events-header {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          gap: 40px 100px;
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 991px) {
+          .events-header {
+            max-width: 100%;
+          }
+        }
+
+        .section-title {
+          color: rgba(255, 255, 255, 1);
+          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          font-size: 36px;
+          font-family: Alexandria, -apple-system, Roboto, Helvetica, sans-serif;
+          font-weight: 800;
+          align-self: stretch;
+          margin: auto 0;
+        }
+
+        .navigation-controls {
+          align-self: stretch;
+          display: flex;
+          margin: auto 0;
+          padding: 0 80px;
+          align-items: center;
+          justify-content: space-between;
+          width: 148px;
+        }
+
+        @media (max-width: 991px) {
+          .navigation-controls {
+            padding: 0 20px;
+          }
+        }
+
+        .nav-btn {
+          border-radius: 15px;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          align-self: stretch;
+          margin: auto 0;
+          flex-shrink: 0;
+          height: 68px;
+          width: 73px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .nav-btn.prev {
+          transform: rotate(180deg);
+          background-color: rgba(192, 193, 196, 1);
+        }
+
+        .nav-btn.next {
+          background-color: rgba(83, 83, 83, 1);
+        }
+
+        .events-grid {
+          display: flex;
+          margin-top: 21px;
+          width: 100%;
+          align-items: center;
+          justify-content: left;
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 991px) {
+          .events-grid {
+            max-width: 100%;
+          }
+        }
+
+        .event-image {
+          aspect-ratio: 1;
+          object-fit: contain;
+          object-position: center;
+          width: 500px;
+          border-radius: 20px;
+          align-self: stretch;
+          min-width: 240px;
+          margin: auto 0;
+          overflow: hidden;
+        }
+
+        @media (max-width: 991px) {
+          .event-image {
+            max-width: 100%;
+          }
+        }
+
+        .managed-events-container {
+          margin-top: 10px;
+          width: 100%;
+        }
+
+        .managed-events-grid {
+          display: flex;
+          margin-top: 21px;
+          width: 100%;
+          align-items: center;
+          gap: 35px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 991px) {
+          .managed-events-grid {
+            max-width: 100%;
+          }
+        }
+
+        .managed-event-image {
+          aspect-ratio: 1;
+          object-fit: contain;
+          object-position: center;
+          width: 400px;
+          border-radius: 20px;
+          align-self: stretch;
+          min-width: 240px;
+          margin: auto 0;
+          flex-grow: 1;
+          flex-shrink: 1;
+          overflow: hidden;
+        }
+
+        @media (max-width: 991px) {
+          .managed-event-image {
+            max-width: 100%;
+          }
+        }
+      `}</style>
+    </>
   );
 }
+
+export default Profile;

@@ -4,7 +4,6 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { styles } from '../styles/eventjoin';
 import { Navigate, useParams } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Import Firebase Storage functions
 import Sidebar from '../components/Sidebar/Sidebar';
 import { UserTopBar } from '../components/Topbar/UserTopBar';
 
@@ -13,7 +12,6 @@ export function VolunteerForm() {
   const [formData, setFormData] = useState({
     fullName: '',
     volunteerReason: '',
-    profileImage: '' // Add profileImage to formData
   });
   const [eventDetails, setEventDetails] = useState(null);
 
@@ -44,82 +42,30 @@ export function VolunteerForm() {
     }));
   };
 
-  const handleImageUpload = async (event) => {
-    try {
-      const file = event.target.files[0];
-      if (!file) throw new Error("No file selected.");
-
-      const fileType = file.type;
-      const fileSize = file.size;
-
-      // Validate file size (5MB limit)
-      if (fileSize > 5 * 1024 * 1024) {
-        throw new Error("File is too large. Maximum size is 5MB.");
-      }
-
-      const auth = getAuth();
-      const userUid = auth.currentUser ?.uid;
-      if (!userUid) {
-        throw new Error("User  is not authenticated.");
-      }
-
-      // Create a reference to the storage location
-      const storage = getStorage();
-      const storageRef = ref(storage, `Profile_Images/${userUid}.png`); // Save as PNG
-
-      // Upload the file to Firebase Storage
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
-        },
-        (error) => {
-          console.error(error);
-          alert("Error uploading image: " + error.message);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log("File available at", downloadURL);
-          // Update formData with the image URL
-          setFormData(prevData => ({
-            ...prevData,
-            profileImage: downloadURL // Store the download URL for Firestore
-          }));
-        }
-      );
-    } catch (error) {
-      console.error(error);
-      alert("Error uploading image: " + error.message);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const auth = getAuth();
-      const currentUser  = auth.currentUser ;
-      if (!currentUser ) {
-        throw new Error("User  not authenticated.");
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error("User not authenticated.");
       }
 
       // Fetch username from Firestore
-      const userRef = doc(db, "User", currentUser .uid);
+      const userRef = doc(db, "User", currentUser.uid);
       const userSnap = await getDoc(userRef);
       if (!userSnap.exists()) {
-        throw new Error("User  data not found.");
+        throw new Error("User data not found.");
       }
       const username = userSnap.data().username;
 
       // Create a new Volunteer entry
-      const volunteerRef = doc(db, "Events", useruid, "HandledEvents", eventuid, "Volunteers", currentUser .uid);
+      const volunteerRef = doc(db, "Events", useruid, "HandledEvents", eventuid, "Volunteers", currentUser.uid);
       await setDoc(volunteerRef, {
         fullName: formData.fullName,
         volunteerReason: formData.volunteerReason,
         username: username,
-        profileImage: formData.profileImage, // Save the image URL to Firestore
         approved: false, // Optional: default fields
         attended: false, // Optional: default fields
         rewarded: false, // Optional: default fields
@@ -127,7 +73,7 @@ export function VolunteerForm() {
 
       console.log("Volunteer added successfully!");
       alert("You have successfully joined the event!");
-      setFormData({ fullName: '', volunteerReason: '', profileImage: '' }); // Reset form
+      setFormData({ fullName: '', volunteerReason: '' }); // Reset form
       Navigate("/events");
     } catch (error) {
       console.error("Error submitting volunteer form:", error.message);
@@ -140,8 +86,11 @@ export function VolunteerForm() {
   }
 
   return (
+    
     <form className="landing-page" onSubmit={handleSubmit}>
+
       <div className="event-frame">
+     
         <div className="content-wrapper">
           <section className="info-section">
             <h1 className="event-title">{eventDetails.EventTitle}</h1>
@@ -164,18 +113,6 @@ export function VolunteerForm() {
                 className="text-input"
                 aria-label="Full Name"
                 required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="imageUpload" className="input-label">Profile Image</label>
-              <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="file-input"
-                aria-label="Upload Profile Image"
               />
             </div>
 
@@ -215,7 +152,7 @@ export function VolunteerForm() {
         </div>
       </div>
       <Sidebar />
-      <User TopBar />
+      <UserTopBar />
       <style jsx>{styles}</style>
     </form>
   );
