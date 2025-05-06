@@ -54,27 +54,33 @@ export default function AboutUs() {
 
       {/* HERO */}
       <section className="hero-section" style={{
-        height: "80vh",
-        width: "100vw",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        padding: "4rem 2rem",
-        background: "linear-gradient(to bottom, #0077c0, #ffffff)"
-      }}>
-        <h2 style={{ fontSize: "4rem", color: "#fff"  }}>
-          Meet our team of passionate,
-        </h2>
-        <h2 style={{
-          fontSize: "5rem",
-          fontWeight: "700",
-          color: "#001f3f"
-        }}>
-          VISIONARY INNOVATORS!
-        </h2>
-      </section>
+  height: "80vh",
+  width: "100vw",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  padding: "4rem 2rem",
+  background: "linear-gradient(to bottom, #0077c0, #ffffff)"
+}}>
+  <h2 style={{
+    fontSize: "4rem",
+    color: "#fff",
+    margin: 0, // Remove default margin
+    marginBottom: "0.5rem" // Reduce gap
+  }}>
+    Meet our team of passionate,
+  </h2>
+  <h2 style={{
+    fontSize: "5rem",
+    fontWeight: "700",
+    color: "#001f3f",
+    margin: 0 // Remove default margin
+  }}>
+    VISIONARY INNOVATORS!
+  </h2>
+</section>
 
       {/* TEAM MEMBERS */}
       <section className="team-section" style={{
