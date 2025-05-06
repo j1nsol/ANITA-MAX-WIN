@@ -23,11 +23,11 @@ import Mines from './Pages/Games/Mines/Mines';
 import HiloCardGame from './Pages/Games/Hilo/Hilo.jsx';
 import Events from './Pages/Events/EventsPage.jsx';
 import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
-import ApplicantList from './Pages/EventMod.jsx';
+
 import ComingSoon from './Pages/comingsoon.jsx';
-import ProfileCard from './Pages/ProfileCard.jsx';
 import { AdminDashboard } from './Pages/Admin/AdminDashboard.jsx';
 import Profile from './Pages/Profile.jsx';
+import EventDashboard from './Pages/eventdashboard.jsx';
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/info",
+    path: "/Personal_Information",
     element: (
       <PrivateRoute>
         <PersonalInfoForm/>
@@ -144,10 +144,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/events/:useruid/:eventuid/applicants",
+    path: "/events/:useruid/:eventuid/EventDashboard",
     element: (
       <PrivateRoute>
-        <ApplicantList />
+        <EventDashboard />
       </PrivateRoute>
     ),
   },

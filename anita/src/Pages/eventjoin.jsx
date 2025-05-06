@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Your Firebase config
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { styles } from '../styles/eventjoin';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate , useParams } from 'react-router-dom';
 import { getAuth } from "firebase/auth";
 import Sidebar from '../components/Sidebar/Sidebar';
 import { UserTopBar } from '../components/Topbar/UserTopBar';
@@ -14,6 +14,7 @@ export function VolunteerForm() {
     volunteerReason: '',
   });
   const [eventDetails, setEventDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -44,37 +45,41 @@ export function VolunteerForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const auth = getAuth();
       const currentUser = auth.currentUser;
       if (!currentUser) {
         throw new Error("User not authenticated.");
       }
-
-      // Fetch username from Firestore
+  
+      // Fetch user details from Firestore
       const userRef = doc(db, "User", currentUser.uid);
       const userSnap = await getDoc(userRef);
       if (!userSnap.exists()) {
         throw new Error("User data not found.");
       }
-      const username = userSnap.data().username;
-
+  
+      const userData = userSnap.data();
+      const { username, email, phone, firstName } = userData;
+  
       // Create a new Volunteer entry
       const volunteerRef = doc(db, "Events", useruid, "HandledEvents", eventuid, "Volunteers", currentUser.uid);
       await setDoc(volunteerRef, {
         fullName: formData.fullName,
         volunteerReason: formData.volunteerReason,
-        username: username,
-        approved: false, // Optional: default fields
-        attended: false, // Optional: default fields
-        rewarded: false, // Optional: default fields
+        username: username || '',
+        email: email || '',
+        phone: phone || '',
+        firstName: firstName || '',
+        remarks: '',
+        attendance: false,
+        paid: false,
       });
-
       console.log("Volunteer added successfully!");
       alert("You have successfully joined the event!");
-      setFormData({ fullName: '', volunteerReason: '' }); // Reset form
-      Navigate("/events");
+      setFormData({ fullName: '', volunteerReason: '' });
+      navigate("/events");
     } catch (error) {
       console.error("Error submitting volunteer form:", error.message);
       alert("An error occurred. Please try again.");
@@ -101,21 +106,6 @@ export function VolunteerForm() {
           </section>
 
           <section className="form-section">
-            <div className="input-group">
-              <label htmlFor="fullName" className="input-label">Full Name</label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                placeholder="Name"
-                className="text-input"
-                aria-label="Full Name"
-                required
-              />
-            </div>
-
             <div className="reason-section">
               <div className="reason-wrapper">
                 <label htmlFor="volunteerReason" className="reason-label">

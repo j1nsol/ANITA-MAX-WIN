@@ -58,7 +58,7 @@ const Sidebar = () => {
     { src: profileImage, alt: "User icon", to: "/profile", title: username },
     { src: casinoIcon, alt: "Casino icon", to: "/games", title: "Games" },
     { src: sportsIcon, alt: "Sports icon", to: "/sports", title: "Sports" },
-    { src: profileIcon, alt: "Profile icon", to: "/info", title: "Personal Information" },
+    { src: profileIcon, alt: "Profile icon", to: "/Personal_Information", title: "Personal Information" },
     { src: eventsIcon, alt: "Events icon", to: "/events", title: "Events" },
     { src: supportIcon, alt: "Support icon", to: "/support", title: "Support" },
     { src: globe, alt: "Globe icon", to: "/language", title: "Language" }
