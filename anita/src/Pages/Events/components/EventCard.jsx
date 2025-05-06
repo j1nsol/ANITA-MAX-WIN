@@ -1,5 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
 
 const EventCard = ({ 
     title,
@@ -15,8 +18,38 @@ const EventCard = ({
   }) => {
     const navigate = useNavigate();
   
-    const handleJoin = () => {
-      navigate(`/events/${useruid}/${eventuid}`);
+    const handleJoin = async () => {
+      try {
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+    
+        if (!currentUser) {
+          alert("You must be logged in to join events.");
+          return;
+        }
+    
+        const userRef = doc(db, "User", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+    
+        if (!userSnap.exists()) {
+          alert("User data not found.");
+          return;
+        }
+    
+        const userData = userSnap.data();
+    
+        if (!userData.terms) {
+          alert("Please complete your personal information before joining an event.");
+          navigate("/Personal_Information"); // or wherever your personal info page is
+          return;
+        }
+    
+        // ✅ All good, navigate to the event join form
+        navigate(`/events/${useruid}/${eventuid}`);
+      } catch (error) {
+        console.error("Error checking user terms:", error.message);
+        alert("An error occurred. Please try again.");
+      }
     };
   
   return (
