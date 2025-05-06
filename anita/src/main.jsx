@@ -26,7 +26,7 @@ import SlotMachine from './Pages/Games/Fruity/fruity.jsx';
 import ApplicantList from './Pages/EventMod.jsx';
 import ComingSoon from './Pages/comingsoon.jsx';
 import ProfileCard from './Pages/ProfileCard.jsx';
-import Dashboard from './Pages/Admin/dashboard.jsx';
+import { AdminDashboard } from './Pages/Admin/AdminDashboard.jsx';
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     element: <AboutUs />,
   },{
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <AdminDashboard />,
   },
   {
     path: "/games",
