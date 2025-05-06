@@ -321,10 +321,8 @@
     font-size: 16px;
   }
   .edit-button {
-    padding: 8px 16px;
-    border-radius: 8px;
-    background-color: #000;
-    color: #fff;
+    background-color: #22333b;
+    color: #ffffff;
+    text-shadow: 0px 4px 14px rgba(0, 0, 0, 0.45);
     border: none;
-    cursor: pointer;
   }

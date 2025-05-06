@@ -155,7 +155,7 @@ export function UserTopBar() {
           display: flex;
           justify-content: center;
           align-items: center;
-          z-index: 1000;
+          z-index: 100000000;
         }
 
         .confirm-modal-content {

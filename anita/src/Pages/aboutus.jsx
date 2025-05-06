@@ -10,6 +10,8 @@ import jeadImage from "/src/assets/images/about us/jead.png";
 import jim2Image from  "/src/assets/images/about us/jim2.png";
 import sephImage from "/src/assets/images/about us/seph.png";
 import mayetImage from "/src/assets/images/about us/mayet.png";
+import marjImage from "/src/assets/images/about us/marj.png";
+import clayneImage from "/src/assets/images/about us/clayne.png";
 
 export default function AboutUs() {
   const [isSignUpVisible, setSignUpVisible] = React.useState(false);
@@ -43,7 +45,9 @@ export default function AboutUs() {
     {name: "James Andrei S. Atienza", position: "UI/UX Designer", image: jim2Image},
     {name: "Flexter C. Vega", position: "Senior Developer", image: flexImage},
     {name: "Jead Rick C. Belande", position: "Senior Citizen", image: jeadImage},
-    {name: "Carl Joseph R. Perez", position: "Frontend Developer", image: sephImage}
+    {name: "Carl Joseph R. Perez", position: "Frontend Developer", image: sephImage},
+    {name: "Marjorie P. Matilos", position: "Frontend Developer", image: marjImage},
+    {name: "Clayne Cezclark C. Nable", position: "Frontend Developer", image: clayneImage}
 
   ]
   

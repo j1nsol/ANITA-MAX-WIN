@@ -109,6 +109,25 @@ export function AdminDashboard() {
     }
   };
 
+  const handleToggleVerification = async (userId, currentStatus) => {
+    try {
+      // Toggle the verification status
+      const newStatus = currentStatus === 'Yes' ? false : true;
+
+      // Update the database
+      await updateDoc(doc(db, 'User', userId), { verified: newStatus });
+
+      // Update the UI (optional, as onSnapshot will handle real-time updates)
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, verified: newStatus ? 'Yes' : 'No' } : user
+        )
+      );
+    } catch (error) {
+      console.error('Error toggling verification status:', error);
+    }
+  };
+
   return (
     <>
       <main className="dashboard-container">
@@ -199,7 +218,12 @@ export function AdminDashboard() {
                       <td className="table-cell">{user.verified}</td>
                       <td className="table-cell">{user.email}</td>
                       <td className="table-cell">
-                        <button className="edit-button">edit</button>
+                        <button
+                          className="edit-button"
+                          onClick={() => handleToggleVerification(user.id, user.verified)}
+                        >
+                          {user.verified === 'Yes' ? 'Unverify' : 'Verify'}
+                        </button>
                       </td>
                     </tr>
                   ))}
