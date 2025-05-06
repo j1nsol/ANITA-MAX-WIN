@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 import * as React from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { UserTopBar } from "../components/Topbar/UserTopBar";
@@ -474,3 +474,4 @@ function Profile() {
 }
 
 export default Profile;
+*/
