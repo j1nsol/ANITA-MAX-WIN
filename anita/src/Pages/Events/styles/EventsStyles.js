@@ -195,9 +195,9 @@ export const EventsGlobalStyles = createGlobalStyle`
     flex-direction: column;
     overflow: hidden;
     flex-grow: 1;
-    width: 356px;
+    width: 500px;
     height: 636px;
-    max-width: 356px;
+    max-width: 500px;
     max-height: 636px;
     transition: transform 0.3s ease;
     align-items: center;
