@@ -195,19 +195,21 @@ const Sidebar = () => {
         .tooltip {
           position: absolute;
           top: 50%;
-          left: 100%;
+          left: 118%;
           transform: translateY(-50%);
           background-color: rgba(0, 0, 0, 0.7);
           color: white;
-          padding: 5px;
-          border-radius: 4px;
-          font-size: 12px;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 15px;
           white-space: nowrap;
           visibility: hidden;
           opacity: 0;
           transition: visibility 0s, opacity 0.5s ease; /* Slower animation */
         }
         .sidebar-item:hover .tooltip {
+        font-family: 'Alexandria', sans-serif;
+        font-weight:700; /* Optional: bold on hover */
           visibility: visible;
           opacity: 1;
         }
