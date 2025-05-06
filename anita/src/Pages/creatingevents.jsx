@@ -4,11 +4,14 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'; // Import Firebase Storage functions
 import { v4 as uuidv4 } from 'uuid';
-
+import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { UserTopBar } from '../components/Topbar/UserTopBar';
 export const EventForm = () => {
   const db = getFirestore();
   const auth = getAuth();
   const storage = getStorage();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     eventName: '',
@@ -106,6 +109,7 @@ export const EventForm = () => {
       }
 
       alert('Event created successfully!');
+      navigate("/events");
     } catch (error) {
       console.error('Error saving event:', error);
       alert('Failed to create event: ' + error.message);
@@ -148,6 +152,8 @@ export const EventForm = () => {
 
   return (
     <>
+    <UserTopBar/>
+          <Sidebar/> 
       <EventFormStyles />
       <div className="event-container">
         <form className="event-frame" onSubmit={handleSubmit}>
