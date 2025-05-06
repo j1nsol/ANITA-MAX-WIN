@@ -27,6 +27,7 @@ import ApplicantList from './Pages/EventMod.jsx';
 import ComingSoon from './Pages/comingsoon.jsx';
 import ProfileCard from './Pages/ProfileCard.jsx';
 import { AdminDashboard } from './Pages/Admin/AdminDashboard.jsx';
+import Profile from './Pages/Profile.jsx';
 export function PrivateRoute({ children }) {
   const [user, loading] = useAuthState(auth);
 
@@ -154,7 +155,7 @@ const router = createBrowserRouter([
     path: "/profile",
     element: (
       <PrivateRoute>
-        <ProfileCard />
+        <Profile/>
       </PrivateRoute>
     ),
   },
