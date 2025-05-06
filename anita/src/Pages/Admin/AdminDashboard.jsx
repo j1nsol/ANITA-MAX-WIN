@@ -5,11 +5,13 @@ import {onSnapshot } from 'firebase/firestore';
 
 export function AdminDashboard() {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [stats, setStats] = useState({
     volunteers: 0,
     events: 0,
     users: 0,
   });
+  const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [selectedUsername, setSelectedUsername] = useState('');
   const [tokenAmount, setTokenAmount] = useState('');
@@ -30,6 +32,7 @@ export function AdminDashboard() {
         };
       });
       setUsers(userList);
+      setFilteredUsers(userList); // Initially, show all users
 
       // Update total users count in stats
       setStats((prevStats) => ({
@@ -72,6 +75,17 @@ export function AdminDashboard() {
       unsubscribeEvents();
     };
   }, []);
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter users based on the search query
+    const suggestions = users.filter((user) =>
+      user.username.toLowerCase().includes(query)
+    );
+    setFilteredUsers(suggestions);
+  };
 
   const handleAddTokens = async () => {
     if (!selectedUsername || !tokenAmount) {
@@ -145,14 +159,6 @@ export function AdminDashboard() {
               alt="Company name"
             />
           </div>
-          <div className="profile-container">
-            <h2 className="profile-name">JZXY</h2>
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/32a8807e747bcb5bb4f0eff76072054ef9ba097d?placeholderIfAbsent=true"
-              className="profile-image"
-              alt="User profile"
-            />
-          </div>
         </header>
 
         {/* Dashboard Content */}
@@ -165,14 +171,13 @@ export function AdminDashboard() {
             {/* Action Bar */}
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div className="action-bar">
-                <div className="search-container">
-                  <label className="search-label">Search</label>
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/c24ae5bfb01d41eab83aea3f5ce6f5d6/a8e7cb19cc7c2732a06cf2ee6587d53738521c66?placeholderIfAbsent=true"
-                    className="search-icon"
-                    alt="Search icon"
-                  />
-                </div>
+                <input
+                  type="text"
+                  placeholder="Search users..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  className="search-input"
+                />
                 <button className="add-tokens-button" onClick={() => setShowModal(true)}>
                   <span className="button-text">Add tokens</span>
                 </button>
@@ -208,7 +213,7 @@ export function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user, index) => (
+                  {filteredUsers.map((user, index) => (
                     <tr
                       key={user.id}
                       className={index % 2 === 0 ? 'table-row-even' : 'table-row-odd'}
@@ -292,6 +297,27 @@ export function AdminDashboard() {
   justify-content: center;
   z-index: 999;
 }
+   .search-container {
+          position: relative;
+        }
+
+        .search-input {
+  width: 300px; /* Adjust width as needed */
+  height: 65px; /* Match the height of the token button */
+  padding: 12px 16px;
+  border: 2px solid #ccc;
+  border-radius: 20px; /* Match the rounded corners of the token button */
+  font-family: PT Sans, -apple-system, Roboto, Helvetica, sans-serif; /* Match the token font */
+  font-size: 32px; /* Match the token font size */
+  color: rgba(0, 0, 0, 0.8); /* Adjust text color */
+}
+
+.search-input::placeholder {
+  font-family: PT Sans, -apple-system, Roboto, Helvetica, sans-serif; /* Match the token font */
+  font-size: 32px; /* Match the token font size */
+  color: rgba(0, 0, 0, 0.5); /* Adjust placeholder color for better visibility */
+  font-weight: 700; /* Match the token font weight */
+}
 
 .modal-content {
   background-color: #ffffff;
@@ -312,6 +338,7 @@ export function AdminDashboard() {
   filter: blur(3px);
   pointer-events: none;
 }
+  
 
 .close-button {
   position: absolute;
@@ -395,6 +422,7 @@ export function AdminDashboard() {
   margin-top: 10px;
   text-align: center;
 }
+  
 
         .dashboard-container {
           display: flex;
@@ -656,6 +684,7 @@ export function AdminDashboard() {
           .table-container {
             max-width: 100%;
           }
+            
 
           .header-cell,
           .table-cell {
